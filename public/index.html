@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="../src/logo-daffa.svg" />
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Daffa Azhar</title>
+    <style></style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="container flex items-center justify-between px-6 sm:px-8 lg:px-16 xl:px-24">
+          <a href="#">
+            <img src="../src/logo-daffa.svg" alt="" class="w-10" />
+          </a>
+          <button class="mobile-nav-toggle" aria-controls="primary-controls" aria-expanded="false">
+            <span class="sr-only"></span>
+          </button>
+          <nav>
+            <ul id="primary-navigation" data-visible="false" class="primary-navigation flex gap-4 font-fira text-slate-200 sm:items-center sm:gap-0">
+              <li class="m-0 sm:mr-6"><a href="">Home</a></li>
+              <li class="m-0 sm:mr-6"><a href="">Blog</a></li>
+              <li class="m-0 sm:mr-6"><a href="">Projects</a></li>
+              <li class="m-0 sm:mr-6"><a href="">Library</a></li>
+              <li>About</li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <section class="container -mt-20 mb-20 flex min-h-screen flex-col justify-center px-6 sm:px-8 lg:px-16 xl:px-24">
+        <h1 class="mb-4 font-fira text-emerald-300 sm:mb-5">Hi, my name is</h1>
+        <h2 class="mb-3 text-slate-200">Daffa Azhar.</h2>
+        <h2 class="mb-4 text-slate-400">I build things for the web.</h2>
+        <p class="max-w-lg">
+          I’m a software engineer specializing in building (and occasionally designing) exceptional digital experiences. Currently, I’m focused on building accessible, human-centered products at
+          <a href="#" class="animated-underline font-semibold text-emerald-400">Upstatement</a>.
+        </p>
+        <div class="mt-8 flex">
+          <a href="#" class="primary-button">Get resume</a>
+          <a href="#" class="secondary-button ml-3">Learn more</a>
+        </div>
+        <a href="#intro" class="absolute bottom-6 left-0 right-0 ml-auto mr-auto animate-bounce cursor-pointer text-center text-4xl text-slate-200 md:bottom-10"><i class="bx bx-down-arrow-alt"></i></a>
+      </section>
+
+      <section id="intro" class="container my-32 px-6 sm:px-8 lg:px-16 xl:px-24">
+        <h3 class="title-section">About me</h3>
+        <div class="block grid-cols-[3fr,_2fr] md:grid md:gap-16 xl:gap-20">
+          <div>
+            <p class="mb-4">
+              Hello! My name is Brittany and I enjoy creating things that live on the internet. My interest in web development started back in 2012 when I decided to try editing custom Tumblr themes — turns out hacking together a custom
+              reblog button taught me a lot about HTML & CSS!
+            </p>
+            <p class="mb-4">
+              Fast-forward to today, and I’ve had the privilege of working at an advertising agency, a start-up, a huge corporation, and a student-led design studio. My main focus these days is building accessible, inclusive products and
+              digital experiences at Upstatement for a variety of clients.
+            </p>
+          </div>
+          <div class="relative mt-12 md:m-0">
+            <div class="blob"></div>
+            <img src="../src/photo-profile.jpg" alt="" class="relative mx-auto w-80 rounded-xl object-cover shadow-md md:m-0 md:hidden md:w-full xl:block" />
+            <img src="../src/photo-profile.png" alt="" class="relative mx-auto hidden w-80 rounded-xl object-cover shadow-md md:m-0 md:block md:w-full xl:hidden" />
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="./main.js"></script>
+  </body>
+</html>
