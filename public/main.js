@@ -24,3 +24,23 @@ navToggle.addEventListener("click", () => {
     navToggle.setAttribute("aria-expanded", false);
   }
 });
+
+// Function to open tech-stack tab
+function openContent(evt, contentName) {
+  // Get all elements with "tech-content" class and hide them
+  const techContent = document.getElementsByClassName("tech-content");
+  for (i = 0; i < techContent.length; i++) {
+    techContent[i].style.display = "none";
+  }
+  // Get all elements with class "tech-icon-box" and remove "active" class
+  const techIconBox = document.getElementsByClassName("tech-icon-box");
+  for (i = 0; i < techIconBox.length; i++) {
+    techIconBox[i].className = techIconBox[i].className.replace(" active", "");
+  }
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(contentName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Show a tab by default by getting the element with "defaultOpen" id and automatically click it
+document.getElementById("defaultOpen").click();

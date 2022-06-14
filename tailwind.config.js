@@ -16,9 +16,21 @@ module.exports = {
         navy: "#0a192f",
       },
       animation: {
+        steam: "steam 15s linear infinite",
         morpheus: "morpheus 10s linear infinite",
       },
       keyframes: {
+        steam: {
+          "0%": {
+            backgroundPosition: "0 0",
+          },
+          "50%": {
+            backgroundPosition: "400% 0",
+          },
+          "100%": {
+            backgroundPosition: "0 0",
+          },
+        },
         morpheus: {
           "0%": {
             borderRadius: "30% 70% 70% 30%/30% 30% 70% 70%",

@@ -15,9 +15,6 @@
   body {
     @apply bg-navy font-inter;
   }
-  header {
-    @apply sticky top-0 z-10 bg-navy py-4 transition-all duration-200 ease-out sm:bg-transparent sm:backdrop-blur-xl;
-  }
   h2 {
     @apply text-4xl font-bold sm:mb-4 sm:text-5xl lg:text-6xl;
   }
@@ -25,11 +22,14 @@
     @apply text-3xl font-bold text-slate-200;
   }
   p {
-    @apply text-sm text-slate-400 sm:text-base;
+    @apply text-base leading-6 text-slate-400;
   }
 }
 
 @layer components {
+  header {
+    @apply sticky top-0 z-10 bg-navy py-4 transition-all duration-200 ease-out sm:bg-transparent sm:backdrop-blur-xl;
+  }
   .title-section {
     @apply mb-8 flex items-center whitespace-nowrap after:relative after:top-0 after:m-5 after:block after:h-px after:w-72 after:bg-[#233554] after:content-[''] md:mb-10;
   }
@@ -48,9 +48,22 @@
   .blob {
     @apply absolute -top-8 -right-4 h-44 w-44 animate-morpheus from-[#34d399_0%] to-[#30b0c1_100%] shadow-[0_0_200px_0_rgba(21,134,216,0.4),_0_0_50px_0_rgba(52,211,153,0.4)] bg-gradient-[45deg] md:-top-12 md:-right-12 md:h-52 md:w-52;
   }
+  .tech-content {
+    @apply mt-8 hidden sm:m-0;
+  }
+  .tech-icon-box {
+    @apply relative flex grow cursor-pointer items-center rounded-[4px] border border-solid border-gray-600 bg-navy p-2;
+  }
+  .tech-icon-box.active:before,
+  .tech-icon-box.active:after {
+    @apply absolute -left-[2px] -top-[2px] -z-10 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)] animate-steam rounded-[4px] from-green-400 to-blue-500 bg-[length:400%] content-[''] bg-gradient-[45deg];
+  }
+  .tech-icon-box.active:after {
+    @apply blur-sm;
+  }
   @media (max-width: 639px) {
     .primary-navigation {
-      @apply fixed top-0 right-0 bottom-0 left-[30%] z-[1000] h-[100vh] translate-x-[175%] flex-col bg-black/[0.75] p-[min(30vh,10rem)_2rem] shadow-[-5rem_0_20rem_rgba(0,0,0,0.75)] transition-[transform] duration-[400ms] ease-out;
+      @apply fixed top-0 right-0 bottom-0 left-[30%] z-[1000] h-[100vh] translate-x-[175%] flex-col bg-black/[0.75] p-[min(30vh,10rem)_2rem] shadow-2xl transition-[transform] duration-[400ms] ease-out;
     }
     .primary-navigation[data-visible="true"] {
       @apply translate-x-[0%];
@@ -61,10 +74,10 @@
       }
     }
     .mobile-nav-toggle {
-      @apply absolute top-[1.6rem] right-8 z-[9999] h-[21px] w-6 bg-transparent bg-[url('/src/icon-hamburger.svg')] bg-no-repeat;
+      @apply absolute top-[1.6rem] right-8 z-[9999] h-[21px] w-6 bg-transparent bg-[url('../assets/icon-hamburger.svg')] bg-no-repeat;
     }
     .mobile-nav-toggle[aria-expanded="true"] {
-      @apply bg-[url('/src/icon-close.svg')];
+      @apply bg-[url('../assets/icon-close.svg')];
     }
   }
 }

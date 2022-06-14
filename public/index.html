@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="../src/logo-daffa.svg" />
+    <link rel="icon" type="image/x-icon" href="./assets/logo-daffa.svg" />
     <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,7 +19,7 @@
       <header>
         <div class="container flex items-center justify-between px-6 sm:px-8 lg:px-16 xl:px-24">
           <a href="#">
-            <img src="../src/logo-daffa.svg" alt="" class="w-10" />
+            <img src="./assets/logo-daffa.svg" alt="" class="w-10" />
           </a>
           <button class="mobile-nav-toggle" aria-controls="primary-controls" aria-expanded="false">
             <span class="sr-only"></span>
@@ -60,14 +60,101 @@
               reblog button taught me a lot about HTML & CSS!
             </p>
             <p class="mb-4">
-              Fast-forward to today, and I’ve had the privilege of working at an advertising agency, a start-up, a huge corporation, and a student-led design studio. My main focus these days is building accessible, inclusive products and
-              digital experiences at Upstatement for a variety of clients.
+              Fast-forward to today, and I’ve had the privilege of working at an <a href="#" class="animated-underline font-semibold text-emerald-400">advertising agency</a>,
+              <a href="#" class="animated-underline font-semibold text-emerald-400">a start-up</a>, <a href="#" class="animated-underline font-semibold text-emerald-400">a huge corporation</a>, and
+              <a href="#" class="animated-underline font-semibold text-emerald-400">a student-led design studio</a>. My main focus these days is building accessible, inclusive products and digital experiences at Upstatement for a variety of
+              clients.
             </p>
+            <p>I also recently launched a course that covers everything you need to build a web app with the Spotify API using Node & React.</p>
           </div>
           <div class="relative mt-12 md:m-0">
             <div class="blob"></div>
-            <img src="../src/photo-profile.jpg" alt="" class="relative mx-auto w-80 rounded-xl object-cover shadow-md md:m-0 md:hidden md:w-full xl:block" />
-            <img src="../src/photo-profile.png" alt="" class="relative mx-auto hidden w-80 rounded-xl object-cover shadow-md md:m-0 md:block md:w-full xl:hidden" />
+            <img src="./assets/photo-profile.jpg" alt="" class="relative mx-auto w-80 rounded-xl object-cover shadow-md md:m-0 md:hidden md:w-full xl:block" />
+            <img src="./assets/photo-profile.png" alt="" class="relative mx-auto hidden w-80 rounded-xl object-cover shadow-md md:m-0 md:block md:w-full xl:hidden" />
+          </div>
+        </div>
+      </section>
+
+      <section class="container my-32 px-6 sm:px-8 lg:px-16 xl:px-24">
+        <h3 class="title-section">Tech Stack</h3>
+
+        <div class="block grid-cols-[3fr,_2fr] md:grid md:gap-14">
+          <div class="flex flex-wrap gap-[10px] md:gap-3">
+            <div id="defaultOpen" class="tech-icon-box" onclick="openContent(event, 'content1')">
+              <i class="bx bxl-html5 text-[28px] text-slate-200"></i>
+              <p class="ml-2 font-fira">HTML</p>
+            </div>
+            <div class="tech-icon-box" onclick="openContent(event, 'content2')">
+              <i class="bx bxl-html5 text-[28px] text-slate-200"></i>
+              <p class="ml-2 font-fira">CSS</p>
+            </div>
+            <div class="tech-icon-box" onclick="openContent(event, 'content3')">
+              <i class="bx bxl-html5 text-[28px] text-slate-200"></i>
+              <p class="ml-2 font-fira">PHP</p>
+            </div>
+            <div class="tech-icon-box" onclick="openContent(event, 'content4')">
+              <i class="bx bxl-html5 text-[28px] text-slate-200"></i>
+              <p class="ml-2 font-fira">JavaScript</p>
+            </div>
+            <div class="tech-icon-box" onclick="openContent(event, 'content5')">
+              <i class="bx bxl-html5 text-[28px] text-slate-200"></i>
+              <p class="ml-2 font-fira">ReactJS</p>
+            </div>
+            <div class="tech-icon-box" onclick="openContent(event, 'content6')">
+              <i class="bx bxl-html5 text-[28px] text-slate-200"></i>
+              <p class="ml-2 font-fira">NextJS</p>
+            </div>
+            <div class="tech-icon-box" onclick="openContent(event, 'content7')">
+              <i class="bx bxl-html5 text-[28px] text-slate-200"></i>
+              <p class="ml-2 font-fira">Tailwind</p>
+            </div>
+            <div class="tech-icon-box" onclick="openContent(event, 'content8')">
+              <i class="bx bxl-html5 text-[28px] text-slate-200"></i>
+              <p class="ml-2 font-fira">NodeJS</p>
+            </div>
+            <div class="tech-icon-box" onclick="openContent(event, 'content9')">
+              <i class="bx bxl-html5 text-[28px] text-slate-200"></i>
+              <p class="ml-2 font-fira">Vercel</p>
+            </div>
+          </div>
+
+          <div class="tech-stack-content relative">
+            <div id="content1" class="tech-content">
+              <h4 class="mb-1 font-inter text-2xl font-bold text-slate-200">HTML</h4>
+              <p class="sm:text-justify">The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</p>
+            </div>
+            <div id="content2" class="tech-content">
+              <h4 class="mb-1 font-inter text-2xl font-bold text-slate-200">CSS</h4>
+              <p class="sm:text-justify">The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</p>
+            </div>
+            <div id="content3" class="tech-content">
+              <h4 class="mb-1 font-inter text-2xl font-bold text-slate-200">PHP</h4>
+              <p class="sm:text-justify">The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</p>
+            </div>
+            <div id="content4" class="tech-content">
+              <h4 class="mb-1 font-inter text-2xl font-bold text-slate-200">JavaScript</h4>
+              <p class="sm:text-justify">The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</p>
+            </div>
+            <div id="content5" class="tech-content">
+              <h4 class="mb-1 font-inter text-2xl font-bold text-slate-200">ReactJS</h4>
+              <p class="sm:text-justify">The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</p>
+            </div>
+            <div id="content6" class="tech-content">
+              <h4 class="mb-1 font-inter text-2xl font-bold text-slate-200">NextJS</h4>
+              <p class="sm:text-justify">The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</p>
+            </div>
+            <div id="content7" class="tech-content">
+              <h4 class="mb-1 font-inter text-2xl font-bold text-slate-200">Tailwind</h4>
+              <p class="sm:text-justify">The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</p>
+            </div>
+            <div id="content8" class="tech-content">
+              <h4 class="mb-1 font-inter text-2xl font-bold text-slate-200">NodeJS</h4>
+              <p class="sm:text-justify">The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</p>
+            </div>
+            <div id="content9" class="tech-content">
+              <h4 class="mb-1 font-inter text-2xl font-bold text-slate-200">Vercel</h4>
+              <p class="sm:text-justify">The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser.</p>
+            </div>
           </div>
         </div>
       </section>
