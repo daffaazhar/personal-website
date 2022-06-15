@@ -26,7 +26,7 @@ navToggle.addEventListener("click", () => {
 });
 
 // Function to open tech-stack tab
-function openContent(evt, contentName) {
+const openContent = (evt, contentName) => {
   // Get all elements with "tech-content" class and hide them
   const techContent = document.getElementsByClassName("tech-content");
   for (i = 0; i < techContent.length; i++) {
@@ -40,7 +40,27 @@ function openContent(evt, contentName) {
   // Show the current tab, and add an "active" class to the button that opened the tab
   document.getElementById(contentName).style.display = "block";
   evt.currentTarget.className += " active";
-}
+};
 
 // Show a tab by default by getting the element with "defaultOpen" id and automatically click it
 document.getElementById("defaultOpen").click();
+
+// Mixitup filter
+let mixerProject = mixitup(".project-container", {
+  selectors: {
+    target: ".project-card",
+  },
+  animation: {
+    duration: 300,
+  },
+});
+
+// Variable to get all elements with "project-filter" class
+const projectFilter = document.querySelectorAll(".project-filter");
+// Anonymous function to add and remove "active-btn" class from HTML element
+function activeFilter() {
+  projectFilter.forEach((e) => e.classList.remove("active-btn"));
+  this.classList.add("active-btn");
+}
+// Run the Anonymous activeFilter function when the element is clicked
+projectFilter.forEach((e) => e.addEventListener("click", activeFilter));

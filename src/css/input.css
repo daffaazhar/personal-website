@@ -10,10 +10,10 @@
     @apply bg-transparent;
   }
   html::-webkit-scrollbar-thumb {
-    @apply rounded-2xl bg-[#495670];
+    @apply rounded-2xl bg-navy-300;
   }
   body {
-    @apply bg-navy font-inter;
+    @apply bg-navy-900 font-inter;
   }
   h2 {
     @apply text-4xl font-bold sm:mb-4 sm:text-5xl lg:text-6xl;
@@ -28,45 +28,51 @@
 
 @layer components {
   header {
-    @apply sticky top-0 z-10 bg-navy py-4 transition-all duration-200 ease-out sm:bg-transparent sm:backdrop-blur-xl;
+    @apply sticky top-0 z-10 bg-navy-900 py-4 transition-all duration-200 ease-out sm:bg-transparent sm:backdrop-blur-xl;
   }
   .title-section {
-    @apply mb-8 flex items-center whitespace-nowrap after:relative after:top-0 after:m-5 after:block after:h-px after:w-72 after:bg-[#233554] after:content-[''] md:mb-10;
+    @apply mb-7 flex items-center whitespace-nowrap after:relative after:top-0 after:m-5 after:block after:h-px after:w-72 after:bg-navy-300 after:content-empty;
   }
   .primary-button {
-    @apply cursor-pointer rounded border border-solid border-emerald-400 bg-emerald-400 py-5 px-7 font-fira font-medium leading-none text-navy no-underline transition-all duration-200 ease-in-out hover:bg-emerald-600;
+    @apply cursor-pointer rounded border border-solid border-emerald-400 bg-emerald-400 py-5 px-7 font-fira font-medium leading-none text-navy-900 no-underline transition-all duration-200 ease-in-out hover:bg-emerald-600;
   }
   .secondary-button {
-    @apply cursor-pointer rounded border border-solid border-emerald-400 bg-transparent py-5 px-7 font-fira font-medium leading-none text-emerald-400 no-underline transition-all duration-200 ease-in-out hover:bg-[#133040];
+    @apply cursor-pointer rounded border border-solid border-emerald-400 bg-transparent py-5 px-7 font-fira font-medium leading-none text-emerald-400 no-underline transition-all duration-200 ease-in-out hover:bg-navy-600;
   }
   .animated-underline {
-    @apply bg-gradient-to-r from-[rgb(0,232,134)] to-[rgb(0,224,243)] bg-[length:0_1.5px] bg-[0_100%] bg-no-repeat transition-[background-size] duration-[250ms] ease-in-out;
+    @apply bg-gradient-to-r from-[rgb(0,232,134)] to-[rgb(0,224,243)] bg-[length:0_1.5px] bg-[0_100%] bg-no-repeat transition-[background-size] duration-250 ease-in-out;
   }
   .animated-underline:hover {
     @apply bg-[length:100%_1.5px] bg-[0_100%];
   }
   .blob {
-    @apply absolute -top-8 -right-4 h-44 w-44 animate-morpheus from-[#34d399_0%] to-[#30b0c1_100%] shadow-[0_0_200px_0_rgba(21,134,216,0.4),_0_0_50px_0_rgba(52,211,153,0.4)] bg-gradient-[45deg] md:-top-12 md:-right-12 md:h-52 md:w-52;
+    @apply absolute -top-8 -right-4 h-44 w-44 animate-morpheus from-[#34d399_0%] to-[#30b0c1_100%] shadow-[0_0_200px_0_rgba(21,134,216,0.4),_0_0_50px_0_rgba(52,211,153,0.4)] bg-gradient-45 md:-top-12 md:-right-12 md:h-52 md:w-52;
   }
   .tech-content {
-    @apply mt-8 hidden sm:m-0;
+    @apply mt-6 hidden md:m-0;
+  }
+  .tech-content h4 {
+    @apply mb-1 text-xl font-semibold text-slate-200;
   }
   .tech-icon-box {
-    @apply relative flex grow cursor-pointer items-center rounded-[4px] border border-solid border-gray-600 bg-navy p-2;
+    @apply relative flex grow cursor-pointer items-center rounded border border-solid border-gray-600 bg-navy-900 p-2;
+  }
+  .tech-icon {
+    @apply text-[28px] text-slate-200;
   }
   .tech-icon-box.active:before,
   .tech-icon-box.active:after {
-    @apply absolute -left-[2px] -top-[2px] -z-10 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)] animate-steam rounded-[4px] from-green-400 to-blue-500 bg-[length:400%] content-[''] bg-gradient-[45deg];
+    @apply absolute -left-1.5 -top-1.5 -z-10 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)] animate-steam rounded from-green-400 to-blue-500 bg-[length:400%] content-empty bg-gradient-45;
   }
   .tech-icon-box.active:after {
     @apply blur-sm;
   }
   @media (max-width: 639px) {
     .primary-navigation {
-      @apply fixed top-0 right-0 bottom-0 left-[30%] z-[1000] h-[100vh] translate-x-[175%] flex-col bg-black/[0.75] p-[min(30vh,10rem)_2rem] shadow-2xl transition-[transform] duration-[400ms] ease-out;
+      @apply fixed top-0 right-0 bottom-0 left-1/3 z-[1000] h-screen translate-x-[175%] flex-col bg-black p-[min(30vh,10rem)_2rem] shadow-2xl transition-[transform] duration-400 ease-out;
     }
     .primary-navigation[data-visible="true"] {
-      @apply translate-x-[0%];
+      @apply translate-x-0;
     }
     @supports (backdrop-filter: blur(1rem)) {
       .primary-navigation {
@@ -84,4 +90,12 @@
 
 .shadow-large {
   @apply shadow-lg;
+}
+
+.project-filter {
+  @apply cursor-pointer rounded-md py-1 px-3 font-semibold text-slate-400;
+}
+
+.active-btn {
+  @apply bg-emerald-400 text-navy-900;
 }

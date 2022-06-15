@@ -13,7 +13,19 @@ module.exports = {
         fira: "'Fira Code', monospace",
       },
       colors: {
-        navy: "#0a192f",
+        "navy-300": "#233554",
+        "navy-600": "#133040",
+        "navy-900": "#0a192f",
+      },
+      spacing: {
+        "1.5": "2px",
+      },
+      content: {
+        empty: "''",
+      },
+      transitionDuration: {
+        '250': '250ms',
+        '400': '400ms'
       },
       animation: {
         steam: "steam 15s linear infinite",
@@ -63,7 +75,9 @@ module.exports = {
           }),
         },
         {
-          values: Object.assign(theme("bgGradientDeg", {}), {}),
+          values: Object.assign(theme("bgGradientDeg", {}), {
+            45: "45deg",
+          }),
         }
       );
     }),
