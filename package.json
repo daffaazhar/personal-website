@@ -2,9 +2,10 @@
   "name": "my-portfolio",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "build": "npx tailwindcss -i ./src/css/input.css -o ./public/css/style.css --watch"
+    "build": "npx tailwindcss -i ./src/css/input.css -o ./public/css/build.css --minify",
+    "dev": "npx tailwindcss -i ./src/css/input.css -o ./public/css/style.css --watch"
   },
   "keywords": [],
   "author": "",

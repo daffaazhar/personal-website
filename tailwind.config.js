@@ -18,17 +18,17 @@ module.exports = {
         "navy-900": "#0a192f",
       },
       spacing: {
-        "1.5": "2px",
+        1.5: "2px",
       },
       content: {
         empty: "''",
       },
       transitionDuration: {
-        '250': '250ms',
-        '400': '400ms'
+        250: "250ms",
+        400: "400ms",
       },
       animation: {
-        steam: "steam 15s linear infinite",
+        steam: "steam 30s linear infinite",
         morpheus: "morpheus 10s linear infinite",
       },
       keyframes: {
