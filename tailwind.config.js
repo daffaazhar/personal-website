@@ -28,7 +28,7 @@ module.exports = {
         400: "400ms",
       },
       animation: {
-        steam: "steam 30s linear infinite",
+        steam: "steam 29s linear infinite",
         morpheus: "morpheus 10s linear infinite",
       },
       keyframes: {
