@@ -1,0 +1,94 @@
+@theme {
+  /* Colors */
+  --color-canvas: #f4f4f1;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #e9e9e5;
+
+  --color-ink: #111111;
+  --color-ink-muted: #62625e;
+  --color-ink-faint: #8a8a84;
+
+  --color-line: #cecec8;
+  --color-line-strong: #9c9c95;
+
+  --color-inverse-canvas: #101010;
+  --color-inverse-ink: #f5f5f1;
+
+  --color-accent: #f2e533;
+  --color-accent-ink: #111111;
+
+  --font-sans: 'Instrument Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+
+  /* Typography */
+  --text-xs: clamp(0.72rem, 0.69rem + 0.12vw, 0.8rem);
+  --text-sm: clamp(0.84rem, 0.8rem + 0.15vw, 0.94rem);
+  --text-base: clamp(1rem, 0.96rem + 0.18vw, 1.1rem);
+  --text-lg: clamp(1.22rem, 1.12rem + 0.42vw, 1.52rem);
+  --text-xl: clamp(1.55rem, 1.35rem + 0.85vw, 2.15rem);
+  --text-2xl: clamp(2.05rem, 1.65rem + 1.7vw, 3.25rem);
+  --text-3xl: clamp(2.75rem, 1.9rem + 3.3vw, 5.5rem);
+
+  --text-hero: clamp(3.4rem, 2.1rem + 5.2vw, 8.5rem);
+  --text-hero--line-height: 0.94;
+  --text-hero--letter-spacing: -0.045em;
+
+  --leading-tight: 0.94;
+  --leading-heading: 1.02;
+  --leading-ui: 1.25;
+  --leading-body: 1.55;
+  --leading-reading: 1.7;
+
+  --tracking-hero: -0.045em;
+  --tracking-heading: -0.03em;
+  --tracking-body: -0.01em;
+  --tracking-label: 0.035em;
+
+  /* Shape */
+  --radius-none: 0;
+  --radius-sm: 2px;
+  --radius-pill: 999px;
+
+  /* Breakpoints */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+}
+
+:root {
+  --container-max: 100rem;
+  --reading-max: 47.5rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --space-11: 10rem;
+
+  --page-gutter: clamp(1rem, 3vw, 3rem);
+  --section-space: clamp(4rem, 9vw, 10rem);
+  --header-height: clamp(4rem, 5vw, 4.5rem);
+
+  --border: 1px solid var(--color-line);
+  --border-strong: 1px solid var(--color-line-strong);
+  --shadow-elevated: 0 12px 30px rgb(0 0 0 / 0.1);
+
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --duration-slow: 360ms;
+
+  --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --z-header: 40;
+  --z-overlay: 80;
+  --z-modal: 100;
+}

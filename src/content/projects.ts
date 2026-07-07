@@ -1,0 +1,166 @@
+import type { Project } from '@/lib/content/schemas';
+
+export const projects = [
+  {
+    title: 'Work Fusion',
+    slug: 'work-fusion',
+    summary:
+      'Workflow infrastructure seed content for documenting traceability, ownership, and operational decisions.',
+    yearStart: 2025,
+    yearEnd: 2026,
+    status: 'completed',
+    contentStatus: 'draft',
+    featured: true,
+    featuredOrder: 1,
+    role: ['TODO: Replace with verified role.'],
+    disciplines: ['System Architecture', 'Backend Development', 'Reliability'],
+    stack: ['Laravel', 'PostgreSQL', 'TODO: Verify messaging or queue technology.'],
+    teamSize: null,
+    company: null,
+    location: 'Indonesia',
+    links: {
+      live: null,
+      repository: null,
+    },
+    outcomes: ['TODO: Replace with verified project outcome.'],
+    cover: {
+      src: '/images/work/work-fusion-cover.webp',
+      alt: 'TODO: Add final project image alt text for Work Fusion.',
+      background: 'subtle',
+    },
+    publishedAt: '2026-07-01',
+    updatedAt: '2026-07-07',
+    sections: [
+      {
+        title: 'Context',
+        body: [
+          'TODO: Replace with verified project context, users, constraints, and system boundaries.',
+        ],
+      },
+      {
+        title: 'Contribution',
+        body: ['TODO: Separate personal contribution from team contribution before publishing.'],
+      },
+      {
+        title: 'Lessons',
+        body: ['TODO: Add concrete lessons learned from implementation and operation.'],
+      },
+    ],
+    relatedWriting: ['building-reliable-audit-trails'],
+  },
+  {
+    title: 'Event Booking Platform',
+    slug: 'event-booking-platform',
+    summary:
+      'Event booking platform seed content for documenting ticketing, checkout, and admin workflows.',
+    yearStart: 2025,
+    yearEnd: null,
+    status: 'in-progress',
+    contentStatus: 'draft',
+    featured: true,
+    featuredOrder: 2,
+    role: ['TODO: Replace with verified role.'],
+    disciplines: ['Front-end Development', 'Product UI', 'Integration'],
+    stack: ['Next.js', 'TypeScript', 'TODO: Verify backend stack.'],
+    teamSize: null,
+    company: null,
+    location: 'Indonesia',
+    links: {
+      live: null,
+      repository: null,
+    },
+    outcomes: ['TODO: Replace with verified project outcome.'],
+    cover: {
+      src: '/images/work/event-booking-platform-cover.webp',
+      alt: 'TODO: Add final project image alt text for Event Booking Platform.',
+      background: 'white',
+    },
+    publishedAt: '2026-07-01',
+    updatedAt: '2026-07-07',
+    sections: [
+      {
+        title: 'Context',
+        body: ['TODO: Add verified booking flow context and audience.'],
+      },
+      {
+        title: 'Contribution',
+        body: ['TODO: Add verified interface, state, and integration responsibilities.'],
+      },
+    ],
+    relatedWriting: ['integrating-payment-gateway-nextjs-laravel'],
+  },
+  {
+    title: 'Deployment Infrastructure',
+    slug: 'deployment-infrastructure',
+    summary:
+      'Deployment automation seed content for documenting release, rollback, and server operations.',
+    yearStart: 2024,
+    yearEnd: 2025,
+    status: 'completed',
+    contentStatus: 'draft',
+    featured: false,
+    featuredOrder: null,
+    role: ['TODO: Replace with verified role.'],
+    disciplines: ['Infrastructure', 'Automation', 'Operations'],
+    stack: ['GitLab CI/CD', 'Linux', 'Nginx'],
+    teamSize: null,
+    company: null,
+    location: 'Indonesia',
+    links: {
+      live: null,
+      repository: null,
+    },
+    outcomes: ['TODO: Replace with verified deployment outcome.'],
+    cover: null,
+    publishedAt: '2026-07-01',
+    updatedAt: '2026-07-07',
+    sections: [
+      {
+        title: 'Context',
+        body: ['TODO: Add verified deployment environment and release constraints.'],
+      },
+      {
+        title: 'Decisions',
+        body: ['TODO: Add verified CI/CD and operational decisions.'],
+      },
+    ],
+    relatedWriting: ['deploying-laravel-with-gitlab-ci-cd'],
+  },
+  {
+    title: 'Legacy Retail Management System',
+    slug: 'legacy-retail-management-system',
+    summary:
+      'Legacy system seed content for documenting maintenance, incremental improvement, and migration decisions.',
+    yearStart: 2024,
+    yearEnd: 2024,
+    status: 'archived',
+    contentStatus: 'draft',
+    featured: false,
+    featuredOrder: null,
+    role: ['TODO: Replace with verified role.'],
+    disciplines: ['Maintenance', 'Backend Development', 'Data Modeling'],
+    stack: ['Laravel', 'MySQL', 'TODO: Verify frontend stack.'],
+    teamSize: null,
+    company: null,
+    location: 'Indonesia',
+    links: {
+      live: null,
+      repository: null,
+    },
+    outcomes: ['TODO: Replace with verified maintenance outcome.'],
+    cover: null,
+    publishedAt: '2026-07-01',
+    updatedAt: '2026-07-07',
+    sections: [
+      {
+        title: 'Context',
+        body: ['TODO: Add verified legacy-system context and risks.'],
+      },
+      {
+        title: 'Lessons',
+        body: ['TODO: Add verified lessons from maintaining existing software.'],
+      },
+    ],
+    relatedWriting: [],
+  },
+] satisfies Project[];
