@@ -20,7 +20,7 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
       <ProjectVisual
         title={project.title}
         cover={project.cover}
-        label={project.cover ? project.cover.alt : 'TODO: Add final project image.'}
+        label={project.cover ? project.cover.alt : 'Project image unavailable'}
       />
       <div className="featured-project__body">
         <div>
@@ -97,7 +97,7 @@ export function ProjectVisual({ title, cover, label }: ProjectVisualProps) {
       <div className="project-visual__grid" aria-hidden="true">
         <span>{title}</span>
         <span>Verified visual pending</span>
-        <span>TODO: Add final project image</span>
+        <span>Archive image not available</span>
       </div>
     </div>
   );

@@ -2,17 +2,23 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/content/breadcrumbs';
 import { ContentFigure } from '@/components/content/content-figure';
 import { MetadataList } from '@/components/content/metadata-list';
 import { ProjectToc } from '@/components/content/project-toc';
 import { Reveal } from '@/components/motion/reveal';
+import { StructuredData } from '@/components/seo/structured-data';
 import {
   getAdjacentProjects,
   getProjectBySlug,
   getProjectStaticParams,
 } from '@/lib/content/projects';
 import { formatProjectPeriod } from '@/lib/dates';
-import { siteConfig } from '@/lib/site-config';
+import {
+  buildBreadcrumbStructuredData,
+  buildProjectMetadata,
+  buildProjectStructuredData,
+} from '@/lib/seo';
 
 export const dynamicParams = false;
 
@@ -34,41 +40,7 @@ export async function generateMetadata({ params }: ProjectDetailPageProps): Prom
     return {};
   }
 
-  const project = projectEntry.metadata;
-  const description = project.metadataDescription ?? project.summary;
-
-  return {
-    title: project.title,
-    description,
-    alternates: {
-      canonical: `/work/${project.slug}`,
-    },
-    openGraph: {
-      title: `${project.title} · ${siteConfig.name}`,
-      description,
-      url: `/work/${project.slug}`,
-      siteName: siteConfig.name,
-      type: 'article',
-      ...(project.cover
-        ? {
-            images: [
-              {
-                url: project.cover.src,
-                width: project.cover.width,
-                height: project.cover.height,
-                alt: project.cover.alt,
-              },
-            ],
-          }
-        : {}),
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${project.title} · ${siteConfig.name}`,
-      description,
-      ...(project.cover ? { images: [project.cover.src] } : {}),
-    },
-  };
+  return buildProjectMetadata(projectEntry.metadata);
 }
 
 export default async function ProjectDetailPage({ params }: ProjectDetailPageProps) {
@@ -86,13 +58,17 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
 
   return (
     <article className="project-case">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(createProjectStructuredData(project)) }}
+      <StructuredData data={buildProjectStructuredData(project)} />
+      <StructuredData
+        data={buildBreadcrumbStructuredData([
+          { label: 'Work', path: '/work' },
+          { label: project.title, path: `/work/${project.slug}` },
+        ])}
       />
       <Reveal mode="load">
         <header className="project-case__hero site-container">
           <div className="project-case__hero-copy">
+            <Breadcrumbs items={[{ label: 'Work', href: '/work' }, { label: project.title }]} />
             <span className="eyebrow">Project / Case study</span>
             <h1>{project.title}</h1>
             <p>{project.summary}</p>
@@ -185,24 +161,4 @@ function ProjectPagination({
       )}
     </nav>
   );
-}
-
-function createProjectStructuredData(
-  project: NonNullable<Awaited<ReturnType<typeof getProjectBySlug>>>['metadata'],
-) {
-  const url = `${process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'}/work/${project.slug}`;
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'CreativeWork',
-    name: project.title,
-    description: project.summary,
-    url,
-    creator: {
-      '@type': 'Person',
-      name: siteConfig.name,
-    },
-    datePublished: project.publishedAt,
-    dateModified: project.updatedAt,
-  };
 }

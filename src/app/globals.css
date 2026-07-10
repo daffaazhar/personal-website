@@ -91,6 +91,109 @@
   padding-inline: var(--page-gutter);
 }
 
+.breadcrumbs {
+  margin-block-end: var(--space-4);
+}
+
+.breadcrumbs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+  list-style: none;
+}
+
+.breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+  color: var(--color-ink-faint);
+  content: '/';
+}
+
+.breadcrumbs__link {
+  text-decoration: none;
+}
+
+.archive {
+  padding-block-end: var(--section-space);
+}
+
+.archive__groups {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.archive-group {
+  border-block-start: var(--border);
+  padding-block-start: var(--space-5);
+}
+
+.archive-group__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-end: var(--space-4);
+}
+
+.archive-group__header h2 {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: var(--leading-heading);
+}
+
+.archive-group__header span {
+  color: var(--color-ink-faint);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.archive-group__list {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.archive-entry {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4);
+  align-items: start;
+  padding-block: var(--space-2);
+  border-block-end: var(--border);
+}
+
+.archive-entry__index {
+  color: var(--color-ink-faint);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.archive-entry__copy {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.archive-entry__title {
+  font-size: var(--text-base);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.archive-entry__meta {
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+}
+
 .section {
   padding-block: var(--section-space);
 }
@@ -853,6 +956,10 @@
   min-height: inherit;
   overflow: hidden;
   background: var(--color-surface-subtle);
+}
+
+.impact-network-shell {
+  min-height: inherit;
 }
 
 .impact-network__canvas {

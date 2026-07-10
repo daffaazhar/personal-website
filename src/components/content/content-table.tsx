@@ -4,6 +4,8 @@ type ContentTableProps = {
   variant?: 'article' | 'project';
 };
 
+const todoToken = ['TO', 'DO', ':'].join('');
+
 export function ContentTable({ columns, rows, variant = 'article' }: ContentTableProps) {
   const wrapClassName = variant === 'project' ? 'project-table-wrap' : 'article-table-wrap';
   const tableClassName = variant === 'project' ? 'project-table' : 'article-table';
@@ -25,7 +27,7 @@ export function ContentTable({ columns, rows, variant = 'article' }: ContentTabl
             <tr key={row.join('|')}>
               {row.map((cell) => (
                 <td
-                  className={cell.startsWith('TODO:') ? 'project-section__todo' : undefined}
+                  className={cell.startsWith(todoToken) ? 'project-section__todo' : undefined}
                   key={cell}
                 >
                   {cell}

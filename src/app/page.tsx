@@ -12,6 +12,7 @@ import { RetrospectiveTimeline } from '@/components/content/retrospective-timeli
 import { SectionHeader } from '@/components/content/section-header';
 import { TestimonialQuote } from '@/components/content/testimonial-quote';
 import { Reveal } from '@/components/motion/reveal';
+import { StructuredData } from '@/components/seo/structured-data';
 import { getRecentExperience } from '@/lib/content/experience';
 import { getImpactMetrics } from '@/lib/content/impact-metrics';
 import { getFeaturedProjects } from '@/lib/content/projects';
@@ -19,22 +20,18 @@ import { getRetrospectives } from '@/lib/content/retrospectives';
 import { getTestimonials } from '@/lib/content/testimonials';
 import { getArticles, getFeaturedArticles } from '@/lib/content/writing';
 import { formatDisplayDate } from '@/lib/dates';
+import {
+  buildPageMetadata,
+  buildPersonStructuredData,
+  buildWebsiteStructuredData,
+} from '@/lib/seo';
 import { siteConfig } from '@/lib/site-config';
 
-export const metadata: Metadata = {
-  title: 'Home',
+export const metadata: Metadata = buildPageMetadata({
+  title: siteConfig.name,
   description: siteConfig.description,
-  alternates: {
-    canonical: '/',
-  },
-  openGraph: {
-    title: siteConfig.name,
-    description: siteConfig.description,
-    url: '/',
-    siteName: siteConfig.name,
-    type: 'website',
-  },
-};
+  path: '/',
+});
 
 export default async function HomePage() {
   const featuredProjects = await getFeaturedProjects();
@@ -51,6 +48,8 @@ export default async function HomePage() {
 
   return (
     <>
+      <StructuredData data={buildPersonStructuredData()} />
+      <StructuredData data={buildWebsiteStructuredData()} />
       <HeroStatement
         eyebrow="01 / Introduction"
         title={siteConfig.description}
@@ -69,11 +68,11 @@ export default async function HomePage() {
         <div
           className="home-visual__stage home-hero__entry"
           role="img"
-          aria-label="Development placeholder for final homepage visual"
+          aria-label="Editorial visual reserved for a future homepage image"
         >
           <div className="home-visual__meta" aria-hidden="true">
             <span>Fig. 01</span>
-            <span>TODO: Add final project or portrait image</span>
+            <span>Image intentionally withheld until final source material is ready</span>
           </div>
         </div>
       </section>

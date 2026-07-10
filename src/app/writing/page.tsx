@@ -5,14 +5,13 @@ import { PageIntro } from '@/components/content/page-intro';
 import { Reveal } from '@/components/motion/reveal';
 import { formatDisplayDate } from '@/lib/dates';
 import { getArticles, getFeaturedArticles } from '@/lib/content/writing';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Writing',
   description: 'Technical explanations, mental models, and reflections from building software.',
-  alternates: {
-    canonical: '/writing',
-  },
-};
+  path: '/writing',
+});
 
 export default async function WritingPage() {
   const featuredArticles = await getFeaturedArticles();

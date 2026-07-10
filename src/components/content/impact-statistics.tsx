@@ -1,4 +1,4 @@
-import { ImpactNetworkCanvas } from '@/components/motion/impact-network-canvas';
+import { DeferredImpactNetwork } from '@/components/motion/deferred-impact-network';
 import type { ImpactMetric } from '@/lib/content/schemas';
 
 type ImpactStatisticsProps = {
@@ -26,7 +26,7 @@ export function ImpactStatistics({ heading, metrics }: ImpactStatisticsProps) {
             An abstract system map representing interfaces, services, events, data processing, and
             reliability.
           </p>
-          <ImpactNetworkCanvas describedBy="impact-network-description" />
+          <DeferredImpactNetwork describedBy="impact-network-description" />
         </div>
       </div>
     </section>

@@ -6,14 +6,14 @@ import { ProjectRow } from '@/components/content/project-row';
 import { Reveal } from '@/components/motion/reveal';
 import { getFeaturedProjects, getProjects } from '@/lib/content/projects';
 import { formatProjectPeriod } from '@/lib/dates';
+import { buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: 'Work',
-  description: 'Selected projects documented through decisions, constraints, and outcomes.',
-  alternates: {
-    canonical: '/work',
-  },
-};
+  description:
+    'Selected and archived projects documented through decisions, constraints, and outcomes.',
+  path: '/work',
+});
 
 export default async function WorkPage() {
   const featuredProjects = await getFeaturedProjects();

@@ -2,17 +2,52 @@ import type { Metadata } from 'next';
 
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
+import { getMetadataBase } from '@/lib/seo';
+import { siteConfig } from '@/lib/site-config';
 
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  metadataBase: getMetadataBase(),
   title: {
-    default: 'Daffa Azhar',
-    template: '%s · Daffa Azhar',
+    default: siteConfig.name,
+    template: `%s · ${siteConfig.name}`,
   },
-  description:
-    'Software engineer building dependable digital products from interface to infrastructure.',
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.author.name }],
+  creator: siteConfig.author.name,
+  publisher: siteConfig.author.name,
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    locale: siteConfig.locale,
+    type: 'website',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Daffa Azhar website preview',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: ['/opengraph-image'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  formatDetection: {
+    address: false,
+    email: false,
+    telephone: false,
+  },
 };
 
 type RootLayoutProps = Readonly<{

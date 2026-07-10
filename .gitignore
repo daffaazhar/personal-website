@@ -40,3 +40,7 @@ Thumbs.db
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+design-references/
+DESIGN.md
+WRITING_STYLE.md

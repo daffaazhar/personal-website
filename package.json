@@ -8,13 +8,16 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run validate:content && next build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "validate:content": "node scripts/validate-content.mjs",
+    "test:seo": "node --test tests/*.test.mjs",
+    "test": "npm run validate:content && npm run test:seo"
   },
   "keywords": [],
   "author": "",

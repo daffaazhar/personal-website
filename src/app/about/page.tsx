@@ -7,6 +7,7 @@ import { EditorialDefinitionList } from '@/components/content/editorial-definiti
 import { ExperienceTimeline } from '@/components/content/experience-timeline';
 import { RetrospectiveTimeline } from '@/components/content/retrospective-timeline';
 import { Reveal } from '@/components/motion/reveal';
+import { StructuredData } from '@/components/seo/structured-data';
 import {
   aboutIntroduction,
   aboutNarrativeSections,
@@ -16,41 +17,17 @@ import {
 } from '@/content/about';
 import { getPublishedExperience } from '@/lib/content/experience';
 import { getRetrospectives } from '@/lib/content/retrospectives';
-import { siteConfig } from '@/lib/site-config';
+import { buildAboutStructuredData, buildPageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: {
-    absolute: 'About — Daffa Azhar Putra Utama',
-  },
+export const metadata: Metadata = buildPageMetadata({
+  title: 'About',
   description:
     'Software engineer working across web applications, backend systems, databases, and deployment infrastructure.',
-  alternates: {
-    canonical: '/about',
-  },
-  openGraph: {
-    title: 'About — Daffa Azhar Putra Utama',
-    description:
-      'Software engineer working across web applications, backend systems, databases, and deployment infrastructure.',
-    url: '/about',
-    siteName: siteConfig.name,
-    type: 'profile',
-    images: [
-      {
-        url: aboutIntroduction.portrait.src,
-        width: aboutIntroduction.portrait.width,
-        height: aboutIntroduction.portrait.height,
-        alt: aboutIntroduction.portrait.alt,
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'About — Daffa Azhar Putra Utama',
-    description:
-      'Software engineer working across web applications, backend systems, databases, and deployment infrastructure.',
-    images: [aboutIntroduction.portrait.src],
-  },
-};
+  path: '/about',
+  openGraphType: 'profile',
+  image: aboutIntroduction.portrait,
+  imageAlt: aboutIntroduction.portrait.alt,
+});
 
 export default function AboutPage() {
   const experience = getPublishedExperience();
@@ -58,6 +35,7 @@ export default function AboutPage() {
 
   return (
     <>
+      <StructuredData data={buildAboutStructuredData()} />
       <Reveal mode="load">
         <section className="about-hero site-container" aria-labelledby="about-title">
           <div className="about-hero__copy">

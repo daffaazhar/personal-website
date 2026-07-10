@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+import { Breadcrumbs } from '@/components/content/breadcrumbs';
 import { MetadataList } from '@/components/content/metadata-list';
 import { ProjectToc } from '@/components/content/project-toc';
 import { Reveal } from '@/components/motion/reveal';
+import { StructuredData } from '@/components/seo/structured-data';
 import { formatDisplayDate } from '@/lib/dates';
 import { getProjectBySlug } from '@/lib/content/projects';
 import {
@@ -12,7 +14,11 @@ import {
   getArticleBySlug,
   getArticleStaticParams,
 } from '@/lib/content/writing';
-import { siteConfig } from '@/lib/site-config';
+import {
+  buildArticleMetadata,
+  buildArticleStructuredData,
+  buildBreadcrumbStructuredData,
+} from '@/lib/seo';
 
 export const dynamicParams = false;
 
@@ -34,29 +40,7 @@ export async function generateMetadata({ params }: ArticleDetailPageProps): Prom
     return {};
   }
 
-  const article = articleEntry.metadata;
-
-  return {
-    title: article.title,
-    description: article.description,
-    alternates: {
-      canonical: `/writing/${article.slug}`,
-    },
-    openGraph: {
-      title: `${article.title} · ${siteConfig.name}`,
-      description: article.description,
-      url: `/writing/${article.slug}`,
-      siteName: siteConfig.name,
-      type: 'article',
-      images: getPrimaryArticleImage(article),
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${article.title} · ${siteConfig.name}`,
-      description: article.description,
-      images: getPrimaryArticleImage(article)?.map((image) => image.url),
-    },
-  };
+  return buildArticleMetadata(articleEntry.metadata);
 }
 
 export default async function ArticleDetailPage({ params }: ArticleDetailPageProps) {
@@ -77,13 +61,19 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
 
   return (
     <article className="article-detail">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(createArticleStructuredData(article)) }}
+      <StructuredData data={buildArticleStructuredData(article)} />
+      <StructuredData
+        data={buildBreadcrumbStructuredData([
+          { label: 'Writing', path: '/writing' },
+          { label: article.title, path: `/writing/${article.slug}` },
+        ])}
       />
       <Reveal mode="load">
         <header className="article-detail__hero site-container">
           <div className="article-detail__hero-copy">
+            <Breadcrumbs
+              items={[{ label: 'Writing', href: '/writing' }, { label: article.title }]}
+            />
             <span className="eyebrow">Writing / Article</span>
             <h1>{article.title}</h1>
             <p>{article.description}</p>
@@ -167,41 +157,4 @@ export default async function ArticleDetailPage({ params }: ArticleDetailPagePro
       </div>
     </article>
   );
-}
-
-function createArticleStructuredData(
-  article: NonNullable<Awaited<ReturnType<typeof getArticleBySlug>>>['metadata'],
-) {
-  const url = `${process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'}/writing/${article.slug}`;
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: article.title,
-    description: article.description,
-    url,
-    author: {
-      '@type': 'Person',
-      name: siteConfig.name,
-    },
-    datePublished: article.publishedAt,
-    dateModified: article.updatedAt,
-  };
-}
-
-function getPrimaryArticleImage(
-  article: NonNullable<Awaited<ReturnType<typeof getArticleBySlug>>>['metadata'],
-) {
-  if (!article.cover) {
-    return undefined;
-  }
-
-  return [
-    {
-      url: article.cover.src,
-      width: article.cover.width,
-      height: article.cover.height,
-      alt: article.cover.alt,
-    },
-  ];
 }

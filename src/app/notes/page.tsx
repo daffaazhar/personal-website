@@ -1,9 +1,18 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { PageIntro } from '@/components/content/page-intro';
 import { SkeletonNote } from '@/components/content/skeleton-note';
 import { formatDisplayDate } from '@/lib/dates';
 import { getNotes } from '@/lib/content/notes';
+import { buildPageMetadata } from '@/lib/seo';
+
+export const metadata: Metadata = buildPageMetadata({
+  title: 'Notes',
+  description:
+    'Short operational notes, debugging details, and practical records that are ready for publication.',
+  path: '/notes',
+});
 
 export default async function NotesPage() {
   const notes = await getNotes();

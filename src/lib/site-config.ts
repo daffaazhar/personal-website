@@ -1,6 +1,10 @@
 export const siteConfig = {
   name: 'Daffa Azhar',
   monogram: 'DA',
+  locale: 'en_US',
+  author: {
+    name: 'Daffa Azhar Putra Utama',
+  },
   description:
     'Software engineer building dependable digital products from interface to infrastructure.',
   location: 'Sidoarjo · UTC+7',
@@ -18,6 +22,9 @@ export const siteConfig = {
     resume: '/resume',
     rss: '/rss.xml',
   },
+  social: {
+    profiles: ['https://github.com/daffaazhar', 'https://www.linkedin.com/in/daffaazhar'],
+  },
 } as const;
 
 export const primaryNavigation = [
@@ -28,9 +35,4 @@ export const primaryNavigation = [
   { href: '/index', label: 'Index' },
 ] as const;
 
-export const secondaryNavigation = [
-  { href: siteConfig.links.rss, label: 'RSS' },
-  { href: '/uses', label: 'Uses' },
-  { href: '/guestbook', label: 'Guestbook' },
-  { href: '/talks', label: 'Talks' },
-] as const;
+export const secondaryNavigation = [{ href: siteConfig.links.rss, label: 'RSS' }] as const;
