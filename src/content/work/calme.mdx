@@ -1,0 +1,243 @@
+import { ContentFigure } from '@/components/content/content-figure';
+import { ContentTable } from '@/components/content/content-table';
+import { ContentVideo } from '@/components/content/content-video';
+import { ProjectCredits } from '@/components/content/project-credits';
+
+export const metadata = {
+  title: 'Calme',
+  slug: 'calme',
+  label: 'AI-powered self-care mobile application',
+  summary:
+    'AI-powered self-care mobile application shaped through product planning, backlog prioritization, and Scrum delivery for a 3-person competition team that won 1st Place at Hology 7.0.',
+  yearStart: 2024,
+  yearEnd: 2024,
+  periodLabel: 'October 2024 — November 2024',
+  status: 'completed',
+  contentStatus: 'published',
+  featured: true,
+  featuredOrder: 2,
+  role: ['Product lead / Hustler'],
+  disciplines: ['Product Strategy', 'Scrum', 'Product Planning'],
+  stack: ['Flutter', 'Firebase', 'Firestore'],
+  teamSize: 3,
+  company: null,
+  location: 'Indonesia',
+  platform: 'Mobile',
+  links: {
+    live: null,
+    repository: null,
+  },
+  outcomes: [
+    '1st Place, Software Development Competition at Hology 7.0, organized by Universitas Brawijaya.',
+  ],
+  cover: {
+    src: '/images/work/calme/calme-cover.png',
+    alt: 'Calme mobile interfaces showing onboarding, the home dashboard, meditation, journaling, and educational content.',
+    width: 750,
+    height: 493,
+    background: 'subtle',
+  },
+  coverCaption:
+    'FIG 01 — Calme mobile interfaces showing onboarding, the home dashboard, meditation, journaling, and educational content.',
+  metadataDescription:
+    'Calme is a self-care mobile application developed by a 3-person team across 3 one-week sprints. I led product planning, backlog prioritization, and Scrum delivery.',
+  publishedAt: '2026-07-08',
+  updatedAt: '2026-07-08',
+  relatedWriting: [],
+};
+
+## Overview
+
+Calme was an AI-powered self-care mobile application developed as a competition project by a 3-person team. The product combined guided reflection, meditation, educational content, journaling, coping exercises, smartwatch-related health information, and user preferences in one mobile experience.
+
+We positioned Calme as a preventive self-care product. It was not designed to diagnose mental-health conditions, replace psychologists, psychiatrists, or other professionals, treat severe conditions, or promise a specific health outcome.
+
+I led product planning, backlog prioritization, Scrum facilitation, product positioning, and the final proposition. The mobile, backend, database, and UI work belonged to the team, not to me individually.
+
+## Context
+
+The original product framing came from a familiar access problem: basic mental-wellbeing support can be difficult to reach, and stigma can make people delay seeking help. We explored how a mobile product could make simple self-care practices easier to start for people who wanted preventive support.
+
+The pitch deck defined the initial market as people aged 17–40, including students and professionals. I treated this as the team’s starting product definition, not as proven market validation.
+
+The project ran from October 2024 to November 2024 under a competition deadline. We used Agile and Scrum across 3 one-week sprints, with Figma, GitHub, Android Studio, and Postman documented as supporting tools.
+
+## The product problem
+
+The team needed to turn a broad mental-wellbeing topic into a focused mobile product that could be designed and demonstrated within 3 short sprints.
+
+The tension was practical. The backlog contained 8 feature areas, the AI and wearable flows carried technical uncertainty, and the product still needed a responsible boundary so it would not be presented as medical treatment.
+
+My product task was to keep the team focused on the clearest version of the self-care proposition while leaving room for technical discovery when implementation risk was still unclear.
+
+## My role
+
+We developed Calme as a 3-person cross-functional team. Alga Vania Salsabillah worked as Hacker, Rakha Putra Pratama worked as Hipster, and I worked as Hustler.
+
+I was responsible for leading product planning, facilitating Scrum ceremonies, running sprint planning, daily scrums, sprint reviews, and retrospectives, and managing an 8-feature product backlog.
+
+I also translated user and market needs into feature priorities, defined the target users and product positioning, conducted market and competitor analysis, defined the MVP scope, helped the team focus on high-impact user needs, and prepared and presented the product proposition.
+
+## Defining the MVP
+
+I organized the backlog around the user value each feature had to prove. Authentication, the AI chatbot, meditation, journaling, and coping exercises represented the clearest version of the self-care proposition because they directly supported reflection, calming routines, and short practical exercises.
+
+Decision: I prioritized the chatbot, meditation, journaling, and coping flows because they made the core product easier to understand and demonstrate. This narrowed the early sprint focus, but gave the team a usable foundation before attempting the smartwatch-related FitConnect flow.
+
+Settings, preferences, and supporting content were important, but they served the core experience rather than defining it. FitConnect was treated as a separate product boundary because smartwatch-related data introduced compatibility and health-data access questions that could not be planned like ordinary app content.
+
+The team documented typography, color, iconography, and spacing rules so the mobile screens could remain consistent while features were developed across short sprints.
+
+<ContentFigure
+  variant="project"
+  src="/images/work/calme/calme-design-system.png"
+  alt="Calme design-system board showing typography, Material Design references, iconography, color scales, design principles, and a 4-point spacing grid."
+  caption="FIG 02 — The Calme design system documented typography, color, iconography, interface principles, and spacing."
+  width={1920}
+  height={1080}
+  background="white"
+/>
+
+<ContentTable
+  variant="project"
+  columns={['Product area', 'Purpose', 'Priority or sprint']}
+  rows={[
+    ['Authentication', 'Create an account boundary for profile and preference data.', 'Sprint 1'],
+    [
+      'AI chatbot',
+      'Support an AI-assisted conversation flow for basic self-care reflection.',
+      'Sprint 1',
+    ],
+    ['Meditation', 'Give users guided breathing and meditation support.', 'Sprint 1'],
+    ['Life Guide', 'Provide educational mental-wellbeing content.', 'Sprint 2'],
+    ['Journaling', 'Help users turn reflection into a written habit.', 'Sprint 2'],
+    [
+      'Coping Skills Toolbox',
+      'Offer short exercises for difficult moments without presenting treatment.',
+      'Sprint 2',
+    ],
+    [
+      'FitConnect',
+      'Explore smartwatch-related health information as a separate product boundary.',
+      'Sprint 3',
+    ],
+    [
+      'Settings and preferences',
+      'Let users manage profile, preferences, and app behaviour.',
+      'Sprint 3',
+    ],
+  ]}
+/>
+
+## Working in 3 one-week sprints
+
+We worked in 3 one-week sprints. Each sprint began with scope selection from the backlog, continued through daily coordination, and ended with review and retrospective discussion.
+
+Sprint 1 focused on authentication, the AI chatbot, and meditation. The OpenAI API integration created constraints during development, so the retrospective turned that issue into a planning lesson: deeper technical research and fallback options needed to happen before committing uncertain features to a sprint.
+
+Sprint 2 focused on Life Guide, journaling, and the Coping Skills Toolbox. Minor bugs in the Coping Skills Toolbox showed that test cases needed to be defined earlier, not only after a feature looked complete.
+
+Sprint 3 focused on FitConnect, settings, and preferences.
+
+<ContentTable
+  variant="project"
+  columns={['Sprint', 'Scope', 'Observed issue', 'Retrospective adjustment']}
+  rows={[
+    [
+      'Sprint 1',
+      'Authentication, AI chatbot, and meditation.',
+      'The team encountered constraints while integrating the OpenAI API.',
+      'We identified the need for deeper technical research and alternative plans before committing to implementation.',
+    ],
+    [
+      'Sprint 2',
+      'Life Guide, journaling, and Coping Skills Toolbox.',
+      'Minor bugs appeared in the Coping Skills Toolbox.',
+      'We identified the need to define test cases earlier.',
+    ],
+    [
+      'Sprint 3',
+      'FitConnect, settings, and preferences.',
+      'TODO: Confirm the final implementation status of FitConnect before publishing.',
+      'We kept the wearable flow separate from the core self-care experience because compatibility and health-data access carried more uncertainty.',
+    ],
+  ]}
+/>
+
+## Product experience
+
+The principal flow began with onboarding and authentication so the product could separate user profile and preference data. From there, the experience moved into self-care activities rather than a medical workflow.
+
+The AI-assisted conversation flow supported reflective prompts and basic self-care guidance. The meditation flow gave users a guided calming routine. Life Guide contained educational mental-wellbeing content, while journaling supported written reflection.
+
+The Coping Skills Toolbox grouped short exercises for difficult moments. FitConnect introduced smartwatch-related health information as a separate flow, and the profile area handled user preferences.
+
+These flows were designed to support preventive self-care. They were not framed as diagnosis, treatment, emergency support, or a replacement for professional care.
+
+## Product demo
+
+This demonstration shows the Calme prototype and the main flows prepared for the Hology 7.0 software-development competition.
+
+<ContentVideo
+  title="Calme product demo"
+  videoId="Ej-Ywa_q6AA"
+  url="https://www.youtube.com/watch?v=Ej-Ywa_q6AA&t=12s"
+/>
+
+## Architecture
+
+The documented high-level architecture consisted of a Flutter mobile client, Firebase backend services, and Firestore data storage.
+
+The documented architecture connected the Flutter client to Firebase and Firestore, while OpenAI supported the conversational flow. Health Connect formed the planned integration boundary between the mobile application and compatible wearable devices.
+
+Figma, GitHub, Android Studio, and Postman supported design, collaboration, development, and API testing work.
+
+<ContentFigure
+  variant="project"
+  src="/images/work/calme/calme-architecture.png"
+  alt="Calme architecture diagram connecting users to a Flutter mobile frontend, OpenAI, Firebase, Firestore, Health Connect, and a smartwatch."
+  caption="FIG 03 — The documented Calme architecture separated the mobile client, AI service, backend data services, and wearable integration boundary."
+  width={1881}
+  height={1546}
+  background="white"
+/>
+
+## Constraints and trade-offs
+
+The first constraint was team size. With 3 people and 3 one-week sprints, every feature needed a clear reason to exist. I used the backlog to keep discussion tied to user value and sprint capacity.
+
+The second constraint was technical uncertainty. We encountered OpenAI API integration limits during Sprint 1, so the trade-off was to keep AI scope focused while treating technical research as part of planning, not as a late surprise.
+
+The third constraint was test preparation. Minor bugs in the Coping Skills Toolbox showed that a feature could look ready before its expected behaviour was clearly tested. The adjustment was to define test cases earlier in the sprint.
+
+The fourth constraint was wearable compatibility. We kept FitConnect separate from the core self-care flow because smartwatch-related data could not be assumed to behave like ordinary application data.
+
+The most important product boundary was health responsibility. We kept Calme positioned as a self-care companion rather than a diagnostic or treatment service. This reduced the chatbot’s scope, but made the product easier to explain responsibly.
+
+## Outcome
+
+Calme won 1st Place in the Software Development Competition at Hology 7.0, organized by Universitas Brawijaya.
+
+## What I learned
+
+Product scope becomes clearer when every feature must justify its user value. The 8-feature backlog was useful because it forced prioritization instead of letting the product become a list of possible ideas.
+
+Technical feasibility research needs to happen before a feature is committed to a sprint. The OpenAI API constraint in Sprint 1 made that visible.
+
+Retrospectives only matter when they change the next sprint’s behaviour. The Sprint 2 testing issue became a reminder to define test cases before calling a feature complete.
+
+Health-related products need explicit product boundaries. Calme could support preventive self-care practices, but it could not responsibly claim to diagnose, treat, or replace professional care.
+
+A competition result is meaningful, but it does not replace user validation. The award verified the competition outcome; it did not prove adoption, long-term use, or health impact.
+
+## Project credits
+
+Calme was completed by a 3-person cross-functional team.
+
+<ProjectCredits
+  credits={[
+    { name: 'Alga Vania Salsabillah', role: 'Hacker' },
+    { name: 'Daffa Azhar Putra Utama', role: 'Hustler' },
+    { name: 'Rakha Putra Pratama', role: 'Hipster' },
+  ]}
+/>

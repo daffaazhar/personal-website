@@ -1,8 +1,8 @@
 import { getArticles } from '@/lib/content/writing';
 
-export function GET() {
+export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
-  const items = getArticles()
+  const items = (await getArticles())
     .map(
       (article) => `<item>
       <title>${escapeXml(article.title)}</title>
@@ -19,7 +19,7 @@ export function GET() {
 <rss version="2.0">
   <channel>
     <title>Daffa Azhar</title>
-    <description>Draft writing feed. TODO: Replace seed content before publishing.</description>
+    <description>Technical explanations, mental models, and reflections from building software.</description>
     <link>${baseUrl}</link>
     ${items}
   </channel>

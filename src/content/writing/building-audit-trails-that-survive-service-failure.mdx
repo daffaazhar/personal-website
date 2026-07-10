@@ -1,0 +1,268 @@
+import { ContentFigure } from '@/components/content/content-figure';
+import { ContentTable } from '@/components/content/content-table';
+
+export const metadata = {
+  title: 'Building audit trails that survive service failure',
+  slug: 'building-audit-trails-that-survive-service-failure',
+  description:
+    'How I used a transactional outbox and layered idempotency to keep audit events recoverable across broker, network, and service failures.',
+  publishedAt: '2026-07-09',
+  updatedAt: '2026-07-09',
+  language: 'en',
+  readingTime: 11,
+  featured: true,
+  contentStatus: 'published',
+  topics: ['Reliability', 'Architecture', 'Distributed systems'],
+  relatedProjects: ['work-fusion'],
+  cover: {
+    src: '/images/writing/audit-trail/failure-window.png',
+    alt: 'Flow showing a business update and database commit followed by a failure window before event publication and audit persistence.',
+    width: 1491,
+    height: 1055,
+    caption: 'FIG 01 — Failure window between commit and audit publication.',
+    background: 'white',
+  },
+};
+
+## Opening
+
+A workflow can return a successful response while its audit event is already at risk of being lost.
+
+The business record has been committed, the user sees a success state, and the application appears to be working. The missing event may only become visible later, when someone needs to reconstruct who performed an action, what changed, and when it happened.
+
+I encountered this problem while designing the backend architecture for [Work Fusion case study](/work/work-fusion), a platform that digitizes ISO-oriented workflows. The system needed more than the latest state. It needed a chronological audit trail that remained recoverable when the broker, network path, or publishing service became unavailable.
+
+My responsibility was the backend architecture and the audit-trail reliability path. That work included the transactional outbox, event flow, idempotency, and the failure testing used to verify recovery.
+
+## A successful request can still produce an incomplete history
+
+The failure window was narrow, but it was real. `TaskService` could update a task, commit the database transaction, and only then attempt to publish the audit event. `AuditTrailService` would record the final chronological entry only after that publication succeeded.
+
+That left a gap between two true statements: The task was approved. The approval event was not recorded.
+
+If NATS JetStream was unavailable, the service crashed, or the network path failed after the commit, retrying the whole API request would risk repeating the business action. Ignoring the publication error would leave the workflow state and the audit history out of sync.
+
+This mattered more than a delayed notification. The audit trail existed to reconstruct responsibility and chronology, not to decorate the UI. Losing that event meant losing evidence about how the workflow reached its current state.
+
+<ContentFigure
+  variant="article"
+  src="/images/writing/audit-trail/failure-window.png"
+  alt="Flow showing a business update and database commit followed by a failure window before event publication and audit persistence."
+  caption="FIG 01 — Failure window between commit and audit publication."
+  width={1491}
+  height={1055}
+  background="white"
+/>
+
+## Preserve first, deliver later
+
+The design became clearer once I separated two responsibilities: preserve the event and deliver the event.
+
+Preservation had to share the business transaction. Delivery could happen later, outside the request path, with retry. Broker availability should determine when the event is delivered, not whether it survives.
+
+> Commit the business change and its pending audit event together. Attempt delivery only after both are safe.
+
+## Store the event in the same transaction
+
+The services that generated audit activity kept a local outbox. In Work Fusion, that pattern was implemented in `AuthService`, `FormService`, and `TaskService`.
+
+The transaction shape was simple: write the business change, write the pending audit event, then commit both together. If either write failed, both changes rolled back.
+
+The broker was not part of the atomic boundary.
+
+The pseudocode below is simplified. The important property is the shared transaction, not the repository API or the language syntax.
+
+```csharp
+await using var transaction =
+    await database.BeginTransactionAsync(cancellationToken);
+
+try
+{
+    task.Approve(currentUserId, approvedAt);
+    await taskRepository.UpdateAsync(task, cancellationToken);
+
+    var auditEvent = AuditEvent.Create(
+        eventId: Guid.NewGuid(),
+        action: "TaskApproved",
+        actorId: currentUserId,
+        entityId: task.Id,
+        occurredAt: approvedAt
+    );
+
+    await outboxRepository.AddAsync(auditEvent, cancellationToken);
+    await transaction.CommitAsync(cancellationToken);
+}
+catch
+{
+    await transaction.RollbackAsync(cancellationToken);
+    throw;
+}
+```
+
+## Publish outside the request path
+
+After the commit, a background `OutboxPublisherService` could read pending rows, publish them to the `audit.events` subject in NATS JetStream, wait for broker acknowledgement, and mark the row as published only after that acknowledgement returned.
+
+If publication failed, the row stayed pending for a later retry. That pending row was not an error in itself. It was an observable intermediate state: the business transaction succeeded, but audit publication had not completed yet.
+
+The next pseudocode block is also simplified. The important rule is that publication status changes only after acknowledgement.
+
+```csharp
+var pendingEvents = await outboxRepository.GetPendingAsync(
+    batchSize: 100,
+    cancellationToken
+);
+
+foreach (var pendingEvent in pendingEvents)
+{
+    try
+    {
+        await jetStream.PublishAsync(
+            subject: "audit.events",
+            messageId: pendingEvent.EventId.ToString(),
+            payload: pendingEvent.Payload,
+            cancellationToken
+        );
+
+        pendingEvent.MarkPublished(DateTimeOffset.UtcNow);
+        await outboxRepository.UpdateAsync(
+            pendingEvent,
+            cancellationToken
+        );
+    }
+    catch (Exception exception)
+    {
+        pendingEvent.RecordFailure(exception.Message);
+        await outboxRepository.UpdateAsync(
+            pendingEvent,
+            cancellationToken
+        );
+    }
+}
+```
+
+<ContentFigure
+  variant="article"
+  src="/images/writing/audit-trail/transactional-outbox-flow.png"
+  alt="Transactional outbox flow from an API request through the business and outbox tables, background publisher, NATS JetStream, AuditTrailService, and permanent audit log."
+  caption="FIG 02 — Transactional outbox flow from request to permanent audit log."
+  width={1491}
+  height={1055}
+  background="white"
+/>
+
+## Retry creates a duplicate-processing problem
+
+Retry was necessary, but it did not solve the full problem by itself.
+
+A publisher could send an event successfully and then crash before marking the outbox row as published. After restart, the row would still look pending, so the same event would be published again. Redelivery could also happen at the broker or consumer level.
+
+I did not treat the transport as exactly once. The safer model was simpler: the transport may deliver an event more than once. The final audit record must still be written once.
+
+## Four layers of idempotency
+
+The duplicate problem was handled in layers because no single layer covered every replay path.
+
+### Layer 1 — Transactional outbox
+
+The outbox preserved one retryable event alongside the business change. A retry reused the same stored event instead of creating a new event for each attempt.
+
+### Layer 2 — Stable event identity
+
+Each event carried a stable `EventId`. Retries reused that identity, which let downstream services distinguish a replay from a new business event.
+
+### Layer 3 — Broker deduplication
+
+The publisher sent the stable identity as the NATS JetStream message identifier through the `Nats-Msg-Id` header. JetStream could reject repeated publication inside its configured deduplication window.
+
+### Layer 4 — Persistence constraint
+
+The final guard lived in `AuditTrailService`. The audit database enforced uniqueness on the event identity, because the broker window was bounded and consumer redelivery could still happen after it expired.
+
+An application-level `exists` check was not enough under concurrent consumers. The database constraint had to remain authoritative.
+
+- Example: `CREATE UNIQUE INDEX ux_audit_log_event_id ON audit_log (event_id);`
+
+## Test the failure path
+
+A recovery mechanism should be tested while the failure is still present.
+
+That meant observing pending outbox entries before recovery. Reaching zero pending rows at the end was not sufficient evidence unless the failed state had been visible first.
+
+The documented Work Fusion recovery tests covered three scenarios: broker outage, service-to-broker network interruption, and a publishing-service crash after pending rows had already been written.
+
+The published project record confirms that the broker-outage test recovered 20 pending entries, the network-interruption scenario recovered 10 events in 0.304 seconds, and the service-crash scenario recovered 10 events in 0.298 seconds. All three scenarios ended with 0 pending entries, 0% duplicate processing, and 0% message loss in the documented results.
+
+<ContentTable
+  variant="article"
+  columns={[
+    'Failure scenario',
+    'Pending before recovery',
+    'Final pending',
+    'Lost events',
+    'Duplicate events',
+  ]}
+  rows={[
+    ['Broker outage', '20', '0', '0', '0'],
+    ['Network interruption', '10', '0', '0', '0'],
+    ['Service crash after outbox write', '10', '0', '0', '0'],
+  ]}
+/>
+
+## Verify integrity under normal load
+
+Recovery testing was only one side of the design. The audit path also needed to stay complete and duplicate-free when the system was operating normally.
+
+The workflow used for that verification combined the core steps already documented for the project: generate an authentication URL, create a form, create a task template, create a task assignment, submit the task for approval, and approve the task.
+
+The verified audit-integrity workload recorded 946 workflows and 6,622 audit events, with an Audit Completeness Rate of 100%, a Duplicate Processing Rate of 0%, and a final Outbox Pending Rate of 0%. Those checks mattered because a recovery mechanism that only works during isolated failure drills is not enough.
+
+## What this design does not solve
+
+The outbox improved recoverability, but it did not remove trade-offs.
+
+### Eventual consistency
+
+The business state can be committed before the final audit record appears in the audit database. Readers need to tolerate that temporary gap.
+
+### Additional operational components
+
+The design adds outbox tables, background publishers, retry logic, consumer idempotency, cleanup or archival work, and monitoring.
+
+### Polling delay
+
+A shorter polling interval reduces delivery latency, but it also increases database activity.
+
+### Outbox growth
+
+Published rows need a retention, archival, or deletion policy so the outbox does not become a permanent accumulation point.
+
+### Observability
+
+Useful signals include pending event count, age of the oldest pending event, publication failure count, retry count, consumer processing failures, and duplicate-constraint violations.
+
+### Guarantee boundary
+
+The event becomes recoverable only after the database transaction commits it to the outbox. A failure before commit should roll back both the business change and the event.
+
+## What changed in my understanding of reliability
+
+This project changed one assumption I used to carry too casually: a successful API response means the operation is complete.
+
+A more accurate model is narrower. A successful response confirms only the synchronous part of the operation.
+
+> Reliability is not the absence of failure. It is the ability to preserve intent, recover incomplete work, and verify the result after failure has occurred.
+
+- Was the business change committed?
+- Was its event preserved?
+- Can publication be retried?
+- Can the consumer process a retry safely?
+- Can the final state be verified?
+
+## Summary
+
+The database transaction preserved the business change and the pending audit event together. The publisher retried delivery independently, and layered idempotency prevented those retries from creating duplicate audit records.
+
+Request success and process completion were different checkpoints. The audit trail survived partial failure because event preservation did not depend on immediate broker availability.
+
+A successful response is one checkpoint. Recoverability begins after it.

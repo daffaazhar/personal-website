@@ -1,8 +1,9 @@
-import { getExperience } from '@/lib/content/experience';
+import { getPublishedExperience } from '@/lib/content/experience';
 import { getNotes } from '@/lib/content/notes';
 import { getProjects } from '@/lib/content/projects';
 import { getRetrospectives } from '@/lib/content/retrospectives';
 import { getArticles } from '@/lib/content/writing';
+import { formatExperiencePeriod } from '@/lib/dates';
 
 export type ArchiveGroup = {
   title: string;
@@ -12,16 +13,16 @@ export type ArchiveGroup = {
 
 export type ArchiveEntry = {
   title: string;
-  href: string;
+  href: string | null;
   meta: string;
 };
 
-export function getArchiveGroups(): ArchiveGroup[] {
-  const projects = getProjects();
-  const articles = getArticles();
-  const notes = getNotes();
+export async function getArchiveGroups(): Promise<ArchiveGroup[]> {
+  const projects = await getProjects();
+  const articles = await getArticles();
+  const notes = await getNotes();
   const retrospectives = getRetrospectives();
-  const experience = getExperience();
+  const experience = getPublishedExperience();
 
   return [
     {
@@ -58,7 +59,7 @@ export function getArchiveGroups(): ArchiveGroup[] {
       count: retrospectives.length,
       entries: retrospectives.map((retrospective) => ({
         title: retrospective.title,
-        href: `/writing/${retrospective.slug}`,
+        href: null,
         meta: String(retrospective.year),
       })),
     },
@@ -76,8 +77,4 @@ export function getArchiveGroups(): ArchiveGroup[] {
 
 function formatProjectYear(yearStart: number, yearEnd: number | null) {
   return yearEnd === null ? `${yearStart}—Now` : `${yearStart}—${yearEnd}`;
-}
-
-function formatExperiencePeriod(start: string, end: string | null) {
-  return end === null ? `${start}—Now` : `${start}—${end}`;
 }

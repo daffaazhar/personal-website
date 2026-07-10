@@ -1,0 +1,209 @@
+import { AuditFlowDiagram } from '@/components/content/audit-flow-diagram';
+import { ContentFigure } from '@/components/content/content-figure';
+import { ContentTable } from '@/components/content/content-table';
+
+export const metadata = {
+  title: 'Work Fusion',
+  slug: 'work-fusion',
+  label: 'ISO-compliant workflow platform',
+  summary:
+    'An ISO-oriented workflow platform for tasks, approvals, evidence, and audit history. I designed the event-driven backend so committed workflow changes remained traceable across broker, network, and service failures.',
+  yearStart: 2025,
+  yearEnd: 2026,
+  periodLabel: '2025 — 2026',
+  status: 'completed',
+  contentStatus: 'published',
+  featured: true,
+  featuredOrder: 1,
+  role: ['Backend Developer'],
+  disciplines: ['Backend architecture', 'Distributed systems', 'Reliability'],
+  stack: ['ASP.NET Core', 'PostgreSQL', 'NATS JetStream', 'gRPC', 'Keycloak', 'MinIO'],
+  teamSize: 3,
+  company: null,
+  location: 'Indonesia',
+  platform: 'Mobile · Web',
+  links: {
+    live: null,
+    repository: null,
+  },
+  outcomes: [
+    'Integrity and resilience tests verified complete audit events, 0% duplicate processing, and 0% message loss across the tested partial-failure scenarios.',
+  ],
+  cover: {
+    src: '/images/work/work-fusion/work-fusion-cover.png',
+    alt: 'Work Fusion cover showing the logo, a short product description, and mobile workflow screens for task execution, approvals, and monitoring.',
+    width: 1672,
+    height: 941,
+    background: 'white',
+  },
+  coverCaption:
+    'FIG 01 — The Work Fusion cover pairs the product identity with the original mobile task, approval, and monitoring screens.',
+  metadataDescription:
+    'Work Fusion is an ISO-oriented workflow platform with an event-driven backend designed to keep audit events complete, recoverable, and free from duplicate processing during partial failures.',
+  publishedAt: '2026-07-09',
+  updatedAt: '2026-07-09',
+  relatedWriting: [],
+};
+
+## Digitising work that needs to remain traceable
+
+Work Fusion digitised ISO-oriented workflows that previously depended on disconnected documents, spreadsheets, chat messages, and storage folders. The product connected SOP and form management, task execution, approvals, evidence, notifications, corrective actions, centralised documents, and audit history in one system.
+
+The system was designed around the documented-information and traceability needs represented by ISO 9001 Clauses 7.5 and 9.2 and ISO/IEC 27001 Annex A.8.16 and A.5.37. It did not claim a production certification or a real operational ISO audit.
+
+This was a three-person Applied Bachelor's final project for the Informatics Engineering programme at Politeknik Elektronika Negeri Surabaya. We developed the product together, while my work focused on the backend architecture and the reliability of its audit-event path.
+
+<ContentFigure
+  variant="project"
+  src="/images/work/work-fusion/screenshot.png"
+  alt="Work Fusion dashboard and mobile workflow screens for offline task execution and ISO-oriented approvals."
+  caption="FIG 02 — Work Fusion connected mobile execution, approvals, monitoring, and audit-oriented task management in one workflow."
+  width={10800}
+  height={3840}
+  background="white"
+/>
+
+## A final status was not enough for an audit
+
+A conventional database can show the current state of a task, but that state does not explain who changed it, when it changed, or which approval steps produced it. Work Fusion needed a chronological audit trail that could answer those questions without relying on logs scattered across separate services.
+
+The distributed architecture introduced another failure case. A workflow change could be committed successfully while its audit event failed to reach the message broker. The backend therefore needed to keep the event recoverable after the API request had already returned, while preventing retries from recording the same event twice.
+
+- Preserve chronological evidence for selected ISO requirements.
+- Recover events after broker, network, or service failure.
+- Prevent duplicate audit records during retry.
+- Enforce access boundaries across different operational roles.
+- Remain testable on limited academic infrastructure.
+
+## Four roles, different definitions of a complete workflow
+
+The product had to work for people who were solving different parts of the same controlled process. We defined the workflow around four recurring operational perspectives before deciding how data should move through the backend.
+
+Admin managed forms, users, roles, permissions, and controlled changes. Supervisor monitored progress, approvals, overdue work, and evidence readiness. Field executor completed assigned work and submitted evidence, including in unstable network conditions. Auditor needed access to structured history, documents, evidence, and responsibility.
+
+<ContentFigure
+  variant="project"
+  src="/images/work/work-fusion/user-persona.png"
+  alt="Admin persona describing form management, access control, and document-version needs."
+  caption="FIG 03 — Admin persona focused on controlled forms, access boundaries, and document-version management."
+  width={1684}
+  height={1190}
+  background="white"
+/>
+
+<ContentFigure
+  variant="project"
+  src="/images/work/work-fusion/user-persona-1.png"
+  alt="Supervisor persona describing task visibility, overdue notifications, and evidence tracking."
+  caption="FIG 04 — Supervisor persona prioritised approval visibility, overdue work, and evidence readiness."
+  width={1684}
+  height={1190}
+  background="white"
+/>
+
+<ContentFigure
+  variant="project"
+  src="/images/work/work-fusion/user-persona-2.png"
+  alt="Field executor persona describing simple offline task completion and reliable synchronisation."
+  caption="FIG 05 — Field executor persona required simple task completion in unstable network conditions."
+  width={1684}
+  height={1190}
+  background="white"
+/>
+
+<ContentFigure
+  variant="project"
+  src="/images/work/work-fusion/user-persona-3.png"
+  alt="Auditor persona describing access to structured historical records, evidence, and audit trails."
+  caption="FIG 06 — Auditor persona depended on structured records, evidence, and chronological audit history."
+  width={1684}
+  height={1190}
+  background="white"
+/>
+
+## My responsibility was the audit-event path
+
+We shared the product planning and integration work. Alga Vania Salsabilla developed the mobile interface and connected user-facing features to the system services. Rakha Putra Pratama designed the application flow and interface and supported application testing.
+
+I designed and implemented the backend architecture. My scope covered logical command-query separation with MediatR, synchronous validation through gRPC, asynchronous publication through NATS JetStream, event-based audit logging, the transactional outbox, four layers of idempotency, access-control behaviour, and the tests used to verify integrity, recovery, and performance.
+
+## Separating the request path from event delivery
+
+ASP.NET Core services handled business operations and stored transactional data in PostgreSQL. Services used gRPC when a result was required immediately and NATS JetStream for audit events and notifications that could be processed asynchronously. Keycloak handled identity and access management, while Docker kept the environment reproducible for implementation and testing.
+
+The backend separated the business request path from the eventual delivery of audit events. A committed workflow change wrote both business data and a pending audit event inside one database transaction, then a background publisher delivered the event to NATS JetStream and AuditTrailService recorded the final chronological log.
+
+<AuditFlowDiagram />
+
+## The decisions that protected the audit trail
+
+Hybrid communication. I used gRPC for service calls that needed an immediate validation result and NATS JetStream for audit events and notifications. This kept critical checks explicit while allowing event consumers to process work independently. The trade-off was operating and observing two communication paths instead of one.
+
+Logical CQRS with MediatR. I separated commands from queries through MediatR handlers while keeping a shared transactional database. This made write intent and read intent easier to test without adding the operational cost of separate read and write stores.
+
+Transactional Outbox. Each service stored the business change and its pending audit event in the same database transaction. A background publisher delivered the event later. This added an outbox table, polling, retry behaviour, and operational states, but removed the gap where a committed workflow could permanently lose its audit event.
+
+Four-Layer Idempotency. Retries were expected, so duplicate prevention was applied in layers: the outbox persisted the event with the business change, each event received a deterministic EventId, NATS JetStream deduplicated messages inside its configured window, and the audit log database enforced uniqueness again at insert time. The trade-off was more operational detail to manage, but recovery no longer depended on a single duplicate check.
+
+Role-Based Access Control. Access decisions were modelled around reusable roles, profiles, and permissions. This allowed the backend to permit operational actions while restricting form administration, approvals, and audit-log access to authorised roles.
+
+<ContentFigure
+  variant="project"
+  src="/images/work/work-fusion/work-fusion-mobile-preview-2.png"
+  alt="Work Fusion mobile screens showing successful offline synchronisation and task approval confirmation."
+  caption="FIG 08 — The mobile workflow needed to keep offline execution, synchronisation, and approval states legible to operational users."
+  width={2524}
+  height={1808}
+  background="white"
+/>
+
+## The event path was tested under partial failure
+
+Functional and authorisation tests checked the expected workflow and access boundaries. The reliability evaluation then introduced failures into the event-publication path rather than treating a successful API response as sufficient evidence.
+
+The resilience testing covered three partial-failure scenarios: stopping NATS JetStream while services kept accepting operations, interrupting service-to-NATS connectivity while the service stayed available, and forcing a service crash after pending events had been written to the outbox. After each recovery, SQL checks verified audit-event counts, duplicate EventId values, and pending outbox entries. K6 provided repeatable integrity and performance workloads.
+
+## What the tests verified
+
+The tests showed that events already stored in the outbox remained recoverable across the three injected failures and were not recorded twice in the end-to-end verification.
+
+Under the 80-user workload, every workflow completed, but the overall p95 latency reached 5,615 ms and exceeded the 5,000 ms target. That result pointed to synchronous multi-step TaskService operations and limited infrastructure capacity as the main trade-off, not to the audit-trail path itself.
+
+<ContentTable
+  variant="project"
+  columns={['Group', 'Metric', 'Result']}
+  rows={[
+    ['Audit integrity', 'Workflows', '946'],
+    ['Audit integrity', 'Audit events', '6,622'],
+    ['Audit integrity', 'Audit Completeness Rate', '100%'],
+    ['Audit integrity', 'Duplicate Processing Rate', '0%'],
+    ['Audit integrity', 'Final Outbox Pending Rate', '0%'],
+    ['Failure recovery', 'Partial-failure scenarios', '3'],
+    ['Failure recovery', 'Message Loss Rate', '0%'],
+    ['Failure recovery', 'Broker-outage entries recovered', '20'],
+    ['Failure recovery', 'Network-interruption events recovered', '10 in 0.304 seconds'],
+    ['Failure recovery', 'Service-crash events recovered', '10 in 0.298 seconds'],
+    ['Failure recovery', 'Final pending entries', '0'],
+    ['Performance', 'Virtual users', '80'],
+    ['Performance', 'Successful workflows', '1,025'],
+    ['Performance', 'Throughput', '4.23 workflows per second'],
+    ['Performance', 'Workflow success rate', '100%'],
+    ['Performance', 'HTTP error rate', '0%'],
+    ['Performance', 'Overall p99 latency', '7,243 ms'],
+    ['Performance', 'Overall p95 latency', '5,615 ms'],
+  ]}
+/>
+
+## What the evaluation did not prove
+
+The results describe a controlled staging environment, not a production certification. The system ran on a 2 vCPU, 4 GB RAM VPS and the load test stopped at 80 virtual users.
+
+The study did not include an end-user usability evaluation, a real operational ISO audit, a database-failure scenario, a multi-node infrastructure failure, or a production-scale cloud deployment.
+
+The p95 result also showed that reliable event handling does not remove performance work. Multi-step task operations and limited infrastructure still need profiling and optimisation at higher load.
+
+## Reliability continues after the response returns
+
+This project changed how I evaluate a successful request. Returning a 2xx response confirms one stage of the workflow, but it does not confirm that every downstream record is durable, recoverable, and safe to process again.
+
+The outbox made failure visible as a pending state instead of silent data loss. Idempotency made recovery safe. The remaining latency reinforced a second lesson: reliability and performance need separate evidence, and improving one does not automatically prove the other.

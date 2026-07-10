@@ -5,9 +5,11 @@ import { byYearDesc } from '@/lib/content/shared';
 validateRetrospectives(retrospectives);
 
 export function getRetrospectives(): Retrospective[] {
-  return [...retrospectives].sort(byYearDesc);
+  return retrospectives
+    .filter((retrospective) => retrospective.contentStatus === 'published')
+    .sort(byYearDesc);
 }
 
 export function getRetrospectiveBySlug(slug: string): Retrospective | null {
-  return retrospectives.find((retrospective) => retrospective.slug === slug) ?? null;
+  return getRetrospectives().find((retrospective) => retrospective.slug === slug) ?? null;
 }

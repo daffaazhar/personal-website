@@ -16,9 +16,13 @@
 
   --color-accent: #f2e533;
   --color-accent-ink: #111111;
+  --color-success: #246b3c;
+  --color-warning: #8a5c00;
+  --color-danger: #9d2c2c;
 
   --font-sans: 'Instrument Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+  --font-code: 'Fira Code', 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
 
   /* Typography */
   --text-xs: clamp(0.72rem, 0.69rem + 0.12vw, 0.8rem);
@@ -81,12 +85,17 @@
   --border-strong: 1px solid var(--color-line-strong);
   --shadow-elevated: 0 12px 30px rgb(0 0 0 / 0.1);
 
-  --duration-fast: 120ms;
-  --duration-normal: 200ms;
-  --duration-slow: 360ms;
+  --duration-fast: 180ms;
+  --duration-normal: 260ms;
+  --duration-slow: 480ms;
 
   --ease-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ease-enter: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  --motion-distance-subtle: 0.5rem;
+  --motion-distance-section: 0.75rem;
+  --motion-stagger-short: 60ms;
 
   --z-header: 40;
   --z-overlay: 80;

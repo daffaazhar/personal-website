@@ -28,8 +28,11 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    "**/*.md",
+    "**/*.mdx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    "mdx-components.tsx"
   ],
   "exclude": ["node_modules"]
 }

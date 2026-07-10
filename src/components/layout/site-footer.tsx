@@ -12,16 +12,33 @@ export function SiteFooter() {
         <div className="site-footer__grid">
           <div className="site-footer__links" aria-label="Contact links">
             <a className="site-footer__link" href={`mailto:${siteConfig.email}`}>
-              Email ↗
+              <span>Email</span>
+              <span className="site-footer__link-arrow" aria-hidden="true">
+                ↗
+              </span>
             </a>
             <a className="site-footer__link" href={siteConfig.links.linkedin}>
-              LinkedIn ↗
+              <span>LinkedIn</span>
+              <span className="site-footer__link-arrow" aria-hidden="true">
+                ↗
+              </span>
             </a>
             <a className="site-footer__link" href={siteConfig.links.github}>
-              GitHub ↗
+              <span>GitHub</span>
+              <span className="site-footer__link-arrow" aria-hidden="true">
+                ↗
+              </span>
             </a>
-            <Link className="site-footer__link" href={siteConfig.links.resume}>
-              Résumé ↗
+            <Link
+              className="site-footer__link"
+              href={siteConfig.links.resume}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>Résumé</span>
+              <span className="site-footer__link-arrow" aria-hidden="true">
+                ↗
+              </span>
             </Link>
           </div>
 

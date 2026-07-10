@@ -6,7 +6,7 @@ import { getArticles } from '@/lib/content/writing';
 
 const routes = ['', '/work', '/writing', '/notes', '/about', '/index'];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
 
   const staticRoutes = routes.map((route) => ({
@@ -14,17 +14,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date('2026-07-07'),
   }));
 
-  const projectRoutes = getProjects().map((project) => ({
+  const projectRoutes = (await getProjects()).map((project) => ({
     url: `${baseUrl}/work/${project.slug}`,
     lastModified: new Date(project.updatedAt),
   }));
 
-  const articleRoutes = getArticles().map((article) => ({
+  const articleRoutes = (await getArticles()).map((article) => ({
     url: `${baseUrl}/writing/${article.slug}`,
     lastModified: new Date(article.updatedAt),
   }));
 
-  const noteRoutes = getNotes().map((note) => ({
+  const noteRoutes = (await getNotes()).map((note) => ({
     url: `${baseUrl}/notes/${note.slug}`,
     lastModified: new Date(note.updatedAt),
   }));

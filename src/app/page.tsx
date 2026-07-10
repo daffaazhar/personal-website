@@ -1,18 +1,238 @@
-import { PageIntro } from '@/components/content/page-intro';
-import { SkeletonNote } from '@/components/content/skeleton-note';
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
 
-export default function HomePage() {
+import { ArticleRow } from '@/components/content/article-row';
+import { ExperienceTimeline } from '@/components/content/experience-timeline';
+import { FeaturedProject } from '@/components/content/featured-project';
+import { HeroStatement } from '@/components/content/hero-statement';
+import { ImpactStatistics } from '@/components/content/impact-statistics';
+import { ProjectSplit } from '@/components/content/project-split';
+import { RetrospectiveTimeline } from '@/components/content/retrospective-timeline';
+import { SectionHeader } from '@/components/content/section-header';
+import { TestimonialQuote } from '@/components/content/testimonial-quote';
+import { Reveal } from '@/components/motion/reveal';
+import { getRecentExperience } from '@/lib/content/experience';
+import { getImpactMetrics } from '@/lib/content/impact-metrics';
+import { getFeaturedProjects } from '@/lib/content/projects';
+import { getRetrospectives } from '@/lib/content/retrospectives';
+import { getTestimonials } from '@/lib/content/testimonials';
+import { getArticles, getFeaturedArticles } from '@/lib/content/writing';
+import { formatDisplayDate } from '@/lib/dates';
+import { siteConfig } from '@/lib/site-config';
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description: siteConfig.description,
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: '/',
+    siteName: siteConfig.name,
+    type: 'website',
+  },
+};
+
+export default async function HomePage() {
+  const featuredProjects = await getFeaturedProjects();
+  const [primaryProject, ...secondaryProjects] = featuredProjects;
+  const articles = await selectHomepageArticles();
+  const retrospectives = getRetrospectives().slice(0, 3);
+  const experience = getRecentExperience(3);
+  const impactMetrics = getImpactMetrics();
+  const testimonials = getTestimonials()
+    .filter(
+      (testimonial) => testimonial.permissionApproved && testimonial.contentStatus === 'published',
+    )
+    .slice(0, 3);
+
   return (
     <>
-      <PageIntro
+      <HeroStatement
         eyebrow="01 / Introduction"
-        title="Software engineer building dependable digital products from interface to infrastructure."
-        description="TODO: Replace with verified positioning, selected work, writing, and personal context."
+        title={siteConfig.description}
+        description={siteConfig.heroSupport}
+        links={[
+          { label: 'Selected work', href: '/work' },
+          { label: 'Read the journal', href: '/writing' },
+          { label: 'Résumé', href: siteConfig.links.resume, newTab: true },
+        ]}
       />
-      <SkeletonNote>
-        Phase 1-2 skeleton. Homepage implementation starts after content models and verified project
-        material are available.
-      </SkeletonNote>
+
+      <section className="home-visual site-container" aria-labelledby="featured-visual-title">
+        <h2 id="featured-visual-title" className="sr-only">
+          Featured visual
+        </h2>
+        <div
+          className="home-visual__stage home-hero__entry"
+          role="img"
+          aria-label="Development placeholder for final homepage visual"
+        >
+          <div className="home-visual__meta" aria-hidden="true">
+            <span>Fig. 01</span>
+            <span>TODO: Add final project or portrait image</span>
+          </div>
+        </div>
+      </section>
+
+      <Reveal>
+        <ImpactStatistics
+          heading="Engineering, measured in real outcomes"
+          metrics={impactMetrics}
+        />
+      </Reveal>
+
+      {primaryProject ? (
+        <Reveal>
+          <section className="home-section site-container" aria-labelledby="selected-work-title">
+            <SectionHeader
+              index="03"
+              title="Selected work"
+              description="Projects documented through decisions, constraints, and outcomes."
+              action={{ label: 'View all work', href: '/work' }}
+            />
+            <div className="home-section__body">
+              <FeaturedProject project={primaryProject} />
+              {secondaryProjects.slice(0, 2).map((project, index) => (
+                <ProjectSplit index={`0${index + 2}`} key={project.slug} project={project} />
+              ))}
+            </div>
+          </section>
+        </Reveal>
+      ) : null}
+
+      <Reveal delay="short">
+        <section className="home-section site-container" aria-labelledby="knowledge-title">
+          <div className="knowledge-tile">
+            <span className="eyebrow">Mental model</span>
+            <h2 id="knowledge-title">
+              Complex systems become easier to reason about when the model is visible.
+            </h2>
+            <Link className="text-link" href="/writing">
+              <span>Explore selected explanations</span>
+              <span className="text-link__arrow" aria-hidden="true">
+                ↗
+              </span>
+            </Link>
+          </div>
+        </section>
+      </Reveal>
+
+      {articles.length > 0 ? (
+        <Reveal>
+          <section className="home-section site-container" aria-labelledby="featured-writing-title">
+            <SectionHeader
+              index="04"
+              title="Writing"
+              description="Technical explanations, mental models, and reflections from building software."
+              action={{ label: 'Read the journal', href: '/writing' }}
+            />
+            <div className="home-section__body">
+              {articles.map((article) => (
+                <ArticleRow
+                  key={article.slug}
+                  title={article.title}
+                  description={article.description}
+                  href={`/writing/${article.slug}`}
+                  date={formatDisplayDate(article.publishedAt)}
+                  dateTime={article.publishedAt}
+                  topics={article.topics}
+                  readingTime={article.readingTime}
+                />
+              ))}
+            </div>
+          </section>
+        </Reveal>
+      ) : null}
+
+      {retrospectives.length > 0 ? (
+        <Reveal>
+          <section className="home-section site-container" aria-labelledby="retrospectives-title">
+            <SectionHeader
+              index="05"
+              title="Retrospectives"
+              description="A year-by-year record of work, learning, and growth."
+            />
+            <RetrospectiveTimeline items={retrospectives} />
+          </section>
+        </Reveal>
+      ) : null}
+
+      {experience.length > 0 ? (
+        <Reveal>
+          <section className="home-section site-container" aria-labelledby="experience-title">
+            <SectionHeader
+              index="06"
+              title="Experience"
+              description="Roles connected to the work they produced."
+              action={{ label: 'View complete experience', href: '/about' }}
+            />
+            <ExperienceTimeline items={experience} />
+          </section>
+        </Reveal>
+      ) : null}
+
+      {testimonials.length > 0 ? (
+        <Reveal>
+          <section className="home-section site-container" aria-labelledby="testimonials-title">
+            <SectionHeader
+              index="07"
+              title="Testimonials"
+              description="Specific words from people I have built with."
+            />
+            <div className="testimonial-grid">
+              {testimonials.map((testimonial) => (
+                <TestimonialQuote
+                  key={`${testimonial.person}-${testimonial.role}`}
+                  testimonial={testimonial}
+                />
+              ))}
+            </div>
+          </section>
+        </Reveal>
+      ) : null}
+
+      <Reveal>
+        <section className="home-section site-container" aria-labelledby="personal-note-title">
+          <div className="personal-note">
+            <div className="personal-note__media">
+              <Image
+                src="/cycling.jpeg"
+                alt="Cyclists riding together on the road"
+                fill
+                sizes="(min-width: 48rem) 42vw, 100vw"
+              />
+            </div>
+            <div className="personal-note__content">
+              <span className="eyebrow">08 / Outside the work</span>
+              <h2 id="personal-note-title">{siteConfig.personalNote}</h2>
+              <Link className="text-link" href="/about">
+                <span>More about me</span>
+                <span className="text-link__arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </Reveal>
     </>
   );
+}
+
+async function selectHomepageArticles() {
+  const featured = await getFeaturedArticles();
+  const all = await getArticles();
+  const selected = new Map<string, (typeof all)[number]>();
+
+  [...featured, ...all].forEach((article) => {
+    if (selected.size < 3) {
+      selected.set(article.slug, article);
+    }
+  });
+
+  return Array.from(selected.values());
 }

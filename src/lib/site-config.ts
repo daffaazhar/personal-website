@@ -3,13 +3,18 @@ export const siteConfig = {
   monogram: 'DA',
   description:
     'Software engineer building dependable digital products from interface to infrastructure.',
-  location: 'Jakarta · UTC+7',
+  location: 'Sidoarjo · UTC+7',
   updatedLabel: 'Updated Jul 2026',
   availability: 'Available for selected projects',
-  email: 'TODO: Add public email',
+  availabilityVerified: false,
+  heroSupport:
+    'I work across web applications, backend architecture, deployment automation, and technical writing.',
+  personalNote:
+    'Most weekends I am on a bicycle somewhere between Surabaya and the coast. Distance is where I do my clearest thinking about hard problems.',
+  email: 'daffaazharsda@gmail.com',
   links: {
-    github: 'https://github.com/TODO',
-    linkedin: 'https://www.linkedin.com/in/TODO',
+    github: 'https://github.com/daffaazhar',
+    linkedin: 'https://www.linkedin.com/in/daffaazhar',
     resume: '/resume',
     rss: '/rss.xml',
   },

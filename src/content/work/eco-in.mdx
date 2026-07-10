@@ -1,0 +1,180 @@
+import { ContentFigure } from '@/components/content/content-figure';
+import { ContentTable } from '@/components/content/content-table';
+import { ProjectCredits } from '@/components/content/project-credits';
+
+export const metadata = {
+  title: 'Eco.in',
+  slug: 'eco-in',
+  label: 'Interactive environmental education mobile application',
+  summary:
+    'An environmental education mobile application concept for younger learners. I led product strategy, market framing, and MVP planning for a 3-person team during a 48-hour hackathon where the project won 3rd Place.',
+  yearStart: 2024,
+  yearEnd: 2024,
+  periodLabel: 'June 2024',
+  status: 'completed',
+  contentStatus: 'published',
+  featured: true,
+  featuredOrder: 3,
+  role: ['Product lead / Hustler'],
+  disciplines: ['Product strategy', 'Business strategy', 'MVP planning'],
+  stack: ['Flutter', 'Firebase', 'Firestore'],
+  teamSize: 3,
+  company: null,
+  location: 'Indonesia',
+  platform: 'Mobile',
+  links: {
+    live: null,
+    repository: null,
+  },
+  outcomes: ['3rd Place, Slashcom Android Hackathon, organized by UPN “Veteran” Jawa Timur.'],
+  cover: {
+    src: '/images/work/eco-in/eco-in-cover.png',
+    alt: 'Eco.in presentation cover showing two mobile interfaces for environmental stories and species learning beneath the Eco.in logo and the line Save Our Planet, Save Our Generation.',
+    width: 1500,
+    height: 844,
+    background: 'white',
+  },
+  coverCaption:
+    'FIG 01 — The Eco.in cover slide presented the mobile concept through introductory screens for environmental stories and species learning.',
+  metadataDescription:
+    'Eco.in is an environmental education mobile application developed by a 3-person team during a 48-hour hackathon. I led product strategy, market positioning, and MVP planning.',
+  publishedAt: '2026-07-08',
+  updatedAt: '2026-07-08',
+  relatedWriting: [],
+};
+
+## Overview
+
+Eco.in was an interactive environmental education mobile application concept developed by a 3-person team during the Slashcom Android Hackathon. The product combined interactive stories, species education, quizzes, and supporting 3D and AR learning ideas in one mobile experience.
+
+We framed it as a learning product for children and teenagers, while also considering parents, schools, educational institutions, and environmental organizations in the initial market definition.
+
+I led the product and business side of the project. The mobile, backend, database, and visual work belonged to the team collectively, not to me individually.
+
+## Context
+
+Environmental topics can feel distant when they are taught only through static explanations. We explored whether a phone could make ecology feel more participatory through stories, interaction, and repeatable learning activities.
+
+The original market definition covered users aged roughly 8–22, plus parents looking for engaging educational resources, schools, educational institutions, and environmental organizations. I treated that as a starting product hypothesis, not as proven market validation.
+
+The project was developed in June 2024 inside a 48-hour hackathon. That constraint forced the team to favour a clear product narrative over a broad catalogue of features.
+
+## The product problem
+
+The team needed to turn a very broad environmental education topic into a mobile product concept that could be designed, scoped, and presented within 48 hours.
+
+The difficulty was not only time. The concept touched stories, educational content, quizzes, 3D models, and AR, which made it easy to produce a feature list without a coherent learning journey.
+
+My product task was to keep the first version narrow enough to feel understandable while still showing why mobile interaction could matter for environmental education.
+
+## My role
+
+We developed Eco.in as a 3-person cross-functional team. Alga Vania Salsabillah worked as Hacker, Sarah Rizqi Firyal worked as Hipster, and I worked as Hustler.
+
+I was responsible for product strategy, the business proposition, target-user definition, competitor analysis, market positioning, possible revenue streams, and MVP planning.
+
+I also helped the team prioritize scope during the 48-hour hackathon and prepared the final presentation so the concept could be judged as a product, not only as a demo.
+
+## Defining the MVP
+
+I narrowed the first version to interactive stories, animal and plant education, and quizzes because these features could express the learning proposition within the hackathon deadline. This left more ambitious capabilities, such as detection, distribution maps, and broader gamification, outside the MVP.
+
+Decision: I kept 3D and AR tied to the species-learning area because that was the clearest place for them to support a concrete educational moment. The trade-off was that they stayed as supporting capabilities instead of becoming the centre of the first user journey.
+
+I treated the future-development list as roadmap material rather than as an MVP promise. That helped the team separate what had to be shown during the hackathon from what only needed to be argued as a credible next step.
+
+<ContentTable
+  variant="project"
+  columns={['Product area', 'Purpose', 'MVP status']}
+  rows={[
+    [
+      'Interactive stories',
+      'Turn ecology topics into branching narratives that end with educational context.',
+      'Included in the MVP',
+    ],
+    [
+      'Animal and plant education',
+      'Give users a browsable way to learn about species through dedicated detail pages.',
+      'Included in the MVP',
+    ],
+    [
+      '3D and AR learning',
+      'Support the species-learning experience with a more tangible visual layer.',
+      'Supporting MVP capability with higher implementation risk',
+    ],
+    [
+      'Interactive quizzes',
+      'Reinforce learning through repeatable ecology questions and visible results.',
+      'Included in the MVP',
+    ],
+    [
+      'Detection, gamification, and distribution maps',
+      'Expand engagement and data depth beyond the first concept.',
+      'Future development',
+    ],
+  ]}
+/>
+
+## Product experience
+
+The documented flow started when users opened the application, moved through an introduction, and landed on a dashboard that previewed the main areas: interactive stories, species education, and quizzes.
+
+In the story flow, users chose an interactive scenario, made decisions during the journey, and reached an ending that included educational information related to the story. This let the product connect narrative choices with environmental explanation.
+
+In the species-learning flow, users browsed animal and plant entries, opened detail pages, and could continue into 3D or AR viewing. In the quiz flow, users answered ecology questions and then saw a final score. Together, these flows moved between explanation, interaction, and reinforcement.
+
+## Architecture
+
+The documented high-level architecture consisted of a Flutter mobile client, Firebase backend services, and Firestore data storage.
+
+The architecture slide presented a simple path from users to the Flutter application, then from the application to Firebase and Firestore. That kept the system boundary legible and matched the need to avoid unnecessary infrastructure overhead during a 48-hour hackathon.
+
+<ContentFigure
+  variant="project"
+  src="/images/work/eco-in/eco-in-architecture.png"
+  alt="Eco.in architecture diagram connecting users to a Flutter mobile frontend, Firebase backend services, and Firestore."
+  caption="FIG 02 — The documented Eco.in architecture connected the Flutter client to Firebase services and Firestore."
+  width={1500}
+  height={844}
+  background="white"
+/>
+
+## Constraints and trade-offs
+
+The first constraint was team size and time. With 3 people and 48 hours, every feature had to justify both its learning purpose and its delivery cost.
+
+The second constraint was research depth. I could define target users, review competitors, and frame the market, but there was not enough time for meaningful user validation. That meant our audience definition stayed at the hypothesis stage.
+
+The third constraint was content scope. A product about ecology can expand quickly, so we chose a smaller set of example stories, species, and quiz interactions instead of trying to cover the whole domain.
+
+The fourth constraint was technical ambition. 3D and AR helped differentiate the concept, but they also increased implementation and presentation risk. We kept them attached to the species-learning area rather than letting them dictate the whole product.
+
+We treated animal and plant detection, distribution maps, gamification, and collaboration with environmental organizations or NGOs as future work because each idea would have widened the data, partnership, or engineering scope beyond the hackathon window.
+
+## Outcome
+
+Eco.in won 3rd Place in the Slashcom Android Hackathon, organized by UPN “Veteran” Jawa Timur.
+
+## What I learned
+
+A hackathon product needs a narrow story, not only a broad feature set. The concept became easier to explain once the MVP centred on a few linked learning flows instead of every possible idea.
+
+Product positioning becomes clearer when the target user and intended learning outcome are explicit. Without that, even a promising concept can drift into a generic feature list.
+
+3D and AR should support the learning objective rather than exist as decoration. Their role became easier to justify once they were attached to species education instead of treated as a standalone novelty.
+
+Roadmap ideas need a clear boundary from MVP commitments. Separating future plans from the first version made the pitch more credible.
+
+Business-model exploration is useful even in a competition setting because it tests whether a concept could continue beyond the event. An award helps validate the presentation, but it does not replace user validation.
+
+## Project credits
+
+Eco.in was completed by a 3-person cross-functional team.
+
+<ProjectCredits
+  credits={[
+    { name: 'Alga Vania Salsabillah', role: 'Hacker' },
+    { name: 'Daffa Azhar Putra Utama', role: 'Hustler' },
+    { name: 'Sarah Rizqi Firyal', role: 'Hipster' },
+  ]}
+/>

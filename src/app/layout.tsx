@@ -21,7 +21,7 @@ type RootLayoutProps = Readonly<{
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="id">
+    <html lang="en">
       <body>
         <a className="skip-link" href="#main-content">
           Skip to content
