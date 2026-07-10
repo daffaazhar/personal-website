@@ -1,35 +1,15 @@
-services:
-  web:
-    container_name: dapu-web
+.git
+.github
+.gitignore
 
-    build:
-      context: .
-      dockerfile: Dockerfile
+.next
+node_modules
 
-    restart: unless-stopped
-    init: true
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
-    ports:
-      - "127.0.0.1:3000:3000"
+Dockerfile*
+docker-compose*.yml
 
-    environment:
-      NODE_ENV: production
-      PORT: 3000
-      HOSTNAME: 0.0.0.0
-
-    # Aktifkan jika aplikasi memiliki environment variable server-side.
-    # env_file:
-    #   - .env.production
-
-    healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "wget -q --spider http://127.0.0.1:3000/ || exit 1",
-        ]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 20s
-
-    stop_grace_period: 30s
+README.md
