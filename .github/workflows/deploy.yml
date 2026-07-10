@@ -1,0 +1,186 @@
+name: CI and Production Deployment
+
+on:
+  push:
+
+  pull_request:
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: '24'
+  NEXT_TELEMETRY_DISABLED: '1'
+
+jobs:
+  ci:
+    name: Validate application
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint --if-present
+
+      - name: Run type check
+        run: npm run typecheck --if-present
+
+      - name: Run tests
+        run: npm test --if-present
+
+      - name: Prepare production environment
+        shell: bash
+        env:
+          PRODUCTION_ENV_FILE: ${{ secrets.PRODUCTION_ENV_FILE }}
+        run: |
+          set -Eeuo pipefail
+
+          if [ -n "${PRODUCTION_ENV_FILE:-}" ]; then
+            printf '%s' "$PRODUCTION_ENV_FILE" > .env.production
+          fi
+
+      - name: Build application
+        run: npm run build
+
+  deploy:
+    name: Deploy to production
+    needs:
+      - ci
+
+    if: >-
+      github.event_name != 'pull_request' &&
+      github.ref_name == github.event.repository.default_branch
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    concurrency:
+      group: personal-website-production
+      cancel-in-progress: false
+
+    env:
+      VPS_HOST: ${{ secrets.VPS_HOST }}
+      VPS_PORT: ${{ secrets.VPS_PORT }}
+      VPS_USER: ${{ secrets.VPS_USER }}
+      VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+      VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+      DEPLOY_BRANCH: ${{ github.event.repository.default_branch }}
+
+    steps:
+      - name: Validate deployment secrets
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          required_variables=(
+            VPS_HOST
+            VPS_PORT
+            VPS_USER
+            VPS_SSH_KEY
+            VPS_KNOWN_HOSTS
+            DEPLOY_BRANCH
+          )
+
+          for variable_name in "${required_variables[@]}"; do
+            if [ -z "${!variable_name:-}" ]; then
+              echo "::error::Secret or variable ${variable_name} is empty."
+              exit 1
+            fi
+          done
+
+      - name: Configure SSH
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          install -m 700 -d "$HOME/.ssh"
+
+          printf '%s\n' "$VPS_SSH_KEY" \
+            | tr -d '\r' \
+            > "$HOME/.ssh/id_ed25519"
+
+          printf '%s\n' "$VPS_KNOWN_HOSTS" \
+            | tr -d '\r' \
+            > "$HOME/.ssh/known_hosts"
+
+          chmod 600 "$HOME/.ssh/id_ed25519"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Verify SSH connection
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          ssh \
+            -i "$HOME/.ssh/id_ed25519" \
+            -p "$VPS_PORT" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+            -o ConnectTimeout=15 \
+            "$VPS_USER@$VPS_HOST" \
+            "echo 'SSH connection established for user:' \$(whoami)"
+
+      - name: Deploy application
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          ssh \
+            -i "$HOME/.ssh/id_ed25519" \
+            -p "$VPS_PORT" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o StrictHostKeyChecking=yes \
+            -o UserKnownHostsFile="$HOME/.ssh/known_hosts" \
+            -o ConnectTimeout=15 \
+            "$VPS_USER@$VPS_HOST" \
+            "DEPLOY_BRANCH='$DEPLOY_BRANCH' /opt/personal-website/deploy.sh"
+
+      - name: Verify production website
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          for attempt in $(seq 1 10); do
+            echo "Health check attempt ${attempt}/10"
+
+            if curl \
+              --fail \
+              --silent \
+              --show-error \
+              --location \
+              --max-time 15 \
+              https://dapu.my.id/ \
+              > /dev/null; then
+              echo "Production website is reachable."
+              exit 0
+            fi
+
+            sleep 5
+          done
+
+          echo "::error::Production health check failed."
+          exit 1
+
+      - name: Remove SSH credentials
+        if: always()
+        shell: bash
+        run: |
+          rm -f "$HOME/.ssh/id_ed25519"
+          rm -f "$HOME/.ssh/known_hosts"
