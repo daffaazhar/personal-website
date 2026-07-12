@@ -718,6 +718,7 @@
 .home-visual__stage {
   position: relative;
   display: grid;
+  margin: 0;
   min-height: 12rem;
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -726,19 +727,8 @@
   border-block: var(--border);
 }
 
-.home-visual__stage::before {
-  position: absolute;
-  inset: 12%;
-  border-block: var(--border-strong);
-  content: '';
-}
-
-.home-visual__stage::after {
-  position: absolute;
-  inset-inline: 18%;
-  inset-block: 28%;
-  border-inline: var(--border-strong);
-  content: '';
+.home-visual__image {
+  object-fit: cover;
 }
 
 .home-visual__meta {

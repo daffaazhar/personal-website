@@ -62,16 +62,20 @@ export default async function HomePage() {
         <h2 id="featured-visual-title" className="sr-only">
           Featured visual
         </h2>
-        <div
-          className="home-visual__stage home-hero__entry"
-          role="img"
-          aria-label="Editorial visual reserved for a future homepage image"
-        >
-          <div className="home-visual__meta" aria-hidden="true">
+        <figure className="home-visual__stage home-hero__entry">
+          <Image
+            className="home-visual__image"
+            src="/interface-to-infrastructure.png"
+            alt="Workflow application screens connected to a transactional outbox, message broker, and audit trail infrastructure."
+            fill
+            priority
+            sizes="(min-width: 100rem) 100rem, 100vw"
+          />
+          <figcaption className="home-visual__meta">
             <span>Fig. 01</span>
-            <span>Image intentionally withheld until final source material is ready</span>
-          </div>
-        </div>
+            <span>From product interface to dependable infrastructure.</span>
+          </figcaption>
+        </figure>
       </section>
 
       <Reveal>
