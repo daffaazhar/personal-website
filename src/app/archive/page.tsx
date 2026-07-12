@@ -7,8 +7,7 @@ import { buildPageMetadata } from '@/lib/seo';
 
 export const metadata = buildPageMetadata({
   title: 'Index',
-  description:
-    'A text-first archive of published work, writing, notes, experience, and retrospectives.',
+  description: 'A text-first archive of published work, writing, notes, and experience.',
   path: '/index',
 });
 

@@ -11,25 +11,17 @@ export type {
   NoteMetadata as Note,
   ProjectMetadata as Project,
   ProjectStatus,
-  Retrospective,
   Testimonial,
   TocItem,
 } from '@/lib/content/types';
 
-import type {
-  EmploymentType,
-  Experience,
-  ImpactMetric,
-  Retrospective,
-  Testimonial,
-} from '@/lib/content/types';
+import type { EmploymentType, Experience, ImpactMetric, Testimonial } from '@/lib/content/types';
 
 type ValidationIssue = {
   path: string;
   message: string;
 };
 
-const datePattern = /^\d{4}-\d{2}-\d{2}$/;
 const monthPattern = /^\d{4}-\d{2}$/;
 
 function hasText(value: string) {
@@ -48,12 +40,6 @@ function validateTextArray(value: string[], path: string, issues: ValidationIssu
   }
 
   value.forEach((item, index) => validateText(item, `${path}.${index}`, issues));
-}
-
-function validateDate(value: string, path: string, issues: ValidationIssue[]) {
-  if (!datePattern.test(value)) {
-    issues.push({ path, message: 'Expected date in YYYY-MM-DD format.' });
-  }
 }
 
 function validateMonth(value: string, path: string, issues: ValidationIssue[]) {
@@ -94,27 +80,6 @@ export function validateImpactMetrics(metrics: ImpactMetric[]) {
   });
 
   validateIssues('Impact metrics', issues);
-}
-
-export function validateRetrospectives(retrospectives: Retrospective[]) {
-  const issues: ValidationIssue[] = [];
-
-  retrospectives.forEach((retrospective, index) => {
-    const path = `retrospectives.${index}`;
-    validateText(retrospective.title, `${path}.title`, issues);
-    validateText(retrospective.slug, `${path}.slug`, issues);
-    validateText(retrospective.description, `${path}.description`, issues);
-    validateDate(retrospective.publishedAt, `${path}.publishedAt`, issues);
-    validateText(retrospective.contentStatus, `${path}.contentStatus`, issues);
-    validateTextArray(retrospective.topics, `${path}.topics`, issues);
-    validateTextArray(retrospective.highlights, `${path}.highlights`, issues);
-
-    if (retrospective.statusLabel) {
-      validateText(retrospective.statusLabel, `${path}.statusLabel`, issues);
-    }
-  });
-
-  validateIssues('Retrospectives', issues);
 }
 
 export function validateExperience(experience: Experience[]) {

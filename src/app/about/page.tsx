@@ -5,7 +5,6 @@ import type { ReactNode } from 'react';
 import { AboutContactActions } from '@/components/content/about-contact-actions';
 import { EditorialDefinitionList } from '@/components/content/editorial-definition-list';
 import { ExperienceTimeline } from '@/components/content/experience-timeline';
-import { RetrospectiveTimeline } from '@/components/content/retrospective-timeline';
 import { Reveal } from '@/components/motion/reveal';
 import { StructuredData } from '@/components/seo/structured-data';
 import {
@@ -16,7 +15,6 @@ import {
   selectedInterests,
 } from '@/content/about';
 import { getPublishedExperience } from '@/lib/content/experience';
-import { getRetrospectives } from '@/lib/content/retrospectives';
 import { buildAboutStructuredData, buildPageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = buildPageMetadata({
@@ -31,7 +29,6 @@ export const metadata: Metadata = buildPageMetadata({
 
 export default function AboutPage() {
   const experience = getPublishedExperience();
-  const retrospectives = getRetrospectives();
 
   return (
     <>
@@ -86,21 +83,10 @@ export default function AboutPage() {
         </AboutSection>
       </Reveal>
 
-      <Reveal>
-        <AboutSection
-          id="growth-archive"
-          index="06"
-          title="Growth archive"
-          introduction="A concise record of what changed in my work and thinking each year."
-        >
-          <RetrospectiveTimeline items={retrospectives} />
-        </AboutSection>
-      </Reveal>
-
       <Reveal delay="short" mode="load">
         <AboutSection
           id="experience"
-          index="07"
+          index="06"
           title="Experience"
           introduction="Roles that expanded my scope from front-end delivery to product systems, data, and deployment."
         >
@@ -111,7 +97,7 @@ export default function AboutPage() {
       <Reveal>
         <AboutSection
           id="capabilities"
-          index="08"
+          index="07"
           title={capabilities.title}
           introduction={capabilities.introduction}
         >
@@ -120,7 +106,7 @@ export default function AboutPage() {
       </Reveal>
 
       <Reveal>
-        <AboutSection id="contact" index="09" title={contactSection.title}>
+        <AboutSection id="contact" index="08" title={contactSection.title}>
           <p>{contactSection.body}</p>
           <AboutContactActions />
         </AboutSection>

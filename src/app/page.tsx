@@ -8,7 +8,6 @@ import { FeaturedProject } from '@/components/content/featured-project';
 import { HeroStatement } from '@/components/content/hero-statement';
 import { ImpactStatistics } from '@/components/content/impact-statistics';
 import { ProjectSplit } from '@/components/content/project-split';
-import { RetrospectiveTimeline } from '@/components/content/retrospective-timeline';
 import { SectionHeader } from '@/components/content/section-header';
 import { TestimonialQuote } from '@/components/content/testimonial-quote';
 import { Reveal } from '@/components/motion/reveal';
@@ -16,7 +15,6 @@ import { StructuredData } from '@/components/seo/structured-data';
 import { getRecentExperience } from '@/lib/content/experience';
 import { getImpactMetrics } from '@/lib/content/impact-metrics';
 import { getFeaturedProjects } from '@/lib/content/projects';
-import { getRetrospectives } from '@/lib/content/retrospectives';
 import { getTestimonials } from '@/lib/content/testimonials';
 import { getArticles, getFeaturedArticles } from '@/lib/content/writing';
 import { formatDisplayDate } from '@/lib/dates';
@@ -37,7 +35,6 @@ export default async function HomePage() {
   const featuredProjects = await getFeaturedProjects();
   const [primaryProject, ...secondaryProjects] = featuredProjects;
   const articles = await selectHomepageArticles();
-  const retrospectives = getRetrospectives().slice(0, 3);
   const experience = getRecentExperience(3);
   const impactMetrics = getImpactMetrics();
   const testimonials = getTestimonials()
@@ -147,24 +144,11 @@ export default async function HomePage() {
         </Reveal>
       ) : null}
 
-      {retrospectives.length > 0 ? (
-        <Reveal>
-          <section className="home-section site-container" aria-labelledby="retrospectives-title">
-            <SectionHeader
-              index="05"
-              title="Retrospectives"
-              description="A year-by-year record of work, learning, and growth."
-            />
-            <RetrospectiveTimeline items={retrospectives} />
-          </section>
-        </Reveal>
-      ) : null}
-
       {experience.length > 0 ? (
         <Reveal>
           <section className="home-section site-container" aria-labelledby="experience-title">
             <SectionHeader
-              index="06"
+              index="05"
               title="Experience"
               description="Roles connected to the work they produced."
               action={{ label: 'View complete experience', href: '/about' }}
@@ -178,7 +162,7 @@ export default async function HomePage() {
         <Reveal>
           <section className="home-section site-container" aria-labelledby="testimonials-title">
             <SectionHeader
-              index="07"
+              index="06"
               title="Testimonials"
               description="Specific words from people I have built with."
             />
@@ -206,7 +190,7 @@ export default async function HomePage() {
               />
             </div>
             <div className="personal-note__content">
-              <span className="eyebrow">08 / Outside the work</span>
+              <span className="eyebrow">07 / Outside the work</span>
               <h2 id="personal-note-title">{siteConfig.personalNote}</h2>
               <Link className="text-link" href="/about">
                 <span>More about me</span>

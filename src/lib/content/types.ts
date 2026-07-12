@@ -73,18 +73,6 @@ export type NoteMetadata = BaseContentMetadata & {
   relatedArticle: string | null;
 };
 
-export type Retrospective = {
-  title: string;
-  slug: string;
-  year: number;
-  description: string;
-  publishedAt: string;
-  contentStatus: ContentStatus;
-  topics: string[];
-  highlights: string[];
-  statusLabel?: string;
-};
-
 export type Experience = {
   slug: string;
   company: string;

@@ -179,7 +179,6 @@ ArticleRow
 NoteRow
 MetadataList
 ExperienceTimeline
-RetrospectiveTimeline
 TestimonialQuote
 Figure
 FigureCaption
@@ -262,7 +261,6 @@ Deliver typed content collections for:
 - projects;
 - articles;
 - notes;
-- retrospectives;
 - experience;
 - testimonials.
 
@@ -306,7 +304,6 @@ Deliver:
 - narrative About page;
 - experience timeline;
 - personal interests section;
-- retrospective archive;
 - complete Index page.
 
 ### Phase 8 — Quality
@@ -433,7 +430,6 @@ src/
 │   │   ├── note-row.tsx
 │   │   ├── metadata-list.tsx
 │   │   ├── experience-timeline.tsx
-│   │   ├── retrospective-timeline.tsx
 │   │   └── testimonial-quote.tsx
 │   │
 │   ├── article/
@@ -453,7 +449,6 @@ src/
 │   ├── projects/
 │   ├── writing/
 │   ├── notes/
-│   ├── retrospectives/
 │   ├── experience/
 │   └── testimonials/
 │
@@ -462,7 +457,6 @@ src/
 │   │   ├── projects.ts
 │   │   ├── writing.ts
 │   │   ├── notes.ts
-│   │   ├── retrospectives.ts
 │   │   ├── experience.ts
 │   │   ├── testimonials.ts
 │   │   └── schemas.ts
@@ -790,18 +784,7 @@ Each row includes:
 - reading time;
 - arrow.
 
-### 11.7 Retrospectives
-
-Show up to three recent years.
-
-Include:
-
-- year;
-- one-line summary;
-- selected professional and personal themes;
-- link.
-
-### 11.8 Experience preview
+### 11.7 Experience preview
 
 Show two recent roles.
 
@@ -813,19 +796,19 @@ Include:
 - one concise outcome-oriented summary;
 - related project link where relevant.
 
-### 11.9 Testimonials
+### 11.8 Testimonials
 
 Show one to three static testimonials.
 
 Do not use a carousel.
 
-### 11.10 Personal note
+### 11.9 Personal note
 
 A short section about selected interests outside work.
 
 Keep it restrained and relevant.
 
-### 11.11 Newsletter
+### 11.10 Newsletter
 
 Optional.
 
@@ -915,7 +898,6 @@ Support:
 - chronological rows;
 - topic filtering;
 - optional language filtering;
-- retrospective category;
 - RSS;
 - search only when useful.
 
@@ -928,7 +910,6 @@ LARAVEL
 NEXT.JS
 DEVOPS
 CAREER
-RETROSPECTIVE
 ```
 
 Do not use a dense cloud of rounded chips.
@@ -1013,10 +994,9 @@ Required content order:
 4. Origin story
 5. Current focus
 6. Selected interests
-7. Annual growth archive
-8. Experience
-9. Concise capabilities
-10. Contact
+7. Experience
+8. Concise capabilities
+9. Contact
 
 Tone:
 
@@ -1050,7 +1030,6 @@ Group content by:
 WORK
 WRITING
 NOTES
-RETROSPECTIVES
 TALKS
 SIDE PROJECTS
 BOOK NOTES
@@ -1164,25 +1143,6 @@ topics:
 environment:
   - "Ubuntu 24.04"
   - "Supervisor 4"
----
-```
-
-### Retrospective
-
-```yaml
----
-title: "The 2026 Retrospective"
-slug: "2026-retrospective"
-year: 2026
-description: "Work, learning, cycling, and lessons from production systems."
-published_at: "2026-12-31"
-
-topics:
-  - "Retrospective"
-
-highlights:
-  - "A meaningful professional milestone"
-  - "A meaningful personal milestone"
 ---
 ```
 
@@ -1753,7 +1713,6 @@ Content structure
 How to add a project
 How to add an article
 How to add a note
-How to add a retrospective
 Design-token location
 Testing
 Production build

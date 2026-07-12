@@ -10,5 +10,6 @@ Before changing code:
 6. Use Base UI only for behavioral primitives.
 7. Do not use gradients, glow effects, bento grids, large rounded cards,
    fake terminals, or generic SaaS styling.
-8. Run typecheck, lint, formatting checks, tests, and production build before
-   completing a task.
+8. Run typecheck, lint, formatting checks, and tests before completing a task.
+9. Do not run `npm run build` as part of task completion; the user runs the
+   production build manually.

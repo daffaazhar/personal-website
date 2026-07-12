@@ -1,7 +1,6 @@
 import { getPublishedExperience } from '@/lib/content/experience';
 import { getNotes } from '@/lib/content/notes';
 import { getProjects } from '@/lib/content/projects';
-import { getRetrospectives } from '@/lib/content/retrospectives';
 import { getArticles } from '@/lib/content/writing';
 import { formatExperiencePeriod } from '@/lib/dates';
 
@@ -21,7 +20,6 @@ export async function getArchiveGroups(): Promise<ArchiveGroup[]> {
   const projects = await getProjects();
   const articles = await getArticles();
   const notes = await getNotes();
-  const retrospectives = getRetrospectives();
   const experience = getPublishedExperience();
 
   return [
@@ -52,15 +50,6 @@ export async function getArchiveGroups(): Promise<ArchiveGroup[]> {
         title: note.title,
         href: `/notes/${note.slug}`,
         meta: note.publishedAt.slice(0, 7),
-      })),
-    },
-    {
-      title: 'Retrospectives',
-      count: retrospectives.length,
-      entries: retrospectives.map((retrospective) => ({
-        title: retrospective.title,
-        href: null,
-        meta: String(retrospective.year),
       })),
     },
     {

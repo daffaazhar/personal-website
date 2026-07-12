@@ -364,7 +364,7 @@
   inset: 0;
   z-index: var(--z-modal);
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   padding: var(--space-4);
 }
 

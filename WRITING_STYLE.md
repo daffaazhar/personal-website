@@ -242,7 +242,6 @@ Selalu bedakan:
 | Technical article | explanatory, structured, practical |
 | Short note | concise, operational, precise |
 | About | personal, reflective, restrained |
-| Retrospective | honest, reflective, contextual |
 | Contact | direct, warm, low-friction |
 | Error state | calm, useful, non-blaming |
 
@@ -672,42 +671,7 @@ Jangan publikasikan informasi yang:
 
 ---
 
-## 14. Retrospective
-
-Retrospective bukan daftar achievement.
-
-Bahas:
-
-- what changed;
-- what worked;
-- what failed;
-- what was difficult;
-- what was learned;
-- what changes next.
-
-Recommended sections:
-
-```text
-The year in one sentence
-Work
-Learning
-What did not work
-Personal life
-What changed in my thinking
-What I am carrying forward
-```
-
-Good:
-
-> I spent too much time solving deployment problems reactively. The repeated failures made it clear that I needed reusable environment checks and documented recovery steps.
-
-Avoid:
-
-> This year had many ups and downs, but I am grateful for everything.
-
----
-
-## 15. Metadata
+## 14. Metadata
 
 Metadata harus ringkas dan faktual.
 
@@ -731,7 +695,7 @@ Gunakan label pendek dan konsisten.
 
 ---
 
-## 16. Statistics and impact claims
+## 15. Statistics and impact claims
 
 Sebelum menampilkan statistik, verifikasi:
 
@@ -755,7 +719,7 @@ Jika data diturunkan dari sumber lain, simpan `sourceNote` secara internal.
 
 ---
 
-## 17. Calls to action
+## 16. Calls to action
 
 Gunakan CTA langsung:
 
@@ -763,7 +727,6 @@ Gunakan CTA langsung:
 - Read article
 - Browse all work
 - View complete experience
-- Read the retrospective
 - Download résumé
 - Send an email
 - Open GitHub

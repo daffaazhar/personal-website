@@ -3,7 +3,7 @@
 > Design specification for a personal website that combines the restrained,
 > rational visual language associated with Polestar with the content depth of
 > a mature personal knowledge hub: portfolio, long-form writing, short notes,
-> experience, annual retrospectives, testimonials, and selected personal life.
+> experience, testimonials, and selected personal life.
 >
 > This is an interpretation, not a replica. Do not copy Polestar trademarks,
 > logos, proprietary typefaces, photography, exact layouts, or another
@@ -19,7 +19,7 @@ The website must communicate four dimensions of one person:
 
 1. **Capability** — selected work, contribution, decisions, and outcomes.
 2. **Knowledge** — articles, mental models, tutorials, and short notes.
-3. **Growth** — experience, annual retrospectives, and lessons learned.
+3. **Growth** — experience, reflective writing, and lessons learned.
 4. **Personality** — a restrained selection of interests outside work.
 
 The result should feel like a carefully engineered product catalogue and
@@ -168,7 +168,7 @@ Long-form content:
 - architecture articles;
 - production lessons;
 - career reflections;
-- annual retrospectives.
+- experience.
 
 #### Notes
 
@@ -203,7 +203,6 @@ A complete, text-first archive:
 - all work;
 - all writing;
 - all notes;
-- retrospectives;
 - talks;
 - side projects;
 - book notes;
@@ -704,17 +703,6 @@ Explore selected explanations ↗
 - no image requirement;
 - no masonry.
 
-### Retrospective timeline
-
-```text
-2026   Final project · Production systems · Cycling
-2025   Freelance development · CI/CD · New responsibilities
-2024   ...
-```
-
-Retrospectives mix career and personal growth, but should not become
-achievement scoreboards.
-
 ### Experience timeline
 
 ```text
@@ -783,18 +771,16 @@ Order:
 5. Selected work
 6. Knowledge proposition
 7. Featured writing
-8. Recent retrospectives
-9. Experience preview
-10. Testimonials
-11. Personal note
-12. Optional newsletter
-13. Footer
+8. Experience preview
+9. Testimonials
+10. Personal note
+11. Optional newsletter
+12. Footer
 
 Density:
 
 - 2–3 featured projects;
 - 3 articles;
-- 3 recent retrospectives;
 - 2 roles;
 - up to 3 testimonials.
 
@@ -884,7 +870,6 @@ Features:
 - optional language filter;
 - chronological rows;
 - search when the archive is large;
-- retrospective category;
 - RSS.
 
 Use text-based filters, not a multi-row cloud of rounded chips.
@@ -955,10 +940,9 @@ Order:
 4. Origin story
 5. Current focus
 6. Selected personal interests
-7. Annual growth archive
-8. Experience
-9. Concise capabilities
-10. Contact
+7. Experience
+8. Concise capabilities
+9. Contact
 
 Tone should be warm but precise.
 
@@ -979,7 +963,6 @@ A dense, fast, text-first archive grouped as:
 WORK
 WRITING
 NOTES
-RETROSPECTIVES
 TALKS
 SIDE PROJECTS
 BOOK NOTES
@@ -1072,23 +1055,6 @@ topics:
 environment:
   - "Ubuntu 24.04"
   - "Supervisor 4"
----
-```
-
-### Retrospective
-
-```yaml
----
-title: "The 2026 Retrospective"
-slug: "2026-retrospective"
-year: 2026
-description: "Work, learning, cycling, and production lessons."
-published_at: "2026-12-31"
-topics:
-  - "Retrospective"
-highlights:
-  - "A meaningful professional milestone"
-  - "A meaningful personal milestone"
 ---
 ```
 
@@ -1306,7 +1272,6 @@ ArticleRow
 FeaturedEditorialTile
 NotesIndex
 NoteRow
-RetrospectiveTimeline
 ExperienceTimeline
 TestimonialQuote
 NewsletterForm
