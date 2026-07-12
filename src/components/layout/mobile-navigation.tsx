@@ -14,7 +14,13 @@ export function MobileNavigation() {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <div className="mobile-nav">
-        <Dialog.Trigger className="mobile-nav__trigger">Menu</Dialog.Trigger>
+        <Dialog.Trigger className="mobile-nav__trigger" aria-label="Open menu">
+          <span className="mobile-nav__trigger-icon" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </span>
+        </Dialog.Trigger>
       </div>
       <Dialog.Portal>
         <Dialog.Backdrop className="mobile-nav__backdrop" />

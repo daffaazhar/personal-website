@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.author.name }],
   creator: siteConfig.author.name,
   publisher: siteConfig.author.name,
+  icons: {
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    shortcut: ['/icon.svg'],
+  },
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.description,

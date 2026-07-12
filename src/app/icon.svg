@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Daffa Azhar monogram">
+  <rect width="64" height="64" fill="#101010" />
+  <text
+    x="29"
+    y="34"
+    fill="#f5f5f1"
+    font-family="Instrument Sans, Helvetica Neue, Arial, sans-serif"
+    font-size="23"
+    font-weight="500"
+    letter-spacing="0"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >
+    DA
+  </text>
+  <rect x="47" y="34" width="6" height="6" fill="#f2e533" />
+</svg>

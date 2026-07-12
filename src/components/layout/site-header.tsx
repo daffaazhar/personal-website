@@ -10,9 +10,22 @@ export function SiteHeader() {
     <header className="site-header">
       <div className="site-container site-header__bar">
         <Link className="site-brand" href="/" aria-label={`${siteConfig.name} home`}>
-          <span className="site-brand__mark" aria-hidden="true">
-            {siteConfig.monogram}
-          </span>
+          <svg className="site-brand__mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" fill="var(--color-inverse-canvas)" />
+            <text
+              x="29"
+              y="34"
+              fill="var(--color-inverse-ink)"
+              fontFamily="var(--font-sans)"
+              fontSize="23"
+              fontWeight="500"
+              textAnchor="middle"
+              dominantBaseline="middle"
+            >
+              {siteConfig.monogram}
+            </text>
+            <rect x="47" y="34" width="6" height="6" fill="var(--color-accent)" />
+          </svg>
           <span className="site-brand__name">{siteConfig.name}</span>
         </Link>
 
