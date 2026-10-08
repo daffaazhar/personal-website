@@ -54,7 +54,9 @@ export function Reveal({ children, className, delay = 'none', mode = 'scroll' }:
       },
       {
         rootMargin: '0px 0px -5% 0px',
-        threshold: 0.16,
+        // Long reading surfaces can exceed the viewport many times over.
+        // Reveal on entry, not a fraction of the entire element's height.
+        threshold: 0,
       },
     );
 
