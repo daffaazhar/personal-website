@@ -1,32 +1,40 @@
 import type { MetadataRoute } from 'next';
 
-import { getNotes } from '@/lib/content/notes';
 import { getProjects } from '@/lib/content/projects';
 import { getArticles } from '@/lib/content/writing';
 import { getSiteUrl } from '@/lib/site-url';
 
-const routes = ['', '/work', '/writing', '/notes', '/about', '/index'];
+const routes = ['', '/work', '/writing', '/about', '/index'];
+
+function latestContentUpdate(items: { updatedAt: string }[]) {
+  return items.reduce<string | undefined>(
+    (latest, item) => (!latest || item.updatedAt > latest ? item.updatedAt : latest),
+    undefined,
+  );
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [projects, articles] = await Promise.all([getProjects(), getArticles()]);
+  // Known content freshness for collection pages; omit unknown template/profile dates.
+  const collectionUpdates: Record<string, string | undefined> = {
+    '/work': latestContentUpdate(projects),
+    '/writing': latestContentUpdate(articles),
+    '/index': latestContentUpdate([...projects, ...articles]),
+  };
   const staticRoutes = routes.map((route) => ({
     url: getSiteUrl(route || '/'),
-    lastModified: new Date('2026-07-07'),
+    ...(collectionUpdates[route] ? { lastModified: new Date(collectionUpdates[route]) } : {}),
   }));
 
-  const projectRoutes = (await getProjects()).map((project) => ({
+  const projectRoutes = projects.map((project) => ({
     url: getSiteUrl(`/work/${project.slug}`),
     lastModified: new Date(project.updatedAt),
   }));
 
-  const articleRoutes = (await getArticles()).map((article) => ({
+  const articleRoutes = articles.map((article) => ({
     url: getSiteUrl(`/writing/${article.slug}`),
     lastModified: new Date(article.updatedAt),
   }));
 
-  const noteRoutes = (await getNotes()).map((note) => ({
-    url: getSiteUrl(`/notes/${note.slug}`),
-    lastModified: new Date(note.updatedAt),
-  }));
-
-  return [...staticRoutes, ...projectRoutes, ...articleRoutes, ...noteRoutes];
+  return [...staticRoutes, ...projectRoutes, ...articleRoutes];
 }

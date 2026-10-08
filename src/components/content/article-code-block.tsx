@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type ArticleCodeBlockProps = {
   language: string;
@@ -72,22 +72,39 @@ const sqlKeywords = new Set([
 ]);
 
 export function ArticleCodeBlock({ language, code }: ArticleCodeBlockProps) {
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<'idle' | 'copying' | 'copied' | 'error'>('idle');
+  const mounted = useRef(false);
   const lines = code.split('\n');
 
   useEffect(() => {
-    if (!copied) {
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (copyStatus !== 'copied') {
       return;
     }
 
-    const timeout = window.setTimeout(() => setCopied(false), 1800);
+    const timeout = window.setTimeout(() => setCopyStatus('idle'), 1800);
 
     return () => window.clearTimeout(timeout);
-  }, [copied]);
+  }, [copyStatus]);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(code);
-    setCopied(true);
+    setCopyStatus('copying');
+    try {
+      if (typeof navigator.clipboard?.writeText !== 'function') {
+        if (mounted.current) setCopyStatus('error');
+        return;
+      }
+      await navigator.clipboard.writeText(code);
+      if (mounted.current) setCopyStatus('copied');
+    } catch {
+      if (mounted.current) setCopyStatus('error');
+    }
   };
 
   return (
@@ -99,11 +116,19 @@ export function ArticleCodeBlock({ language, code }: ArticleCodeBlockProps) {
           className="article-code__copy"
           onClick={handleCopy}
           aria-label={`Copy ${language} code`}
+          disabled={copyStatus === 'copying'}
         >
-          {copied ? 'Copied' : 'Copy'}
+          {copyStatus === 'copied' ? 'Copied' : copyStatus === 'copying' ? 'Copying…' : 'Copy'}
         </button>
       </div>
-      <pre>
+      <p className="article-code__status" role="status" aria-live="polite" aria-atomic="true">
+        {copyStatus === 'copied'
+          ? 'Code copied.'
+          : copyStatus === 'error'
+            ? 'Unable to copy. Select the code and copy it manually.'
+            : ''}
+      </p>
+      <pre tabIndex={0} aria-label={`${languageLabels[language.toLowerCase()] ?? language} code`}>
         <code>
           {lines.map((line, lineIndex) => (
             <span className="article-code__line" key={`${lineIndex}-${line}`}>

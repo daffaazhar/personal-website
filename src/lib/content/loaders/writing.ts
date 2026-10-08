@@ -1,5 +1,7 @@
 import { loadRegistryEntry, loadRegistryMetadata } from '@/lib/content/loaders/shared';
 import { writingRegistry } from '@/lib/content/registries/writing';
+import { workRegistry } from '@/lib/content/registries/work';
+import { onlyPublished } from '@/lib/content/filtering';
 import { byPublishedDateDesc, toStaticParams } from '@/lib/content/sorting';
 import type { ArticleMetadata, LoadedContentEntry } from '@/lib/content/types';
 import { assertArticleMetadata } from '@/lib/content/validators';
@@ -13,28 +15,26 @@ function loadAllArticleMetadata() {
       writingEntries.map(([slug, entry]) =>
         loadRegistryMetadata('article', slug, entry, assertArticleMetadata),
       ),
-    ).then((items) => {
-      const projectSlugs = new Set([
-        'calme',
-        'eco-in',
-        'work-fusion',
-        'event-booking-platform',
-        'deployment-infrastructure',
-        'legacy-retail-management-system',
-      ]);
+    )
+      .then((items) => {
+        const projectSlugs = new Set(Object.keys(workRegistry));
 
-      for (const item of items) {
-        for (const relatedSlug of item.relatedProjects) {
-          if (!projectSlugs.has(relatedSlug)) {
-            throw new Error(
-              `[content:article] ${item.slug}: relatedProjects slug "${relatedSlug}" was not found in work registry.`,
-            );
+        for (const item of items) {
+          for (const relatedSlug of item.relatedProjects) {
+            if (!projectSlugs.has(relatedSlug)) {
+              throw new Error(
+                `[content:article] ${item.slug}: relatedProjects slug "${relatedSlug}" was not found in work registry.`,
+              );
+            }
           }
         }
-      }
 
-      return items;
-    });
+        return items;
+      })
+      .catch((error: unknown) => {
+        allArticleMetadataPromise = undefined;
+        throw error;
+      });
   }
 
   return allArticleMetadataPromise;
@@ -42,12 +42,12 @@ function loadAllArticleMetadata() {
 
 export async function getAllArticlesIncludingDrafts(): Promise<ArticleMetadata[]> {
   const items = await loadAllArticleMetadata();
-  return items.sort(byPublishedDateDesc);
+  return items.toSorted(byPublishedDateDesc);
 }
 
 export async function getArticles(): Promise<ArticleMetadata[]> {
   const items = await getAllArticlesIncludingDrafts();
-  return items.filter((item) => item.contentStatus === 'published');
+  return onlyPublished(items);
 }
 
 export async function getFeaturedArticles(): Promise<ArticleMetadata[]> {

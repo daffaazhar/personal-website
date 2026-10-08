@@ -30,7 +30,6 @@ export const siteConfig = {
 export const primaryNavigation = [
   { href: '/work', label: 'Work' },
   { href: '/writing', label: 'Writing' },
-  { href: '/notes', label: 'Notes' },
   { href: '/about', label: 'About' },
   { href: '/index', label: 'Index' },
 ] as const;

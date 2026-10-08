@@ -1,4 +1,3 @@
-export * from '@/lib/content/loaders/notes';
 export * from '@/lib/content/loaders/work';
 export * from '@/lib/content/loaders/writing';
 export * from '@/lib/content/schemas';

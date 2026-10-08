@@ -28,6 +28,15 @@ export function ContentFigure({
   const className = variant === 'project' ? 'project-figure' : 'article-figure';
   const imageClassName = variant === 'project' ? 'project-figure__image' : 'article-figure__image';
 
+  // sizes cannot resolve CSS variables. Mirror the 58rem canvas and doubled
+  // clamp(1.25rem, 3vw, 2rem) gutter; the desktop TOC uses 12rem + a 2rem gap.
+  // Lazy figures use their actual slot, including narrower prose and figure grids.
+  const canvasSizes = 'calc(min(100vw, 58rem) - clamp(2.5rem, 6vw, 4rem))';
+  const fallbackSizes =
+    variant === 'project'
+      ? canvasSizes
+      : `(min-width: 64rem) min(72ch, calc(min(100vw, 58rem) - clamp(2.5rem, 6vw, 4rem) - 14rem)), min(72ch, ${canvasSizes})`;
+
   return (
     <figure className={className} data-background={background}>
       <Image
@@ -36,12 +45,7 @@ export function ContentFigure({
         width={width}
         height={height}
         className={imageClassName}
-        sizes={
-          sizes ??
-          (variant === 'project'
-            ? '(min-width: 80rem) 64rem, (min-width: 48rem) calc(100vw - 4rem), calc(100vw - 2rem)'
-            : '(min-width: 80rem) 64rem, (min-width: 48rem) calc(100vw - 6rem), calc(100vw - 2rem)')
-        }
+        sizes={sizes ?? `${priority ? '' : 'auto, '}${fallbackSizes}`}
         priority={priority}
       />
       {caption ? <figcaption>{caption}</figcaption> : null}

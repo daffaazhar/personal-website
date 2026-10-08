@@ -7,14 +7,15 @@ import remarkParse from 'remark-parse';
 import { unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
+// Node 24+ strips these plain TypeScript helpers; CLI and runtime share calendar rules.
+import { isCalendarDate, isDateRangeOrdered } from '../../src/lib/dates.ts';
+
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const placeholderPattern = /TODO:|\[XX\]|\[X\]\+|lorem ipsum/i;
-const datePattern = /^\d{4}-\d{2}-\d{2}$/;
 
 const collections = {
   project: 'src/content/work',
   article: 'src/content/writing',
-  note: 'src/content/notes',
 };
 
 function createIssue(entry, field, message) {
@@ -23,18 +24,6 @@ function createIssue(entry, field, message) {
 
 function assertText(value) {
   return typeof value === 'string' && value.trim().length > 0;
-}
-
-function assertDate(value) {
-  return (
-    typeof value === 'string' &&
-    datePattern.test(value) &&
-    !Number.isNaN(Date.parse(`${value}T00:00:00Z`))
-  );
-}
-
-function parseDate(value) {
-  return new Date(`${value}T00:00:00Z`).getTime();
 }
 
 function hasPlaceholder(value) {
@@ -74,16 +63,16 @@ function validatePublishedEntry(entry, issues) {
     issues.push(createIssue(entry, 'slug', 'Expected non-empty slug.'));
   }
 
-  if (!assertDate(metadata.publishedAt)) {
+  if (!isCalendarDate(metadata.publishedAt)) {
     issues.push(createIssue(entry, 'publishedAt', 'Expected valid YYYY-MM-DD date.'));
   }
 
-  if (!assertDate(metadata.updatedAt)) {
+  if (!isCalendarDate(metadata.updatedAt)) {
     issues.push(createIssue(entry, 'updatedAt', 'Expected valid YYYY-MM-DD date.'));
   }
 
-  if (assertDate(metadata.publishedAt) && assertDate(metadata.updatedAt)) {
-    if (parseDate(metadata.updatedAt) < parseDate(metadata.publishedAt)) {
+  if (isCalendarDate(metadata.publishedAt) && isCalendarDate(metadata.updatedAt)) {
+    if (!isDateRangeOrdered(metadata.publishedAt, metadata.updatedAt)) {
       issues.push(
         createIssue(entry, 'updatedAt', 'Updated date must not be earlier than published date.'),
       );
@@ -121,25 +110,14 @@ function validatePublishedEntry(entry, issues) {
 
     validateImage(entry, metadata.cover, 'cover', issues);
   }
-
-  if (entry.kind === 'note') {
-    if (!assertText(metadata.description)) {
-      issues.push(createIssue(entry, 'description', 'Published notes require a description.'));
-    }
-
-    if (!assertDate(metadata.lastTestedAt)) {
-      issues.push(createIssue(entry, 'lastTestedAt', 'Expected valid YYYY-MM-DD date.'));
-    }
-  }
 }
 
-export function validatePublishedCollections({ projects, articles, notes }) {
+export function validatePublishedCollections({ projects, articles }) {
   const issues = [];
-  const entries = [...projects, ...articles, ...notes];
+  const entries = [...projects, ...articles];
   const byKind = {
     project: projects,
     article: articles,
-    note: notes,
   };
 
   for (const [kind, kindEntries] of Object.entries(byKind)) {
@@ -159,7 +137,7 @@ export function validatePublishedCollections({ projects, articles, notes }) {
       }
     }
 
-    if (!['project', 'article', 'note'].includes(kind)) {
+    if (!['project', 'article'].includes(kind)) {
       issues.push(`[${kind}] Unsupported collection kind.`);
     }
   }
@@ -216,22 +194,6 @@ export function validatePublishedCollections({ projects, articles, notes }) {
           ),
         );
       }
-    }
-  }
-
-  for (const entry of notes) {
-    if (entry.metadata.contentStatus !== 'published' || !entry.metadata.relatedArticle) {
-      continue;
-    }
-
-    if (!publishedArticleSlugs.has(entry.metadata.relatedArticle)) {
-      issues.push(
-        createIssue(
-          entry,
-          'relatedArticle',
-          `Related article slug "${entry.metadata.relatedArticle}" must resolve to a published writing entry.`,
-        ),
-      );
     }
   }
 
@@ -357,13 +319,12 @@ async function readCollection(kind, relativeDir) {
 }
 
 export async function loadRepositoryContent() {
-  const [projects, articles, notes] = await Promise.all([
+  const [projects, articles] = await Promise.all([
     readCollection('project', collections.project),
     readCollection('article', collections.article),
-    readCollection('note', collections.note),
   ]);
 
-  return { projects, articles, notes };
+  return { projects, articles };
 }
 
 export async function readNavigationHrefs() {

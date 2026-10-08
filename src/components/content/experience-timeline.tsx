@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import type { Experience } from '@/lib/content/schemas';
 import { verifiedOrPending } from '@/lib/content/format';
-import { formatExperiencePeriod } from '@/lib/dates';
+import { formatLongMonthYear } from '@/lib/dates';
 
 type ExperienceTimelineProps = {
   items: Experience[];
@@ -15,9 +15,15 @@ export function ExperienceTimeline({ items, showContributions = false }: Experie
     <div className="experience-list">
       {items.map((item) => (
         <article className="experience-row" key={item.slug}>
-          <time dateTime={item.end === null ? item.start : `${item.start}/${item.end}`}>
-            {formatExperiencePeriod(item.start, item.end)}
-          </time>
+          <div className="experience-row__period">
+            <time dateTime={item.start}>{formatLongMonthYear(item.start)}</time>
+            {' — '}
+            {item.end === null ? (
+              'Present'
+            ) : (
+              <time dateTime={item.end}>{formatLongMonthYear(item.end)}</time>
+            )}
+          </div>
           <div>
             {item.companyLogo ? (
               <div className="experience-row__logo">

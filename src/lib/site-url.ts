@@ -18,8 +18,29 @@ function normalizeSiteUrl(value: string, source: string) {
     throw new Error(`[site-url] ${source} must use http or https.`);
   }
 
-  if (process.env.NODE_ENV === 'production' && parsed.hostname === 'localhost') {
-    throw new Error('[site-url] localhost is not allowed for production SEO output.');
+  if (parsed.username || parsed.password) {
+    throw new Error(`[site-url] ${source} must not contain URL userinfo credentials.`);
+  }
+
+  // URL parsing canonicalizes shorthand/decimal IPv4 and compressed IPv6 first.
+  const hostname = parsed.hostname.toLowerCase().replace(/\.$/, '');
+  const isLocalHostname =
+    hostname === 'localhost' ||
+    hostname.endsWith('.localhost') ||
+    hostname === 'localhost.localdomain' ||
+    hostname === 'ip6-localhost' ||
+    hostname === 'ip6-loopback' ||
+    hostname.startsWith('127.') ||
+    hostname === '0.0.0.0' ||
+    hostname === '[::]' ||
+    hostname === '[::1]' ||
+    /^\[::ffff:7f[\da-f]{2}:[\da-f]{1,4}\]$/.test(hostname) ||
+    hostname === '[::ffff:0:0]';
+
+  if (process.env.NODE_ENV === 'production' && isLocalHostname) {
+    throw new Error(
+      '[site-url] localhost is not allowed for production SEO output; loopback and unspecified hosts are also forbidden.',
+    );
   }
 
   parsed.pathname = '';

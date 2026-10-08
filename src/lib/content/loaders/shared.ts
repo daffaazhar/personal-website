@@ -15,7 +15,7 @@ type RegistryEntry = {
   load: () => Promise<MdxModule>;
 };
 
-type ContentKind = 'project' | 'article' | 'note';
+type ContentKind = 'project' | 'article';
 
 const metadataCache = new Map<string, unknown>();
 

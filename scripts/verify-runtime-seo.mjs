@@ -1,4 +1,7 @@
 const baseUrl = process.env.SEO_BASE_URL ?? 'http://127.0.0.1:3000';
+// Set explicitly when checking the development server's intentional local metadata.
+const siteOrigin = process.env.SEO_SITE_URL ?? 'https://dapu.my.id';
+const expectProductionUrls = new URL(siteOrigin).hostname !== 'localhost';
 
 const htmlChecks = [
   { path: '/', expectStatus: 200, expectCanonical: 'https://dapu.my.id', expectH1: true },
@@ -37,12 +40,6 @@ const htmlChecks = [
     expectJsonLd: true,
   },
   {
-    path: '/notes',
-    expectStatus: 200,
-    expectCanonical: 'https://dapu.my.id/notes',
-    expectH1: true,
-  },
-  {
     path: '/about',
     expectStatus: 200,
     expectCanonical: 'https://dapu.my.id/about',
@@ -68,6 +65,8 @@ const statusChecks = [
   { path: '/not-a-real-route', expectStatus: 404 },
   { path: '/work/not-a-real-slug', expectStatus: 404 },
   { path: '/writing/not-a-real-slug', expectStatus: 404 },
+  { path: '/notes', expectStatus: 404 },
+  { path: '/notes/killing-process-linux-port', expectStatus: 404 },
   { path: '/notes/not-a-real-slug', expectStatus: 404 },
 ];
 
@@ -85,6 +84,10 @@ async function checkHtmlRoute(route) {
     throw new Error(`${route.path} returned ${response.status}, expected ${route.expectStatus}.`);
   }
 
+  if (/<a\b[^>]*href=["'][^"']*\/notes(?:[\/"'?#])/i.test(html)) {
+    throw new Error(`${route.path} still links to the retired Notes feature.`);
+  }
+
   requireMatch(html, /<title>[^<]+<\/title>/i, `${route.path} title`);
   requireMatch(
     html,
@@ -94,7 +97,7 @@ async function checkHtmlRoute(route) {
   requireMatch(
     html,
     new RegExp(
-      `<link[^>]+rel="canonical"[^>]+href="${route.expectCanonical.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`,
+      `<link[^>]+rel="canonical"[^>]+href="${route.expectCanonical.replace('https://dapu.my.id', siteOrigin).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`,
       'i',
     ),
     `${route.path} canonical`,
@@ -110,7 +113,7 @@ async function checkHtmlRoute(route) {
     requireMatch(html, /application\/ld\+json/i, `${route.path} JSON-LD`);
   }
 
-  if (/localhost:3000/i.test(html)) {
+  if (expectProductionUrls && /localhost:3000/i.test(html)) {
     throw new Error(`${route.path} still contains localhost:3000 in runtime HTML.`);
   }
 
@@ -128,13 +131,21 @@ async function checkStatusRoute(route) {
     throw new Error(`${route.path} returned ${response.status}, expected ${route.expectStatus}.`);
   }
 
-  if (route.expectLocation && response.headers.get('location') !== route.expectLocation) {
+  if (
+    route.expectLocation &&
+    response.headers.get('location') !==
+      route.expectLocation.replace('https://dapu.my.id', siteOrigin)
+  ) {
     throw new Error(
       `${route.path} redirected to ${response.headers.get('location')}, expected ${route.expectLocation}.`,
     );
   }
 
-  if (body && /localhost:3000/i.test(body)) {
+  if (body && /https?:\/\/[^<\s]+\/notes(?:[\/<?#]|$)/i.test(body)) {
+    throw new Error(`${route.path} still contains retired Notes URLs.`);
+  }
+
+  if (expectProductionUrls && body && /localhost:3000/i.test(body)) {
     throw new Error(`${route.path} still contains localhost:3000.`);
   }
 }

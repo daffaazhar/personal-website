@@ -1,9 +1,23 @@
 @import 'tailwindcss';
+@import 'lenis/dist/lenis.css';
 @import '../styles/tokens.css';
+
+/* Reading-page videos stay interactive during document-wheel smoothing. */
+.lenis.lenis-smooth .project-video__frame {
+  pointer-events: auto;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('/fonts/prototype/dm-sans-latin.woff2') format('woff2');
+}
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: dark;
   }
 
   *,
@@ -15,6 +29,11 @@
   html {
     background: var(--color-canvas);
     scroll-behavior: smooth;
+  }
+
+  html.lenis {
+    /* The shared Lenis controller owns smoothing, never both CSS and JS. */
+    scroll-behavior: auto;
   }
 
   body {
@@ -68,7 +87,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-ink);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
   }
 
@@ -248,8 +267,8 @@
 
 .site-brand__mark {
   display: block;
-  width: 2rem;
-  height: 2rem;
+  width: 0.75rem;
+  height: 0.75rem;
   flex: 0 0 auto;
 }
 
@@ -371,6 +390,10 @@
 .mobile-nav__popup {
   display: flex;
   width: min(100%, 30rem);
+  min-block-size: 0;
+  max-block-size: 100%;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
   transform: translateY(0);
   background: var(--color-canvas);
   border: var(--border);
@@ -539,6 +562,7 @@
 }
 
 .site-footer {
+  border-block-start: var(--border);
   margin-block-start: var(--space-8);
   background: var(--color-inverse-canvas);
   color: var(--color-inverse-ink);
@@ -559,7 +583,7 @@
 .site-footer__rule {
   margin-block: var(--space-7);
   border: 0;
-  border-block-start: 1px solid rgb(245 245 241 / 18%);
+  border-block-start: var(--border);
 }
 
 .site-footer__grid {
@@ -574,7 +598,7 @@
 
 .site-footer__column-title,
 .site-footer__meta {
-  color: rgb(245 245 241 / 45%);
+  color: var(--color-ink-muted);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
@@ -737,7 +761,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  background: var(--color-ink);
+  background: var(--color-inverse-canvas);
   color: var(--color-inverse-ink);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
@@ -1129,13 +1153,13 @@
 .project-visual__grid::before {
   inset-block: var(--space-5);
   inset-inline: 33%;
-  border-inline: 1px solid rgb(245 245 241 / 18%);
+  border-inline: var(--border);
 }
 
 .project-visual__grid::after {
   inset-block: 36%;
   inset-inline: var(--space-5);
-  border-block: 1px solid rgb(245 245 241 / 18%);
+  border-block: var(--border);
 }
 
 .featured-project__body {
@@ -1227,6 +1251,13 @@
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
+}
+
+.experience-row__period {
+  color: var(--color-ink-faint);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-body);
 }
 
 .project-split__title,
@@ -1464,6 +1495,11 @@
   min-width: 0;
 }
 
+.project-case__content :is(h1, h2, h3, h4, h5, h6)[id],
+.article-detail__content :is(h1, h2, h3, h4, h5, h6)[id] {
+  scroll-margin-top: calc(var(--header-height) + var(--space-6));
+}
+
 .project-section {
   scroll-margin-top: calc(var(--header-height) + var(--space-6));
   border-block-start: var(--border);
@@ -1494,6 +1530,26 @@
 .project-section p + .project-figure-grid,
 .project-section p + .project-demo {
   margin-block-start: var(--space-4);
+}
+
+.mdx-list {
+  margin-block: var(--space-4);
+  padding-inline-start: var(--space-5);
+  color: var(--color-ink-muted);
+  font-size: var(--text-base);
+  line-height: var(--leading-reading);
+}
+
+ul.mdx-list {
+  list-style-type: disc;
+}
+
+ol.mdx-list {
+  list-style-type: decimal;
+}
+
+.mdx-list > li + li {
+  margin-block-start: var(--space-3);
 }
 
 .project-section__list {
@@ -1934,22 +1990,29 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  border-block-end: 1px solid rgb(255 255 255 / 0.12);
+  border-block-end: var(--border);
   padding: var(--space-3) var(--space-4);
 }
 
 .article-code__header span {
-  color: rgb(255 255 255 / 0.72);
+  color: var(--color-ink-muted);
   font-family: var(--font-code);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }
 
+.article-code__status:not(:empty) {
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-ink-muted);
+  font-size: var(--text-sm);
+}
+
 .article-code__copy {
   border: 0;
   background: transparent;
-  color: rgb(255 255 255 / 0.82);
+  color: var(--color-ink);
   font-family: var(--font-code);
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
@@ -2001,7 +2064,7 @@
 }
 
 .article-code__token--operator {
-  color: rgb(255 255 255 / 0.74);
+  color: var(--color-ink-muted);
 }
 
 .article-section code,
@@ -2583,4 +2646,10 @@
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
+}
+
+/* SSR-scoped composition: archives retain their complete navigation shell. */
+.app-root:has([data-personal-homepage]) > .site-header,
+.app-root:has([data-personal-homepage]) > .site-footer {
+  display: none;
 }

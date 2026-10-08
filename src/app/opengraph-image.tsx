@@ -16,13 +16,13 @@ export default function OpenGraphImage() {
         display: 'flex',
         width: '100%',
         height: '100%',
-        background: '#f4f4f1',
-        color: '#111111',
+        background: '#191d23',
+        color: '#e8e9e5',
         padding: '56px 64px',
         fontFamily: 'sans-serif',
         justifyContent: 'space-between',
         flexDirection: 'column',
-        border: '1px solid #cecec8',
+        border: '1px solid #343b45',
       }}
     >
       <div
@@ -31,17 +31,17 @@ export default function OpenGraphImage() {
           fontSize: 26,
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
-          color: '#62625e',
+          color: '#a5adb8',
         }}
       >
         Daffa Azhar
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 860 }}>
-        <div style={{ display: 'flex', fontSize: 78, lineHeight: 0.98, fontWeight: 700 }}>
-          Software engineer building dependable digital products.
+        <div style={{ display: 'flex', fontSize: 72, lineHeight: 1.12, fontWeight: 500 }}>
+          Software, from the interface to the infrastructure.
         </div>
-        <div style={{ display: 'flex', fontSize: 30, lineHeight: 1.4, color: '#62625e' }}>
-          Selected work, technical writing, and operational notes from interface to infrastructure.
+        <div style={{ display: 'flex', fontSize: 30, lineHeight: 1.4, color: '#a5adb8' }}>
+          Selected work and technical writing from interface to infrastructure.
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -52,8 +52,8 @@ export default function OpenGraphImage() {
             height: 96,
             alignItems: 'center',
             justifyContent: 'center',
-            background: '#111111',
-            color: '#f5f5f1',
+            background: '#e8e9e5',
+            color: '#191d23',
             fontSize: 30,
             letterSpacing: '0.08em',
           }}
@@ -64,8 +64,8 @@ export default function OpenGraphImage() {
           style={{
             display: 'flex',
             padding: '12px 18px',
-            background: '#f2e533',
-            color: '#111111',
+            background: '#9ab8f3',
+            color: '#191d23',
             fontSize: 24,
           }}
         >

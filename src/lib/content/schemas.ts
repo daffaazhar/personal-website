@@ -8,7 +8,6 @@ export type {
   EmploymentType,
   Experience,
   ImpactMetric,
-  NoteMetadata as Note,
   ProjectMetadata as Project,
   ProjectStatus,
   Testimonial,
@@ -16,13 +15,12 @@ export type {
 } from '@/lib/content/types';
 
 import type { EmploymentType, Experience, ImpactMetric, Testimonial } from '@/lib/content/types';
+import { isCalendarMonth, isMonthRangeOrdered } from '@/lib/dates';
 
 type ValidationIssue = {
   path: string;
   message: string;
 };
-
-const monthPattern = /^\d{4}-\d{2}$/;
 
 function hasText(value: string) {
   return value.trim().length > 0;
@@ -43,7 +41,7 @@ function validateTextArray(value: string[], path: string, issues: ValidationIssu
 }
 
 function validateMonth(value: string, path: string, issues: ValidationIssue[]) {
-  if (!monthPattern.test(value)) {
+  if (!isCalendarMonth(value)) {
     issues.push({ path, message: 'Expected month in YYYY-MM format.' });
   }
 }
@@ -98,6 +96,16 @@ export function validateExperience(experience: Experience[]) {
 
     if (item.end !== null) {
       validateMonth(item.end, `${path}.end`, issues);
+      if (
+        isCalendarMonth(item.start) &&
+        isCalendarMonth(item.end) &&
+        !isMonthRangeOrdered(item.start, item.end)
+      ) {
+        issues.push({
+          path: `${path}.end`,
+          message: 'End month must not be earlier than start month.',
+        });
+      }
     }
 
     if (item.companyLogo) {

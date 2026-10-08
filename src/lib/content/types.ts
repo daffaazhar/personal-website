@@ -62,17 +62,6 @@ export type ArticleMetadata = BaseContentMetadata & {
   cover?: ContentImage | null;
 };
 
-export type NoteMetadata = BaseContentMetadata & {
-  description: string;
-  lastTestedAt: string;
-  topics: string[];
-  environment: string[];
-  expectedResult: string | null;
-  caveat: string | null;
-  references: string[];
-  relatedArticle: string | null;
-};
-
 export type Experience = {
   slug: string;
   company: string;

@@ -1,12 +1,7 @@
 import type { Metadata } from 'next';
 
 import { aboutIntroduction } from '@/content/about';
-import type {
-  ArticleMetadata,
-  ContentImage,
-  NoteMetadata,
-  ProjectMetadata,
-} from '@/lib/content/types';
+import type { ArticleMetadata, ContentImage, ProjectMetadata } from '@/lib/content/types';
 import { siteConfig } from '@/lib/site-config';
 import { getSiteOrigin, getSiteUrl, getSiteUrlObject } from '@/lib/site-url';
 
@@ -143,39 +138,6 @@ export function buildArticleMetadata(article: ArticleMetadata): Metadata {
   };
 }
 
-export function buildNoteMetadata(note: NoteMetadata): Metadata {
-  return {
-    ...buildPageMetadata({
-      title: note.title,
-      description: note.description,
-      path: `/notes/${note.slug}`,
-      openGraphType: 'article',
-      image: null,
-      imageAlt: `Preview for ${note.title}`,
-    }),
-    authors: [{ name: siteConfig.author.name }],
-    openGraph: {
-      title: `${note.title} · ${siteConfig.name}`,
-      description: note.description,
-      url: getSiteUrl(`/notes/${note.slug}`),
-      siteName: siteConfig.name,
-      locale: siteConfig.locale,
-      type: 'article',
-      images: [
-        {
-          url: getSiteUrl(getDefaultSocialImagePath()),
-          width: 1200,
-          height: 630,
-          alt: `Preview for ${note.title}`,
-        },
-      ],
-      publishedTime: note.publishedAt,
-      modifiedTime: note.updatedAt,
-      authors: [siteConfig.author.name],
-    },
-  };
-}
-
 export function serializeStructuredData(value: unknown) {
   return JSON.stringify(value).replace(/</g, '\\u003c');
 }
@@ -267,23 +229,6 @@ export function buildArticleStructuredData(article: ArticleMetadata) {
     datePublished: article.publishedAt,
     dateModified: article.updatedAt,
     inLanguage: article.language,
-  };
-}
-
-export function buildNoteStructuredData(note: NoteMetadata) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'TechArticle',
-    headline: note.title,
-    description: note.description,
-    url: getSiteUrl(`/notes/${note.slug}`),
-    image: getSiteUrl(getDefaultSocialImagePath()),
-    author: {
-      '@type': 'Person',
-      name: siteConfig.author.name,
-    },
-    datePublished: note.publishedAt,
-    dateModified: note.updatedAt,
   };
 }
 

@@ -114,5 +114,11 @@ export function getMDXComponents(): MDXComponents {
     Callout: ContentCallout,
     pre: PreformattedBlock,
     table: Table,
+    ul: (props) => (
+      <ul {...props} className={['mdx-list', props.className].filter(Boolean).join(' ')} />
+    ),
+    ol: (props) => (
+      <ol {...props} className={['mdx-list', props.className].filter(Boolean).join(' ')} />
+    ),
   };
 }

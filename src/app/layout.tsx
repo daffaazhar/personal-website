@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteHeader } from '@/components/layout/site-header';
+import { SmoothScroll } from '@/components/layout/smooth-scroll';
 import { getMetadataBase } from '@/lib/seo';
 import { siteConfig } from '@/lib/site-config';
 
 import './globals.css';
+import '../styles/personal-routes.css';
 
 export const metadata: Metadata = {
   metadataBase: getMetadataBase(),
@@ -62,9 +64,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
+        <noscript>
+          <style>{`.motion-reveal[data-reveal-state='pending'] { opacity: 1; transform: none; }`}</style>
+        </noscript>
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
+        <SmoothScroll />
         <div className="app-root">
           <SiteHeader />
           <main id="main-content" className="page-shell">

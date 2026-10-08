@@ -12,16 +12,11 @@ type RevealProps = {
 
 export function Reveal({ children, className, delay = 'none', mode = 'scroll' }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [state, setState] = useState<'visible' | 'pending'>(() => {
-    if (
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
-      return 'visible';
-    }
-
-    return mode === 'load' ? 'pending' : 'visible';
-  });
+  // Hydration must start with the same markup regardless of browser preferences.
+  // Reduced-motion CSS exposes pending content immediately without movement.
+  const [state, setState] = useState<'visible' | 'pending'>(
+    mode === 'load' ? 'pending' : 'visible',
+  );
 
   useEffect(() => {
     const element = ref.current;
@@ -30,13 +25,15 @@ export function Reveal({ children, className, delay = 'none', mode = 'scroll' }:
       return;
     }
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-
     if (mode === 'load') {
+      // Settle even under reduced motion so a later preference change cannot
+      // expose a permanently pending reveal. CSS prevents reduced movement.
       const frame = window.requestAnimationFrame(() => setState('visible'));
       return () => window.cancelAnimationFrame(frame);
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
     }
 
     const initialBounds = element.getBoundingClientRect();

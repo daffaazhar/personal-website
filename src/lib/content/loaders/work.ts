@@ -1,5 +1,7 @@
 import { loadRegistryEntry, loadRegistryMetadata } from '@/lib/content/loaders/shared';
 import { workRegistry } from '@/lib/content/registries/work';
+import { writingRegistry } from '@/lib/content/registries/writing';
+import { onlyPublished } from '@/lib/content/filtering';
 import { byFeaturedOrder, byPublishedDateDesc, toStaticParams } from '@/lib/content/sorting';
 import type { LoadedContentEntry, ProjectMetadata } from '@/lib/content/types';
 import { assertProjectMetadata } from '@/lib/content/validators';
@@ -13,27 +15,26 @@ function loadAllProjectMetadata() {
       workEntries.map(([slug, entry]) =>
         loadRegistryMetadata('project', slug, entry, assertProjectMetadata),
       ),
-    ).then((items) => {
-      const writingSlugs = new Set([
-        'building-audit-trails-that-survive-service-failure',
-        'integrating-payment-gateway-nextjs-laravel',
-        'deploying-laravel-with-gitlab-ci-cd',
-        'recovering-from-supervisor-worker-failures',
-        'synchronizing-multiple-git-remotes',
-      ]);
+    )
+      .then((items) => {
+        const writingSlugs = new Set(Object.keys(writingRegistry));
 
-      for (const item of items) {
-        for (const relatedSlug of item.relatedWriting) {
-          if (!writingSlugs.has(relatedSlug)) {
-            throw new Error(
-              `[content:project] ${item.slug}: relatedWriting slug "${relatedSlug}" was not found in writing registry.`,
-            );
+        for (const item of items) {
+          for (const relatedSlug of item.relatedWriting) {
+            if (!writingSlugs.has(relatedSlug)) {
+              throw new Error(
+                `[content:project] ${item.slug}: relatedWriting slug "${relatedSlug}" was not found in writing registry.`,
+              );
+            }
           }
         }
-      }
 
-      return items;
-    });
+        return items;
+      })
+      .catch((error: unknown) => {
+        allProjectMetadataPromise = undefined;
+        throw error;
+      });
   }
 
   return allProjectMetadataPromise;
@@ -41,12 +42,12 @@ function loadAllProjectMetadata() {
 
 export async function getAllProjectsIncludingDrafts(): Promise<ProjectMetadata[]> {
   const items = await loadAllProjectMetadata();
-  return items.sort(byPublishedDateDesc);
+  return items.toSorted(byPublishedDateDesc);
 }
 
 export async function getProjects(): Promise<ProjectMetadata[]> {
   const items = await getAllProjectsIncludingDrafts();
-  return items.filter((item) => item.contentStatus === 'published');
+  return onlyPublished(items);
 }
 
 export async function getFeaturedProjects(): Promise<ProjectMetadata[]> {

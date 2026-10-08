@@ -22,16 +22,19 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Set up Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=moderate
 
       - name: Run format check
         run: npm run format:check
@@ -58,6 +61,56 @@ jobs:
 
       - name: Build application
         run: npm run build
+
+      - name: Verify standalone runtime SEO
+        shell: bash
+        env:
+          SEO_BASE_URL: http://127.0.0.1:3100
+          SEO_SITE_URL: https://dapu.my.id
+        run: |
+          set -Eeuo pipefail
+
+          # Match Docker's asset layout and exercise traced raw MDX at runtime.
+          cp -a public .next/standalone/public
+          mkdir -p .next/standalone/.next
+          cp -a .next/static .next/standalone/.next/static
+
+          server_pid=''
+          cleanup() {
+            if [ -n "$server_pid" ]; then
+              kill "$server_pid" 2>/dev/null || true
+              wait "$server_pid" 2>/dev/null || true
+            fi
+          }
+          trap cleanup EXIT
+          trap 'exit 130' INT
+          trap 'exit 143' TERM
+
+          (cd .next/standalone && exec env HOSTNAME=127.0.0.1 PORT=3100 node server.js) \
+            > "$RUNNER_TEMP/standalone.log" 2>&1 &
+          server_pid=$!
+
+          ready=false
+          for attempt in $(seq 1 60); do
+            if ! kill -0 "$server_pid" 2>/dev/null; then
+              cat "$RUNNER_TEMP/standalone.log"
+              echo '::error::Standalone server exited before readiness.'
+              exit 1
+            fi
+            if curl --fail --silent --show-error --max-time 2 "$SEO_BASE_URL/" > /dev/null; then
+              ready=true
+              break
+            fi
+            sleep 1
+          done
+
+          if [ "$ready" != true ]; then
+            cat "$RUNNER_TEMP/standalone.log"
+            echo '::error::Standalone server did not become ready.'
+            exit 1
+          fi
+
+          node scripts/verify-runtime-seo.mjs
 
   deploy:
     name: Deploy to production

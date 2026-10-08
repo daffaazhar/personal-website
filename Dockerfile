@@ -17,6 +17,10 @@ FROM base AS builder
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY . .
 
+# Public SEO origin is intentional build configuration, never a secret.
+ARG NEXT_PUBLIC_SITE_URL=https://dapu.my.id
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+
 RUN npm run build
 
 FROM base AS runner

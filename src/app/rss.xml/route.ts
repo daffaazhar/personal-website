@@ -7,8 +7,8 @@ export async function GET() {
       (article) => `<item>
       <title>${escapeXml(article.title)}</title>
       <description>${escapeXml(article.description)}</description>
-      <link>${getSiteUrl(`/writing/${article.slug}`)}</link>
-      <guid>${getSiteUrl(`/writing/${article.slug}`)}</guid>
+      <link>${escapeXml(getSiteUrl(`/writing/${article.slug}`))}</link>
+      <guid>${escapeXml(getSiteUrl(`/writing/${article.slug}`))}</guid>
       <pubDate>${new Date(article.publishedAt).toUTCString()}</pubDate>
     </item>`,
     )
@@ -20,7 +20,7 @@ export async function GET() {
   <channel>
     <title>Daffa Azhar</title>
     <description>Technical explanations, mental models, and reflections from building software.</description>
-    <link>${getSiteUrl('/')}</link>
+    <link>${escapeXml(getSiteUrl('/'))}</link>
     ${items}
   </channel>
 </rss>`,

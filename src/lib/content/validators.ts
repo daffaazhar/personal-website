@@ -3,11 +3,12 @@ import type {
   ContentImage,
   ContentLink,
   MdxModule,
-  NoteMetadata,
   ProjectMetadata,
 } from '@/lib/content/types';
 
-type MetadataKind = 'project' | 'article' | 'note';
+import { isCalendarDate, isDateRangeOrdered } from '@/lib/dates';
+
+type MetadataKind = 'project' | 'article';
 
 function fail(kind: MetadataKind, source: string, message: string): never {
   throw new Error(`[content:${kind}] ${source}: ${message}`);
@@ -105,7 +106,7 @@ function expectStringArray(
 function expectDate(value: unknown, field: string, kind: MetadataKind, source: string) {
   const text = expectString(value, field, kind, source);
 
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) {
+  if (!isCalendarDate(text)) {
     fail(kind, source, `invalid "${field}". Expected YYYY-MM-DD.`);
   }
 
@@ -223,6 +224,9 @@ export function assertProjectMetadata(
   value.summary = expectString(value.summary, 'summary', 'project', source);
   value.publishedAt = expectDate(value.publishedAt, 'publishedAt', 'project', source);
   value.updatedAt = expectDate(value.updatedAt, 'updatedAt', 'project', source);
+  if (!isDateRangeOrdered(value.publishedAt as string, value.updatedAt as string)) {
+    fail('project', source, '"updatedAt" must not be earlier than "publishedAt".');
+  }
   value.label = expectOptionalString(value.label, 'label', 'project', source);
   value.yearStart = expectNumber(value.yearStart, 'yearStart', 'project', source);
   value.yearEnd = expectNullableNumber(value.yearEnd, 'yearEnd', 'project', source);
@@ -277,6 +281,9 @@ export function assertArticleMetadata(
   value.description = expectString(value.description, 'description', 'article', source);
   value.publishedAt = expectDate(value.publishedAt, 'publishedAt', 'article', source);
   value.updatedAt = expectDate(value.updatedAt, 'updatedAt', 'article', source);
+  if (!isDateRangeOrdered(value.publishedAt as string, value.updatedAt as string)) {
+    fail('article', source, '"updatedAt" must not be earlier than "publishedAt".');
+  }
   value.language = value.language;
   value.readingTime = expectNumber(value.readingTime, 'readingTime', 'article', source);
   value.featured = expectBoolean(value.featured, 'featured', 'article', source);
@@ -289,38 +296,4 @@ export function assertArticleMetadata(
     value.cover === undefined
       ? null
       : validateContentImage(value.cover, 'cover', 'article', source);
-}
-
-export function assertNoteMetadata(value: unknown, source: string): asserts value is NoteMetadata {
-  assertRecord(value, 'note', source);
-  assertContentStatus(value.contentStatus, 'note', source);
-
-  value.title = expectString(value.title, 'title', 'note', source);
-  value.slug = expectString(value.slug, 'slug', 'note', source);
-  value.description = expectString(value.description, 'description', 'note', source);
-  value.publishedAt = expectDate(value.publishedAt, 'publishedAt', 'note', source);
-  value.updatedAt = expectDate(value.updatedAt, 'updatedAt', 'note', source);
-  value.lastTestedAt = expectDate(value.lastTestedAt, 'lastTestedAt', 'note', source);
-  value.topics =
-    value.topics === undefined ? [] : expectStringArray(value.topics, 'topics', 'note', source);
-  value.environment =
-    value.environment === undefined
-      ? []
-      : expectStringArray(value.environment, 'environment', 'note', source);
-  value.expectedResult =
-    value.expectedResult === undefined || value.expectedResult === null
-      ? null
-      : expectString(value.expectedResult, 'expectedResult', 'note', source);
-  value.caveat =
-    value.caveat === undefined || value.caveat === null
-      ? null
-      : expectString(value.caveat, 'caveat', 'note', source);
-  value.references =
-    value.references === undefined
-      ? []
-      : expectStringArray(value.references, 'references', 'note', source);
-  value.relatedArticle =
-    value.relatedArticle === undefined || value.relatedArticle === null
-      ? null
-      : expectString(value.relatedArticle, 'relatedArticle', 'note', source);
 }

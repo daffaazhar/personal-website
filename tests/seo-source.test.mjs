@@ -17,15 +17,7 @@ test('site URL helper keeps production default canonical', async () => {
 
 test('navigation links resolve to known public routes', async () => {
   const hrefs = await readNavigationHrefs();
-  const knownRoutes = new Set([
-    '/work',
-    '/writing',
-    '/notes',
-    '/about',
-    '/index',
-    '/rss.xml',
-    '/resume',
-  ]);
+  const knownRoutes = new Set(['/work', '/writing', '/about', '/index', '/rss.xml', '/resume']);
 
   assert.doesNotThrow(() => validateNavigationHrefs(hrefs, knownRoutes));
 });

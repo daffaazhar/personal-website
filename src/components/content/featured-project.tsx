@@ -86,7 +86,8 @@ export function ProjectVisual({ title, cover, label }: ProjectVisualProps) {
           width={cover.width ?? 1600}
           height={cover.height ?? 900}
           className="project-visual__image"
-          sizes="(min-width: 80rem) 64rem, 100vw"
+          // Match the 58rem canvas minus the existing responsive page gutters.
+          sizes="auto, calc(min(100vw, 58rem) - clamp(2.5rem, 6vw, 4rem))"
         />
       </div>
     );

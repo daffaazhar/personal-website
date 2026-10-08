@@ -11,24 +11,24 @@ export function ContentTable({ columns, rows, variant = 'article' }: ContentTabl
   const tableClassName = variant === 'project' ? 'project-table' : 'article-table';
 
   return (
-    <div className={wrapClassName}>
+    <div className={wrapClassName} tabIndex={0} role="region" aria-label="Scrollable table">
       <table className={tableClassName}>
         <thead>
           <tr>
-            {columns.map((column) => (
-              <th scope="col" key={column}>
+            {columns.map((column, columnIndex) => (
+              <th scope="col" key={columnIndex}>
                 {column}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
-            <tr key={row.join('|')}>
-              {row.map((cell) => (
+          {rows.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {row.map((cell, columnIndex) => (
                 <td
                   className={cell.startsWith(todoToken) ? 'project-section__todo' : undefined}
-                  key={cell}
+                  key={columnIndex}
                 >
                   {cell}
                 </td>

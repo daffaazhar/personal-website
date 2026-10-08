@@ -1,1421 +1,254 @@
-# WRITING_STYLE.md — Personal Website Writing Guide
+# Pedoman penulisan personal website
 
-> Pedoman ini mengatur gaya penulisan untuk seluruh personal website.
-> Gunakan bersama `DESIGN.md`, `CODEX_IMPLEMENTATION.md`, dan `AGENTS.md`.
->
-> Tujuannya adalah memastikan homepage, portfolio, case study, experience,
-> blog, notes, About, metadata, CTA, dan microcopy terdengar seperti satu orang
-> yang sama: tenang, spesifik, kredibel, reflektif, dan mudah dipahami.
+Panduan ini berlaku untuk homepage, Work, Writing, About, Experience, Index,
+metadata dan microcopy. Gunakan `DESIGN.md` untuk hierarki visual, `AGENTS.md`
+untuk aturan kerja, dan `README.md` untuk format serta publikasi konten.
 
----
+Tujuan tulisan adalah membuat pembaca memahami apa yang Daffa kerjakan,
+bagaimana ia mengambil keputusan, kontribusi pribadinya, dan hal yang ia pelajari.
+Panduan ini bukan kumpulan copy siap terbit. Contoh di bawah menunjukkan gaya;
+contoh tidak membuktikan pengalaman, teknologi atau hasil proyek Daffa.
 
-## 1. Tujuan penulisan
+## Bahasa dan suara
 
-Website harus menjelaskan empat hal:
+Bahasa utama situs adalah English. Gunakan international English yang alami,
+jelas dan mudah dipahami pembaca non-native. Bahasa Indonesia digunakan untuk
+versi Indonesia atau konteks lokal yang memerlukannya. Pertahankan nama resmi;
+hindari campuran bahasa dalam satu kalimat tanpa alasan.
 
-1. **What I build**
-2. **How I think**
-3. **What I contributed**
-4. **What I learned**
+Suara situs tenang, langsung, spesifik dan personal. Homepage boleh hangat dan
+sedikit playful; case study lebih analitis. Tulis seperti orang yang memahami
+pekerjaannya, bukan perusahaan yang sedang menjual layanan.
 
-Tulisan harus membantu pembaca memahami pekerjaan, bukan hanya melihat daftar teknologi atau pencapaian.
+- Sampaikan poin utama lebih awal.
+- Jelaskan produk atau masalah sebelum daftar teknologi.
+- Pilih kata kerja konkret: built, designed, implemented, investigated,
+  maintained, tested, documented.
+- Gunakan panjang kalimat yang bervariasi dan satu ide utama per paragraf.
+- Gunakan bullet untuk langkah, constraints atau outcomes, bukan semua narasi.
+- Refleksi harus menyebut hal yang berubah dalam pemahaman atau cara bekerja.
 
-Website ini bukan CV yang dipindahkan ke browser. Website ini adalah arsip personal yang mendokumentasikan:
+Hindari slogan seperti "crafting exceptional digital experiences", "turning
+ideas into reality", "passionate developer" dan "building the future".
+Hapus pembuka generik seperti "in today's digital landscape", pengumuman
+"let's dive in", serta kesimpulan motivasional yang tidak menambah informasi.
+Istilah "reliable", "secure", "scalable" atau "optimized" membutuhkan penjelasan
+atau bukti; kata sifat tersebut bukan pengganti hasil.
 
-- selected work;
-- keputusan teknis;
-- pengalaman profesional;
-- pengetahuan praktis;
-- pembelajaran dari proyek;
-- perkembangan dari waktu ke waktu;
-- beberapa sisi personal yang relevan.
+## Fakta, kontribusi dan sumber
 
----
+Akurasi lebih penting daripada wording. Jangan mengarang perusahaan, jabatan,
+tanggal, tanggung jawab, teknologi, metrik, penghargaan, kutipan, cerita personal
+atau hasil. Jika informasi belum diketahui, tanyakan atau tandai secara internal;
+jangan menerbitkan asumsi sebagai fakta.
 
-## 2. Bahasa utama
+Gunakan "I" untuk kontribusi pribadi dan "we" untuk pekerjaan tim. Bedakan apa
+yang dirancang bersama, bagian yang Daffa kerjakan, dan outcome tim. Kata seperti
+"led" atau "architected" hanya digunakan jika scope sebenarnya mendukungnya.
 
-Bahasa utama website adalah **English**.
+Bedakan dengan jelas:
 
-Gunakan international English yang:
+- Fakta terverifikasi: sesuatu yang memang dilakukan atau terjadi.
+- Hasil pengukuran: observasi dengan metode, lingkungan dan batasan yang diketahui.
+- Interpretasi personal: kesimpulan atau pelajaran penulis.
+- Estimasi: disebut sebagai estimasi tanpa false precision.
+- Rencana: belum menjadi hasil yang tercapai.
 
-- jelas;
-- alami;
-- tidak terlalu idiomatik;
-- mudah dipahami pembaca non-native;
-- tetap akurat secara teknis.
+Untuk metrik, cek apa yang diukur, baseline, periode, lingkungan pengujian dan
+atribusi kontribusinya. Hasil pengujian lokal tidak otomatis membuktikan performa
+produksi, semua skenario kegagalan atau keamanan menyeluruh. Jika angka tidak
+tersedia, gunakan outcome yang dapat diamati tanpa membuat angka baru.
 
-Gunakan Bahasa Indonesia hanya ketika:
+Simpan provenance dalam field internal yang memang didukung, seperti `sourceNote`
+atau `sourceNotes`. Jangan mempublikasikan credential, data klien, informasi
+pribadi atau detail rahasia. Kutipan/testimonial memerlukan izin dan atribusi yang
+disetujui; penyuntingan tidak boleh mengubah makna atau menulis atas nama orang lain.
 
-- halaman memang memiliki versi Indonesia;
-- topik bersifat lokal;
-- nama resmi atau istilah lebih tepat dipertahankan;
-- konteks mengharuskannya.
+## Pedoman per halaman
 
-Jangan mencampur dua bahasa dalam satu kalimat, kecuali untuk nama resmi atau istilah teknis.
+### Homepage
 
----
+Jawab siapa Daffa, apa yang ia bangun, proyek mana yang layak dilihat, apa yang
+ia tulis, dan bagaimana menghubunginya. Pertahankan greeting yang personal dan
+positioning yang sesuai pekerjaan nyata; jangan menggantinya dengan manifesto
+atau daftar teknologi.
 
-## 3. Core voice
+Project summaries dan Writing dikurasi. Experience menampilkan semua role yang
+published dan verified sesuai desain aktif, dengan ringkasan singkat; detail
+outcome tetap di About. Jangan memotong daftar role karena aturan curation.
 
-Suara utama website harus:
+Patokan panjang, bukan batas kaku:
 
-- direct;
-- calm;
-- specific;
-- technically credible;
-- reflective;
-- modest;
-- evidence-based;
-- human.
+- Hero heading: 7–16 kata.
+- Hero paragraph dan project summary: 20–45 kata.
+- Pengantar section: satu kalimat jika memang diperlukan.
 
-Suara website tidak boleh:
+Contoh arah wording:
 
-- terlalu promosi;
-- berlebihan;
-- korporat;
-- samar;
-- motivasional;
-- dramatis;
-- terdengar seperti teks generatif;
-- dipenuhi buzzword.
+> I build web applications and document the decisions behind them.
 
-Kesan yang diharapkan:
+Gunakan hanya jika scope tersebut sesuai sumber. Tidak perlu menambahkan claim
+availability atau keahlian yang belum dikonfirmasi.
 
-> This person understands the work, explains it clearly, and does not need to exaggerate.
+### Work dan case study
 
----
+Judul memakai nama proyek sebenarnya. Ringkasan menjelaskan produk, pengguna
+atau masalah yang dibantu, lalu kontribusi atau hasil yang relevan.
 
-## 4. Prinsip utama
+Susun narasi sesuai materi yang tersedia:
 
-### 4.1 State the point early
+1. Context dan problem.
+2. Role pribadi, tim dan constraints.
+3. Keputusan, alasan dan trade-off.
+4. Implementasi serta kasus kegagalan yang relevan.
+5. Outcome terverifikasi dan batasannya.
+6. Pelajaran, credits dan related writing bila ada.
 
-Sampaikan poin utama di awal.
+Ini kerangka, bukan kewajiban membuat section kosong. Jangan mengarang isi untuk
+melengkapi struktur. Satu keputusan yang dijelaskan baik lebih berguna daripada
+banyak nama teknologi tanpa konteks.
 
-Prefer:
+Contoh perbaikan:
 
-> I improved the deployment workflow by replacing manual server updates with a GitLab CI/CD pipeline.
+- Hindari: "Built a robust and scalable event system."
+- Lebih konkret: "Stored pending events in the same transaction as the business
+  change so they could be retried after a broker failure."
 
-Avoid:
+Kalimat kedua hanya layak terbit jika implementasinya terverifikasi. Sebutkan
+kompleksitas retry, idempotency atau processing tambahan jika itu trade-off nyata.
 
-> As part of an effort to continuously enhance operational excellence, I was involved in a process aimed at improving deployment efficiency.
+### Experience
 
----
+Cantumkan role resmi, organisasi, periode, employment type, scope dan kontribusi.
+Ringkasan memberi konteks, bukan mengulang seluruh bullet. Gunakan pola
+"action + context + decision + outcome" ketika unsur tersebut tersedia.
 
-### 4.2 Be specific
+- Summary: sekitar 25–60 kata.
+- Outcome bullet: sekitar 20–45 kata.
+- Hindari "Responsible for front-end development" tanpa menjelaskan pekerjaan.
+- Jangan mengatribusi seluruh hasil tim kepada satu orang.
+- Detail di About boleh lebih dalam daripada ringkasan homepage.
 
-Gunakan kata benda, teknologi, constraint, dan outcome yang konkret.
+### Writing
 
-Prefer:
+Mulai dengan masalah atau insight utama, bukan introduction generik. Jelaskan
+asumsi dan mental model sebelum implementasi. Struktur dapat mencakup context,
+solusi, failure cases, verifikasi dan trade-offs sesuai topik.
 
-> The service stored audit events in the same database transaction as the business change, then published them asynchronously through NATS JetStream.
+Sebelum code block atau command, sebutkan fungsinya, tempat menjalankannya,
+prasyarat serta risiko jika relevan. Setelahnya, jelaskan expected result dan
+cara mengecek hasil. Bedakan output nyata dari ilustrasi. Jangan menyajikan
+output buatan sebagai hasil eksekusi.
 
-Avoid:
+Sebutkan versi/lingkungan ketika memengaruhi perilaku; tanggal "last tested"
+hanya boleh merujuk pengujian yang benar-benar dilakukan. Gunakan sumber
+primer untuk klaim eksternal dan tautkan dokumentasi yang mendukung penjelasan.
+Akhiri saat poinnya lengkap, tanpa "hopefully this helps" atau ringkasan berulang.
 
-> The system used modern technologies to ensure reliability and scalability.
+Notes bukan lagi fitur/collection situs. Jangan menambahkan navigasi, preview,
+metadata atau instruksi publikasi Notes. Kata "notes" dalam prose biasa dan
+provenance internal tidak perlu dihapus jika maknanya relevan.
 
----
+### About dan contact
 
-### 4.3 Stay calm
+About menjelaskan cara bekerja, proses belajar, fokus saat ini dan minat yang
+relevan. Refleksi personal boleh memakai "I" dan opini yang jelas sebagai opini.
+Jangan menambah origin story atau hobi yang tidak bersumber.
 
-Gunakan bahasa percaya diri tanpa dramatisasi.
+Pertimbangkan apakah informasi personal aman dan nyaman untuk tetap terindeks
+jangka panjang. Contact harus hangat dan rendah-friksi, tanpa janji availability
+yang belum dikonfirmasi atau "let's make magic".
 
-Prefer:
+### Index, metadata dan microcopy
 
-> This change reduced manual deployment steps and made releases more consistent.
+Gunakan label navigasi yang jelas: Work, Writing, About, Index. Pertahankan
+nama resmi proyek, perusahaan dan role. Metadata membantu orientasi; ia bukan
+ruang untuk marketing copy atau keyword stuffing.
 
-Avoid:
-
-> This groundbreaking solution completely transformed the deployment process.
-
----
-
-### 4.4 Name the lesson
-
-Tuliskan pembelajaran secara spesifik.
-
-Prefer:
-
-> The outage scenario showed that a successful API response was not enough. The event also needed to remain recoverable after the broker became unavailable.
-
-Avoid:
-
-> This project was challenging, but I learned a lot.
-
----
-
-### 4.5 Use evidence
-
-Klaim harus didukung oleh:
-
-- verified metrics;
-- observed behavior;
-- implementation details;
-- test results;
-- documented feedback;
-- project outcomes.
-
-Jika angka belum terverifikasi, jangan dipublikasikan.
-
-Gunakan internal placeholder:
-
-```text
-TODO: Verify the metric before publishing.
-```
-
----
-
-## 5. Audience
-
-### Recruiters and hiring managers
-
-Mereka perlu memahami:
-
-- role;
-- scope;
-- contribution;
-- outcome;
-- communication ability.
-
-### Engineers
-
-Mereka mencari:
-
-- technical context;
-- decisions;
-- trade-offs;
-- implementation details;
-- lessons.
-
-### Potential clients and collaborators
-
-Mereka perlu melihat:
-
-- reliability;
-- relevant experience;
-- problem-solving approach;
-- clear communication.
-
-### Returning readers
-
-Mereka membutuhkan:
-
-- tulisan yang berguna;
-- continuity;
-- honest growth;
-- searchable archive.
-
-Tulis untuk pembaca cerdas yang belum tentu mengetahui konteks proyek.
-
----
-
-## 6. Point of view
-
-Gunakan first person singular untuk kontribusi pribadi.
-
-Prefer:
-
-> I designed the inter-service event flow and implemented the transactional outbox.
-
-Gunakan first person plural untuk pekerjaan tim.
-
-Prefer:
-
-> We designed the product flow together. I was responsible for the backend architecture and audit-trail implementation.
-
-Jangan mengambil seluruh hasil tim sebagai kontribusi pribadi.
-
-Selalu bedakan:
-
-- team responsibility;
-- personal responsibility;
-- shared outcome.
-
----
-
-## 7. Tone per content type
-
-| Content | Tone |
-|---|---|
-| Homepage | concise, confident, clear |
-| Project case study | analytical, specific, evidence-based |
-| Experience | professional, outcome-oriented |
-| Technical article | explanatory, structured, practical |
-| Short note | concise, operational, precise |
-| About | personal, reflective, restrained |
-| Contact | direct, warm, low-friction |
-| Error state | calm, useful, non-blaming |
-
----
-
-## 8. Homepage
-
-Homepage harus menjawab:
-
-1. Who is this person?
-2. What does this person build?
-3. What work should I inspect first?
-4. What does this person write about?
-5. How can I learn more or make contact?
-
-Homepage harus dikurasi, bukan memuat seluruh isi website.
-
-### 8.1 Hero
-
-Hero berisi:
-
-- satu positioning statement;
-- satu supporting paragraph;
-- dua atau tiga tautan.
-
-Recommended:
-
-```text
-Software engineer building dependable digital products
-from interface to infrastructure.
-
-I work across web applications, backend architecture,
-deployment automation, and technical writing.
-```
-
-Avoid:
-
-- “Crafting exceptional digital experiences”
-- “Turning ideas into reality”
-- “Passionate software engineer”
-- “Building the future, one line at a time”
-- “Creating seamless and innovative solutions”
-
-Hero harus menjelaskan scope kerja nyata, bukan adjective tentang diri sendiri.
-
-### 8.2 Supporting paragraph
-
-Gunakan 20–45 kata.
-
-Fokus pada:
-
-- area pekerjaan;
-- jenis masalah;
-- current focus.
-
-Jangan jadikan hero sebagai daftar teknologi.
-
-### 8.3 Section introduction
-
-Gunakan satu kalimat pendek.
-
-Example:
-
-```text
-Selected work
-
-Projects documented through decisions, constraints, and outcomes.
-```
-
-Example:
-
-```text
-Writing
-
-Technical explanations and lessons from building production software.
-```
-
----
-
-## 9. Project case study
-
-Case study harus menjelaskan:
-
-1. Context
-2. Problem
-3. Role
-4. Constraints
-5. Decisions
-6. Implementation
-7. Outcome
-8. Lessons
-
-### 9.1 Title
-
-Gunakan nama proyek sebenarnya.
-
-Prefer:
-
-```text
-Work Fusion
-```
-
-Avoid:
-
-```text
-Revolutionizing Workflow Management with Work Fusion
-```
-
-### 9.2 Summary
-
-Formula:
-
-```text
-What it is + who or what it helps + distinctive responsibility or outcome.
-```
-
-Example:
-
-> A workflow platform designed to preserve traceable audit events across service failures and asynchronous processing.
-
-### 9.3 Context
-
-Jelaskan produk sebelum teknologi.
-
-Prefer:
-
-> Work Fusion digitizes approval-based workflows that previously relied on fragmented manual processes.
-
-Avoid:
-
-> The project uses Laravel, PostgreSQL, NATS JetStream, Redis, and REST APIs.
-
-### 9.4 Problem
-
-Jelaskan masalah engineering sebenarnya.
-
-Good:
-
-> A workflow could be committed successfully while its audit event failed to reach the broker. The system needed a recovery mechanism that preserved the event without duplicating it.
-
-Weak:
-
-> The challenge was to create a reliable system.
-
-### 9.5 Role
-
-Gunakan scope yang presisi.
-
-Good:
-
-> I designed the inter-service event flow, implemented the transactional outbox, and defined the audit-trail recovery tests.
-
-Weak:
-
-> I handled the backend.
-
-### 9.6 Decision writing
-
-Gunakan:
-
-```text
-Decision → reason → trade-off
-```
-
-Example:
-
-> I used a transactional outbox so the business change and pending event could be stored atomically. This added background processing and retry logic, but prevented successful transactions from losing their audit event.
-
-### 9.7 Outcome
-
-Hanya tampilkan hasil terverifikasi.
-
-Good:
-
-> All pending events were delivered after the broker recovered in the tested outage scenario.
-
-Good:
-
-> The interface handled more than 3,000 records through incremental loading.
-
-Avoid:
-
-> Performance improved significantly.
-
-Jika metrik tidak tersedia, gunakan hasil yang dapat diamati tanpa mengarang angka.
-
-### 9.8 Lesson
-
-Nama pembelajarannya harus jelas.
-
-Good:
-
-> The project changed how I evaluate reliability. A successful request is only one stage; recoverability and idempotent processing matter after the response has already returned.
-
-Weak:
-
-> I learned many new things.
-
----
-
-## 10. Experience
-
-Experience harus menyampaikan:
-
-- role;
-- organization;
-- period;
-- scope;
-- contribution;
-- outcome.
-
-### 10.1 Summary
-
-Gunakan satu paragraf pendek yang tidak mengulang bullet.
-
-Example:
-
-> Developing and maintaining business applications across modern web platforms and legacy desktop systems, with responsibilities spanning application development, database optimization, AI-assisted engineering workflows, and deployment infrastructure.
-
-### 10.2 Bullet formula
-
-Gunakan:
-
-```text
-Action + context + technical decision + outcome
-```
-
-Example:
-
-> Standardized reusable modal, transition, and animation patterns across the booking application and added a re-authentication flow that prevents long-form booking data from being lost after session expiry.
-
-Avoid:
-
-> Responsible for front-end development.
-
-### 10.3 Verbs
-
-Prefer:
-
-- built;
-- developed;
-- designed;
-- implemented;
-- improved;
-- optimized;
-- migrated;
-- standardized;
-- documented;
-- maintained;
-- investigated;
-- integrated;
-- automated;
-- validated.
-
-Use carefully:
-
-- led;
-- architected;
-- transformed;
-- pioneered;
-- spearheaded.
-
-Gunakan hanya jika scope-nya benar-benar sesuai.
-
-### 10.4 Metrics
-
-Metrik harus memiliki konteks.
-
-Good:
-
-> Reduced WAF-related support tickets by 30% by presenting clear error states for blocked requests.
-
-Weak:
-
-> Improved support tickets by 30%.
-
-Jangan tampilkan `[XX]%` pada konten publik.
-
----
-
-## 11. Technical articles
-
-Artikel teknis memprioritaskan pemahaman.
-
-Recommended structure:
-
-1. Problem
-2. Context
-3. Assumptions
-4. Mental model
-5. Implementation
-6. Failure cases
-7. Verification
-8. Trade-offs
-9. Summary
-
-### Opening
-
-Nyatakan masalah di paragraf pertama.
-
-Good:
-
-> A Laravel queue worker that exits immediately may enter Supervisor’s BACKOFF state. The message tells you that the process failed repeatedly, but not why.
-
-Avoid:
-
-> In today’s fast-paced software-development landscape, reliable background processing is more important than ever.
-
-### Explain before instructing
-
-Jangan langsung memberi command tanpa konteks.
-
-Sebelum code block, jelaskan:
-
-- apa yang dilakukan;
-- dijalankan di mana;
-- expected result;
-- risikonya.
-
-Setelah code block, jelaskan cara memverifikasi.
-
-### Assumptions
-
-Gunakan metadata:
-
-```text
-Environment: Ubuntu 24.04, PHP 8.3, Supervisor 4
-```
-
-### Trade-offs
-
-Tuliskan trade-off jika relevan.
-
-Example:
-
-> Caching configuration improves startup time, but environment changes will not take effect until the cache is rebuilt.
-
-### Ending
-
-Akhiri dengan prinsip penting.
-
-Prefer:
-
-> BACKOFF is a symptom. The process log identifies the actual failure.
-
-Avoid:
-
-> Hopefully this helps!
-
----
-
-## 12. Short notes
-
-Notes harus sempit, operasional, dan mudah ditemukan.
-
-Recommended structure:
-
-```text
-Title
-Last tested
-Environment
-Problem
-Command or solution
-Expected result
-Caveat
-Related content
-```
-
-Good title:
-
-```text
-Fixing Supervisor BACKOFF on Ubuntu
-```
-
-Avoid:
-
-```text
-A Quick Guide to Fixing One of the Most Common and Annoying Supervisor Errors
-```
-
-Tidak perlu introduction panjang jika judul sudah jelas.
-
----
-
-## 13. About
-
-About harus personal tetapi tidak oversharing.
-
-Jelaskan:
-
-- how I work;
-- how I learned;
-- what I value;
-- current focus;
-- selected interests.
-
-### Opening
-
-Prefer:
-
-> I build web products and backend systems, then document the decisions and failures that shaped them.
-
-Avoid:
-
-> I am a passionate and highly motivated software engineer.
-
-### Personal interests
-
-Berikan konteks.
-
-Good:
-
-> Outside work, I spend time cycling and documenting technical lessons that would otherwise remain buried in project history.
-
-Weak:
-
-> My hobbies are cycling, reading, and travelling.
-
-### Boundaries
-
-Jangan publikasikan informasi yang:
-
-- terlalu privat;
-- tidak relevan;
-- tidak aman;
-- tidak nyaman untuk tetap terindeks dalam jangka panjang.
-
----
-
-## 14. Metadata
-
-Metadata harus ringkas dan faktual.
-
-Example:
-
-```text
-ROLE
-Backend Engineer
-
-PERIOD
-2025–2026
-
-TEAM
-3 people
-
-DISCIPLINES
-Architecture · Backend · Reliability
-```
-
-Gunakan label pendek dan konsisten.
-
----
-
-## 15. Statistics and impact claims
-
-Sebelum menampilkan statistik, verifikasi:
-
-1. What was measured?
-2. What was the baseline?
-3. What period does it cover?
-4. Was the outcome directly attributable?
-5. Can the claim be defended?
-
-Good:
-
-> 30% fewer support tickets related to WAF-blocked requests.
-
-Weak:
-
-> 30% better user experience.
-
-Jangan tampilkan estimasi sebagai angka pasti.
-
-Jika data diturunkan dari sumber lain, simpan `sourceNote` secara internal.
-
----
-
-## 16. Calls to action
-
-Gunakan CTA langsung:
+CTA menyebut tindakan dan tujuan, misalnya:
 
 - View case study
 - Read article
 - Browse all work
 - View complete experience
-- Download résumé
+- Open résumé, atau Download résumé jika tindakannya memang mengunduh
 - Send an email
-- Open GitHub
 
-Avoid:
+Jangan memakai "Click here" atau "Discover more" jika tujuan bisa disebutkan.
+Panah tidak menggantikan label yang dapat dipahami. Icon-only control memerlukan
+accessible name; teks status menyampaikan hasil, bukan hanya nama tombol.
 
-- Discover more
-- Explore the journey
-- Unlock insights
-- Begin the experience
-- Let’s make magic
+Error/empty state menjelaskan kondisi dan langkah berikutnya tanpa menyalahkan
+pengguna. Contoh: "This article could not be found. Browse all writing instead."
+Untuk Copy yang gagal, jelaskan bahwa teks masih bisa dipilih dan disalin manual.
 
-Gunakan panah secara konsisten:
+## Aturan editorial
 
-```text
-View case study ↗
-```
+### Headings dan istilah
 
----
+Gunakan sentence case untuk judul, headings dan tombol. Nama resmi tetap memakai
+kapitalisasi resminya, seperti Next.js, TypeScript, PostgreSQL, GitLab CI/CD dan
+NATS JetStream. Uppercase dibatasi pada label metadata pendek bila desain
+memerlukannya, bukan paragraf.
 
-## 18. Navigation labels
+Heading mendeskripsikan isi. Jangan mengulang heading dalam kalimat pembuka yang
+tidak menambah konteks. Jelaskan jargon yang mungkin belum dikenal; singkatan
+kurang umum ditulis lengkap pada penggunaan pertama. API, UI, SQL dan CI/CD dapat
+langsung digunakan untuk pembaca teknis bila konteksnya jelas.
 
-Use:
+### Tanggal dan angka
 
-```text
-Work
-Writing
-Notes
-About
-Index
-```
+Gunakan format konsisten dalam komponen yang sama. Rentang pengalaman dapat
+berbentuk "January 2026 — Present"; metadata ringkas mengikuti formatter situs.
+Jangan memasukkan rentang atau "Present" sebagai satu nilai `datetime`.
 
-Avoid:
+Tanggal sumber mengikuti schema aktual: tanggal kalender `YYYY-MM-DD`, bulan
+pengalaman `YYYY-MM`, dan end `null` untuk role berjalan. Pastikan tanggal nyata,
+updated tidak mendahului published, dan end tidak mendahului start. Jangan
+mengubah tanggal publikasi hanya untuk membuat konten terlihat baru.
 
-```text
-Creations
-Thoughts
-Journey
-World
-Explore
-```
+Gunakan numerals untuk metrik, tanggal dan nilai teknis. Hindari false precision,
+`[XX]%` dan angka tanpa konteks. Menambahkan "approximately" tidak membuat
+estimasi yang tidak bersumber menjadi sah.
 
-Clarity is more valuable than cleverness.
+### Gambar, captions dan links
 
----
+Alt text menjelaskan informasi penting yang terlihat, bukan hanya "screenshot"
+atau pengulangan judul. Gambar dekoratif memakai empty alt. Diagram kompleks
+memerlukan penjelasan tekstual yang memadai; alt pendek bukan pengganti uraian.
 
-## 19. Headings
+Caption menambahkan konteks tentang figure atau hubungan antarbagian. Jangan
+mengklaim detail yang tidak tampak atau tidak dijelaskan sumbernya. Link text
+menyebut tujuan, misalnya "Read the Work Fusion case study".
 
-Heading harus:
+## Draft dan bantuan AI
 
-- mendeskripsikan konten;
-- singkat;
-- natural;
-- tidak mengandung filler.
+Gunakan model publikasi aktual dalam `src/lib/content/`: metadata MDX diekspor
+sebagai object TypeScript, bukan YAML frontmatter contoh. Ikuti `contentStatus`,
+`verified` dan field yang benar-benar didukung; lihat entry tetangga dan README.
+Jangan memperkenalkan field `draft: true` sebagai pengganti schema yang ada.
 
-Good:
+Konten draft atau belum terverifikasi tidak masuk public listing, homepage,
+RSS, sitemap atau static route generation. TODO untuk fakta yang belum lengkap
+tetap internal dan tidak boleh bocor ke halaman publik. Tunda publikasi bagian
+yang belum bisa dipertanggungjawabkan.
 
-```text
-Building audit trails that survive service failure
-```
+AI boleh membantu grammar, struktur, pemangkasan dan alternatif wording.
+AI tidak boleh mengisi fakta kosong dengan cerita atau angka yang terdengar
+meyakinkan. Penulis tetap memeriksa hasil terhadap sumber asli. Factual source
+data menang ketika bertentangan dengan wording.
 
-Good:
+## Checklist sebelum publikasi
 
-```text
-Why the worker entered BACKOFF
-```
+- Role, tanggal, teknologi, links dan kontribusi sesuai sumber.
+- Metrik memiliki konteks dan bukti; hasil tim dibedakan dari kontribusi pribadi.
+- Tidak ada TODO publik, klaim contoh, rahasia atau testimonial tanpa izin.
+- Poin utama muncul lebih awal dan dapat dipahami tanpa konteks internal proyek.
+- Tiap section memberi informasi baru; tidak ada filler atau kesimpulan berulang.
+- Jargon dijelaskan seperlunya; judul, metadata dan CTA memakai label konsisten.
+- Alt text, captions, link labels dan error states berguna tanpa konteks visual.
+- Publication flags, tanggal, related slugs dan metadata mengikuti schema aktual.
+- Jalankan content validation dan tes; preview listing serta detail sebelum publish.
 
-Avoid:
-
-```text
-Understanding the Complex Nature of Reliable Distributed System Communication
-```
-
-Gunakan sentence case untuk article headings.
-
----
-
-## 20. Capitalization
-
-Sentence case untuk:
-
-- page title;
-- article title;
-- section title;
-- button label;
-- navigation.
-
-Uppercase hanya untuk:
-
-- metadata kecil;
-- figure caption;
-- status line pendek;
-- compact technical labels.
-
-Example:
-
-```text
-FIG 01
-BACKEND ARCHITECTURE
-```
-
-Jangan menulis paragraf panjang dalam uppercase.
-
----
-
-## 21. Dates
-
-Recommended long format:
-
-```text
-January 2026 — Present
-September 2025 — Present
-August 2024 — October 2024
-```
-
-Compact metadata:
-
-```text
-JAN 2026—NOW
-```
-
-Jangan mencampur format tanggal dalam satu sistem.
-
----
-
-## 22. Numbers
-
-Gunakan numerals untuk:
-
-- metrics;
-- dates;
-- technical values;
-- quantities above nine;
-- performance outcomes.
-
-Examples:
-
-```text
-3,000+ records
-30% fewer tickets
-4 layers of idempotency
-```
-
-Hindari false precision.
-
-Gunakan `approximately` jika memang estimasi.
-
----
-
-## 23. Technical terminology
-
-Gunakan istilah yang tepat ketika meningkatkan akurasi.
-
-Example:
-
-> A transactional outbox stores the pending event in the same database transaction as the business change.
-
-Jelaskan istilah bila pembaca mungkin belum mengenalnya.
-
-Avoid jargon chains:
-
-> The asynchronous event-driven microservice ecosystem leveraged resilient distributed messaging.
-
-Prefer:
-
-> Services published events asynchronously through NATS JetStream, while the outbox preserved events during broker failure.
-
----
-
-## 24. Official names
-
-Gunakan penulisan resmi:
-
-- Next.js
-- TypeScript
-- JavaScript
-- Laravel
-- PostgreSQL
-- GitLab CI/CD
-- NATS JetStream
-- Docker
-- Redux
-- Material UI
-- Swagger
-- Core Web Vitals
-- Web Application Firewall
-- Delphi
-
-Avoid:
-
-- NextJS
-- Next Js
-- Typescript
-- Javascript
-- Gitlab
-
----
-
-## 25. Acronyms
-
-Tulis bentuk lengkap saat pertama kali digunakan jika tidak umum.
-
-Example:
-
-> Web Application Firewall (WAF)
-
-Setelah itu gunakan `WAF`.
-
-API, UI, SQL, dan CI/CD dapat langsung digunakan untuk technical audience.
-
----
-
-## 26. Links
-
-Gunakan descriptive link text.
-
-Good:
-
-```text
-Read the Work Fusion case study
-```
-
-Avoid:
-
-```text
-Click here
-```
-
----
-
-## 27. Figure captions
-
-Figure caption harus menjelaskan objek.
-
-Recommended:
-
-```text
-FIG 01
-
-WORK FUSION
-Workflow and audit-trail infrastructure
-
-BACKEND ARCHITECTURE · RELIABILITY · 2025–2026
-```
-
-Untuk diagram:
-
-> FIG 04 — The outbox stores pending events before asynchronous publication.
-
----
-
-## 28. Alt text
-
-Good:
-
-> Work Fusion dashboard showing pending workflows, task status, and audit events.
-
-Weak:
-
-> Screenshot of dashboard.
-
-Diagram:
-
-> Architecture diagram showing the client, API, services, NATS JetStream, audit trail, and notification flow.
-
-Decorative images use empty alt text.
-
----
-
-## 29. Error and empty states
-
-Good:
-
-> This article could not be found. Browse all writing instead.
-
-Good:
-
-> No notes match this topic yet.
-
-Avoid:
-
-> Oops! Something went wrong!
-
-Error harus calm, useful, dan tidak menyalahkan pengguna.
-
----
-
-## 30. Contact
-
-Good:
-
-> Have a useful problem to solve? Send me an email.
-
-Good:
-
-> I am open to selected engineering and collaboration opportunities.
-
-Avoid:
-
-> Let’s build something amazing together!
-
----
-
-## 31. Microcopy
-
-Gunakan kata kerja yang jelas:
-
-```text
-Open résumé
-Copy email address
-Filter by topic
-Updated July 2026
-Last tested July 2026
-Pause animation
-Resume animation
-```
-
-Icon-only controls wajib memiliki accessible label.
-
----
-
-## 32. Length guidelines
-
-| Element | Recommended length |
-|---|---:|
-| Hero heading | 7–16 words |
-| Hero paragraph | 20–45 words |
-| Homepage project summary | 20–45 words |
-| Experience summary | 25–60 words |
-| Experience bullet | 20–45 words |
-| Article description | 15–35 words |
-| Testimonial | 30–90 words |
-| About paragraph | 50–120 words |
-
-Guidelines ini tidak kaku. Clarity tetap menjadi prioritas.
-
----
-
-## 33. Sentence and paragraph rhythm
-
-Gunakan kombinasi:
-
-- kalimat pendek;
-- kalimat penjelas medium;
-- occasional longer technical sentence.
-
-Good:
-
-> The API request succeeded. The broker was unavailable, so the event remained pending in the outbox. A background worker published it after the connection recovered.
-
-Hindari beberapa kalimat panjang secara berurutan.
-
-Satu paragraf sebaiknya memiliki satu ide utama.
-
----
-
-## 34. Lists
-
-Gunakan list untuk:
-
-- steps;
-- constraints;
-- outcomes;
-- requirements;
-- comparisons.
-
-Jangan mengubah semua paragraf menjadi bullet.
-
-Case study harus tetap memiliki narrative flow.
-
----
-
-## 35. Testimonials
-
-Jangan mengubah makna testimonial.
-
-Allowed:
-
-- correct obvious spelling;
-- remove repetition;
-- shorten with permission;
-- add role and relationship context.
-
-Gunakan attribution yang telah disetujui.
-
-Jangan menulis testimonial atas nama orang lain.
-
----
-
-## 36. Source integrity
-
-Bedakan:
-
-- verified fact;
-- measured result;
-- personal interpretation;
-- estimate;
-- future intention.
-
-Verified:
-
-> The outage test delivered all 10 pending events after recovery.
-
-Interpretation:
-
-> This result increased my confidence in the recovery design.
-
-Estimate:
-
-> The system handled approximately 100,000 customer records.
-
-Future intention:
-
-> I plan to document the deployment architecture in a separate article.
-
----
-
-## 37. Draft content
-
-Draft content harus ditandai:
-
-```yaml
-draft: true
-verified: false
-```
-
-Gunakan internal TODO:
-
-```text
-TODO: Verify metric.
-TODO: Confirm date.
-TODO: Request testimonial permission.
-```
-
-Draft tidak boleh muncul pada:
-
-- production homepage;
-- public listing;
-- RSS;
-- sitemap;
-- static route generation.
-
----
-
-## 38. AI-assisted writing
-
-AI boleh membantu:
-
-- grammar;
-- structure;
-- shortening;
-- consistency;
-- alternative phrasing;
-- summaries;
-- metadata.
-
-AI tidak boleh mengarang:
-
-- employers;
-- metrics;
-- dates;
-- responsibilities;
-- technologies;
-- awards;
-- testimonials;
-- outcomes;
-- personal stories.
-
-Verifikasi seluruh fakta sebelum publish.
-
-Avoid AI-sounding phrases:
-
-- delve into;
-- seamlessly;
-- robust and scalable, without explanation;
-- cutting-edge;
-- in today’s digital landscape;
-- game-changing;
-- comprehensive solution;
-- elevate;
-- empower;
-- unlock.
-
----
-
-## 39. Preferred words
-
-Prefer:
-
-- built;
-- improved;
-- reduced;
-- documented;
-- tested;
-- designed;
-- implemented;
-- maintained;
-- investigated;
-- migrated;
-- standardized;
-- measured;
-- verified;
-- recovered;
-- published;
-- processed;
-- explained;
-- learned.
-
----
-
-## 40. Words requiring evidence
-
-Use carefully:
-
-- scalable;
-- reliable;
-- resilient;
-- optimized;
-- efficient;
-- seamless;
-- real-time;
-- production-ready;
-- high-performance;
-- secure;
-- robust.
-
-Example:
-
-Weak:
-
-> A scalable architecture.
-
-Better:
-
-> The service separated write processing from audit-event publication so pending events could be retried independently.
-
----
-
-## 41. Words to avoid
-
-Avoid:
-
-- passionate;
-- ninja;
-- guru;
-- rockstar;
-- wizard;
-- disruptive;
-- revolutionary;
-- world-class;
-- cutting-edge;
-- magical;
-- pixel-perfect;
-- future-proof;
-- best-in-class.
-
----
-
-## 42. Before and after
-
-### Hero
-
-Before:
-
-> Passionate full-stack developer crafting innovative digital experiences.
-
-After:
-
-> Software engineer building dependable digital products from interface to infrastructure.
-
-### Experience
-
-Before:
-
-> Responsible for developing and maintaining the front end.
-
-After:
-
-> Developed reusable booking interfaces and introduced session-recovery behavior that preserved long-form form data after authentication expiry.
-
-### Project
-
-Before:
-
-> Built a robust and scalable audit-trail system.
-
-After:
-
-> Stored audit events through a transactional outbox so committed workflow changes remained recoverable when the broker was unavailable.
-
-### Article
-
-Before:
-
-> In this article, we will discuss how to fix Supervisor errors.
-
-After:
-
-> Supervisor enters BACKOFF when a process exits repeatedly before it reaches the configured running state.
-
-### About
-
-Before:
-
-> I am passionate about technology and always eager to learn.
-
-After:
-
-> I document technical problems because writing exposes gaps in my understanding and turns one-time fixes into reusable knowledge.
-
----
-
-## 43. Review checklist
-
-### Accuracy
-
-- [ ] Are dates correct?
-- [ ] Are job titles correct?
-- [ ] Are metrics verified?
-- [ ] Are technologies accurate?
-- [ ] Is personal contribution separated from team contribution?
-- [ ] Are links valid?
-- [ ] Are testimonials approved?
-
-### Clarity
-
-- [ ] Is the main point stated early?
-- [ ] Can an outsider understand the context?
-- [ ] Are technical terms explained where necessary?
-- [ ] Are sentences unnecessarily long?
-- [ ] Does each paragraph have one main idea?
-
-### Tone
-
-- [ ] Is the writing calm?
-- [ ] Is it specific?
-- [ ] Does it avoid exaggerated claims?
-- [ ] Does it sound human?
-- [ ] Does it avoid generic AI language?
-
-### Structure
-
-- [ ] Is the heading descriptive?
-- [ ] Is metadata concise?
-- [ ] Are lists used only where useful?
-- [ ] Is the CTA direct?
-- [ ] Is the length appropriate for the page?
-
-### Accessibility
-
-- [ ] Are links descriptive?
-- [ ] Does the image have useful alt text?
-- [ ] Are abbreviations understandable?
-- [ ] Are error messages actionable?
-- [ ] Does the content remain meaningful without visual context?
-
----
-
-## 44. Instructions for Codex
-
-When Codex creates or edits copy:
-
-1. Read this document first.
-2. Preserve verified facts.
-3. Do not invent content.
-4. Mark unknown content with explicit TODOs.
-5. Follow the tone for the relevant content type.
-6. Keep homepage writing concise.
-7. Use deeper explanation in case studies.
-8. Separate team and personal contribution.
-9. Avoid generic portfolio language.
-10. Run the review checklist before completion.
-
-When wording conflicts with factual source data, factual source data wins.
-
-When wording conflicts with `DESIGN.md`, preserve the intended hierarchy while keeping the copy clear.
-
----
-
-## 45. Final principle
-
-When choosing between two sentences, choose the one that:
-
-1. says what happened;
-2. explains why it mattered;
-3. uses fewer inflated words;
-4. can be defended;
-5. sounds like a real person.
-
-The website should not try to sound impressive.
-
-It should make the work understandable enough that the reader becomes impressed.
+Tulisan tidak perlu mencoba terdengar mengesankan. Jelaskan pekerjaan dengan
+cukup konkret agar pembaca bisa menilainya sendiri.

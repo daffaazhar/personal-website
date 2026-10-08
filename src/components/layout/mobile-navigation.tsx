@@ -25,7 +25,7 @@ export function MobileNavigation() {
       <Dialog.Portal>
         <Dialog.Backdrop className="mobile-nav__backdrop" />
         <Dialog.Viewport className="mobile-nav__viewport">
-          <Dialog.Popup className="mobile-nav__popup">
+          <Dialog.Popup className="mobile-nav__popup" data-lenis-prevent>
             <div className="mobile-nav__header">
               <Dialog.Title className="mobile-nav__title">{siteConfig.name}</Dialog.Title>
               <Dialog.Close className="mobile-nav__close">Close</Dialog.Close>

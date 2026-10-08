@@ -10,6 +10,10 @@ const withMDX = createMDX({
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // Metadata and TOC loaders read registry sourcePath files via process.cwd().
+  outputFileTracingIncludes: {
+    '/*': ['./src/content/work/**/*.mdx', './src/content/writing/**/*.mdx'],
+  },
   reactStrictMode: true,
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   async redirects() {

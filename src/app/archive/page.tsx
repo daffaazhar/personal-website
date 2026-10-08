@@ -7,7 +7,7 @@ import { buildPageMetadata } from '@/lib/seo';
 
 export const metadata = buildPageMetadata({
   title: 'Index',
-  description: 'A text-first archive of published work, writing, notes, and experience.',
+  description: 'A text-first archive of published work, writing, and experience.',
   path: '/index',
 });
 
@@ -19,7 +19,7 @@ export default async function ArchivePage() {
       <PageIntro
         eyebrow="06 / Index"
         title="The full archive."
-        description="Published work, writing, notes, and archive references collected in one text-first index."
+        description="Published work, writing, and archive references collected in one text-first index."
       />
       <Reveal delay="short" mode="load">
         <section className="archive site-container" aria-labelledby="archive-groups-title">
@@ -38,7 +38,10 @@ export default async function ArchivePage() {
                   </div>
                   <ol className="archive-group__list">
                     {group.entries.map((entry, index) => (
-                      <li className="archive-entry" key={`${group.title}-${entry.title}`}>
+                      <li
+                        className="archive-entry"
+                        key={`${group.title}-${entry.href}-${entry.title}-${entry.meta}`}
+                      >
                         <span className="archive-entry__index">
                           {`${index + 1}`.padStart(2, '0')}
                         </span>
