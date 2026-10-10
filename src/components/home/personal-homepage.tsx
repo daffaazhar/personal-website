@@ -115,7 +115,7 @@ export async function PersonalHomepage() {
                   <div className={styles.experienceIdentity}>
                     {item.companyLogo ? (
                       <Image
-                        className={`${styles.experienceLogo} ${item.slug === 'pilarmedia-indonesia' ? styles.experienceLogoBacking : ''}`}
+                        className={styles.experienceLogo}
                         src={item.companyLogo.src}
                         alt={item.companyLogo.alt}
                         width={item.companyLogo.width}

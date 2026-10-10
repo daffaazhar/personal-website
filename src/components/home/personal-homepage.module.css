@@ -336,15 +336,14 @@
 }
 .experienceLogo {
   display: block;
+  box-sizing: border-box;
   width: 7rem;
   height: 3rem;
-  object-fit: contain;
-  object-position: left center;
-}
-.experienceLogoBacking {
   padding: var(--space-2);
-  background: var(--color-ink);
+  background: #fff;
   border-radius: var(--radius-media);
+  object-fit: contain;
+  object-position: center;
 }
 .experiencePeriod,
 .experienceRole {

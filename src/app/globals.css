@@ -2319,8 +2319,14 @@ ol.mdx-list {
 
 .experience-row__logo-image {
   display: block;
+  box-sizing: border-box;
   width: 100%;
-  height: auto;
+  height: 3rem;
+  padding: var(--space-2);
+  background: #fff;
+  border-radius: var(--radius-media);
+  object-fit: contain;
+  object-position: center;
 }
 
 .experience-row__context {

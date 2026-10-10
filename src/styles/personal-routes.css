@@ -235,17 +235,6 @@
     min-height: 2.75rem;
   }
 
-  .experience-row__logo-image {
-    object-fit: contain;
-  }
-
-  /* The original logo has dark lettering: preserve artwork, add contrast. */
-  .experience-row__logo-image[src*='pilarmedia'] {
-    background: var(--color-ink);
-    border-radius: var(--radius-media);
-    padding: var(--space-2);
-  }
-
   /* Seven horizontal diagram nodes no longer fit beside a reading TOC. */
   .project-diagram__steps {
     grid-template-columns: minmax(0, 1fr);

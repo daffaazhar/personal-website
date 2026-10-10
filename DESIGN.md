@@ -205,9 +205,13 @@ Selected work and Writing remain curated from published content. Experience is
 an explicit exception to curation: show every published, verified role newest
 first. Stack each existing local company logo above its company name, left-aligned
 on desktop and mobile. Preserve original logo colors/proportions, dates, role,
-employment type, available engagement context and summary. Keep Pilarmedia's
-contrast backing; do not recolor the artwork. Link to `/about#experience` for
-full outcomes. Do not invent employers, achievements or replacement logos.
+employment type, available engagement context and summary. On the homepage and
+About Experience, give every logo the same 7rem × 3rem field, 8px padding,
+contained centered artwork and the existing 6px media radius. Use a scoped white
+(`#fff`) backing to match opaque white source backgrounds and preserve contrast
+for dark lettering; this logo-only exception does not change global color tokens.
+Do not recolor or crop the artwork. Link to `/about#experience` for full outcomes.
+Do not invent employers, achievements or replacement logos.
 
 ### Selected work layout switch
 

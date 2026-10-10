@@ -32,6 +32,7 @@ export function ExperienceTimeline({ items, showContributions = false }: Experie
                   alt={item.companyLogo.alt}
                   width={item.companyLogo.width}
                   height={item.companyLogo.height}
+                  sizes="112px"
                   className="experience-row__logo-image"
                 />
               </div>
